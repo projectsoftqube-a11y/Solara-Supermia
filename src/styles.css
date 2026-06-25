@@ -1,0 +1,199 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 32px;
+  --radius-2xl: 32px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--card);
+  --color-popover-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--card);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-divider: var(--divider);
+  --color-input: var(--border);
+  --color-ring: var(--primary);
+  --color-surface-dark: var(--surface-dark);
+  --color-surface-dark-2: var(--surface-dark-2);
+  --color-ink: var(--foreground);
+  --color-ink-2: var(--secondary-foreground);
+  --color-ink-3: var(--muted-foreground);
+
+  --font-display: "Montserrat", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --shadow-card: 0 8px 24px rgba(15, 23, 42, 0.06);
+  --shadow-hover: 0 16px 40px rgba(15, 23, 42, 0.08);
+  --shadow-hero: 0 24px 60px rgba(15, 23, 42, 0.10);
+}
+
+:root {
+  --radius: 20px;
+  --background: #faf8f4;
+  --foreground: #111827;
+  --card: #ffffff;
+  --card-foreground: #111827;
+  --primary: #f97316;
+  --primary-foreground: #ffffff;
+  --primary-hover: #ea580c;
+  --primary-soft: #fff4eb;
+  --secondary: #f5f1ea;
+  --secondary-foreground: #4b5563;
+  --muted: #f5f1ea;
+  --muted-foreground: #6b7280;
+  --accent: #fff4eb;
+  --accent-foreground: #ea580c;
+  --destructive: #ef4444;
+  --success: #10b981;
+  --border: #e7e1d8;
+  --divider: #efeae2;
+  --surface-dark: #0f172a;
+  --surface-dark-2: #111827;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #111827;
+  --sidebar-primary: #f97316;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #fff4eb;
+  --sidebar-accent-foreground: #ea580c;
+  --sidebar-border: #e7e1d8;
+  --sidebar-ring: #f97316;
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #111827;
+  --card-foreground: #f8fafc;
+  --secondary: #1f2937;
+  --secondary-foreground: #cbd5e1;
+  --muted: #1f2937;
+  --muted-foreground: #94a3b8;
+  --accent: #1f2937;
+  --accent-foreground: #f97316;
+  --border: rgba(255, 255, 255, 0.08);
+  --divider: rgba(255, 255, 255, 0.06);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  button, a, [role="button"] {
+    cursor: pointer !important;
+  }
+}
+
+@utility container-content {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  @media (min-width: 768px) {
+    padding-inline: 40px;
+  }
+  @media (min-width: 1280px) {
+    padding-inline: 64px;
+  }
+}
+
+@utility container-wide {
+  width: 100%;
+  max-width: 1600px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  @media (min-width: 768px) {
+    padding-inline: 40px;
+  }
+  @media (min-width: 1280px) {
+    padding-inline: 64px;
+  }
+}
+
+@utility section-pad {
+  padding-block: 80px;
+  @media (min-width: 768px) {
+    padding-block: 120px;
+  }
+  @media (min-width: 1280px) {
+    padding-block: 160px;
+  }
+}
+
+@utility text-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+}
+
+@utility text-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+}
+
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(17, 24, 39, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 24, 39, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@keyframes solara-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+@keyframes solara-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes solara-dash {
+  to { stroke-dashoffset: -24; }
+}
+
+/* Hide Lovable badge when published */
+#lovable-badge,
+.lovable-badge,
+a[href*="lovable.dev/"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}

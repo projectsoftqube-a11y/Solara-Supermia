@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 210" width="660" height="210">
+<defs><linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#FFB23E"/><stop offset="1" stop-color="#FF6A55"/></linearGradient>
+<style>
+.wm{font-family:'Outfit','Segoe UI',sans-serif;font-weight:800;letter-spacing:-0.5px;}
+.sub{font-family:'DM Mono','Courier New',monospace;font-weight:500;letter-spacing:6px;}
+</style></defs>
+<g transform="translate(10,5) scale(0.79)">
+  <g fill="url(#sun)"><polygon points="216.00,120.00 180.60,114.70 180.60,125.30"/><polygon points="203.14,72.00 169.83,85.11 175.13,94.29"/><polygon points="168.00,36.86 145.71,64.87 154.89,70.17"/><polygon points="120.00,24.00 114.70,59.40 125.30,59.40"/><polygon points="72.00,36.86 85.11,70.17 94.29,64.87"/><polygon points="36.86,72.00 64.87,94.29 70.17,85.11"/><polygon points="24.00,120.00 59.40,125.30 59.40,114.70"/></g>
+  <circle cx="120" cy="120" r="59.33" fill="url(#sun)"/>
+  <path d="M 75.77 132.97 A 54.0 54.0 0 0 0 164.23 132.97" fill="none" stroke="#F4EFE5" stroke-width="11" stroke-linecap="round"/>
+</g>
+<text x="208" y="125" class="wm" font-size="72" fill="#143138">Solara</text>
+</svg>
