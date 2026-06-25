@@ -19,6 +19,17 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+      setOpen(false);
+    }
+  };
+
   return (
     <motion.header
       initial={{ y: -24, opacity: 0 }}
@@ -47,6 +58,7 @@ export function SiteHeader() {
             <a
               key={item.href}
               href={item.href}
+              onClick={(e) => handleNavClick(e, item.href)}
               className="group relative rounded-full px-4 py-2 text-[14px] font-medium text-[color:var(--secondary-foreground)] transition-colors hover:text-[color:var(--foreground)]"
             >
               {item.label}
@@ -65,10 +77,12 @@ export function SiteHeader() {
             Log in
           </a>
           <a
-            href="#demo"
+            href="https://app.solara.supermia.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden rounded-full bg-[color:var(--foreground)] px-5 py-2.5 text-[14px] font-medium text-white transition-all hover:bg-[color:var(--surface-dark-2)] sm:inline-flex"
           >
-            Book a Demo
+            Get Started
           </a>
           <button
             aria-label="Menu"
@@ -93,7 +107,7 @@ export function SiteHeader() {
             <a
               key={item.href}
               href={item.href}
-              onClick={() => setOpen(false)}
+              onClick={(e) => handleNavClick(e, item.href)}
               className="block rounded-2xl px-4 py-3 text-[15px] font-medium text-[color:var(--foreground)] hover:bg-[color:var(--muted)]"
             >
               {item.label}
@@ -109,11 +123,13 @@ export function SiteHeader() {
             Log in
           </a>
           <a
-            href="#demo"
+            href="https://app.solara.supermia.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setOpen(false)}
             className="mt-1 block rounded-2xl bg-[color:var(--foreground)] px-4 py-3 text-center text-[15px] font-medium text-white"
           >
-            Book a Demo
+            Get Started
           </a>
         </motion.div>
       )}

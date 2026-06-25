@@ -46,7 +46,7 @@
 
   --shadow-card: 0 8px 24px rgba(15, 23, 42, 0.06);
   --shadow-hover: 0 16px 40px rgba(15, 23, 42, 0.08);
-  --shadow-hero: 0 24px 60px rgba(15, 23, 42, 0.10);
+  --shadow-hero: 0 24px 60px rgba(15, 23, 42, 0.1);
 }
 
 :root {
@@ -102,7 +102,13 @@
     border-color: var(--color-border);
   }
 
-  html, body {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 60px;
+  }
+
+  html,
+  body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
@@ -110,12 +116,18 @@
     text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4, h5 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
 
-  button, a, [role="button"] {
+  button,
+  a,
+  [role="button"] {
     cursor: pointer !important;
   }
 }
@@ -175,17 +187,30 @@
 }
 
 @keyframes solara-pulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.08); }
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
 }
 
 @keyframes solara-orbit {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes solara-dash {
-  to { stroke-dashoffset: -24; }
+  to {
+    stroke-dashoffset: -24;
+  }
 }
 
 /* Hide Lovable badge when published */
