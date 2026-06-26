@@ -109,6 +109,30 @@ const CARDS = [
     textWrapperClass: "flex-1 order-last sm:order-first",
     imageWrapperClass: "w-full sm:w-48 h-40 sm:h-32 shrink-0 rounded-2xl overflow-hidden order-first sm:order-last border border-slate-100 shadow-sm",
     imageSrc: "/images/cap_seo.png"
+  },
+  {
+    title: "Automated Reminders",
+    desc: "Ensure patients show up with perfectly timed text and email reminders.",
+    featured: false,
+    colClass: "sm:col-span-2 lg:col-span-8",
+    themeClass: "bg-white border border-slate-200/60 shadow-sm hover:shadow-md text-slate-900",
+    descClass: "text-slate-600",
+    layoutClass: "flex-col sm:flex-row items-center gap-6 sm:gap-10",
+    textWrapperClass: "sm:w-1/2",
+    imageWrapperClass: "w-full sm:w-1/2 h-48 sm:h-64 shrink-0 rounded-2xl overflow-hidden order-first sm:order-last border border-slate-100 shadow-sm",
+    imageSrc: "/images/cap_reminders.png"
+  },
+  {
+    title: "Campaign Text & Emails",
+    desc: "Engage your patient base with targeted marketing blasts and announcements.",
+    featured: false,
+    colClass: "sm:col-span-1 lg:col-span-4",
+    themeClass: "bg-white border border-slate-200/60 shadow-sm hover:shadow-md text-slate-900",
+    descClass: "text-slate-600",
+    layoutClass: "flex-col",
+    textWrapperClass: "",
+    imageWrapperClass: "w-full h-40 mb-6 rounded-2xl overflow-hidden border border-slate-100 shadow-sm",
+    imageSrc: "/images/cap_campaigns.png"
   }
 ];
 
@@ -127,7 +151,7 @@ export function Capabilities() {
             Everything your front office needs, <span className="text-slate-400">in one place</span>
           </h2>
           <p className="text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium">
-            Nine jobs Solara does for you, every day, automatically.
+            Eleven jobs Solara does for you, every day, automatically.
           </p>
         </div>
 

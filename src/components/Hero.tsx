@@ -14,6 +14,8 @@ import {
   PhoneCall,
   Activity,
   LineChart,
+  Bell,
+  Mail,
 } from "lucide-react";
 
 const CAROUSEL_ITEMS = [
@@ -70,6 +72,24 @@ const CAROUSEL_ITEMS = [
     desc: "Identify unscheduled treatment plans and reactivate dormant patients automatically.",
     previewType: "growth",
     previewTitle: "Identified $12k in unscheduled treatments",
+  },
+  {
+    id: "reminders",
+    label: "Reminders",
+    icon: Bell,
+    title: "Automated reminders",
+    desc: "Ensure patients show up with perfectly timed text and email reminders.",
+    previewType: "reminders",
+    previewTitle: "Reminder sent: Tomorrow at 10:00 AM",
+  },
+  {
+    id: "campaigns",
+    label: "Campaigns",
+    icon: Mail,
+    title: "Campaign text and emails",
+    desc: "Engage your patient base with targeted marketing blasts and announcements.",
+    previewType: "campaigns",
+    previewTitle: "Campaign delivered to 1,200 patients",
   },
 ];
 
@@ -145,7 +165,11 @@ export function Hero() {
                               ? "patients, recalled"
                               : activeItem.id === "overflow"
                                 ? "calls, answered"
-                                : "revenue, driven"}
+                                : activeItem.id === "reminders"
+                                  ? "reminders, automated"
+                                  : activeItem.id === "campaigns"
+                                    ? "campaigns, delivered"
+                                    : "revenue, driven"}
                     </span>
                   </motion.span>
                 </AnimatePresence>

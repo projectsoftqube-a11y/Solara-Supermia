@@ -20,7 +20,7 @@ export function Insurance() {
             <ShieldCheck size={14} /> Insurance, handled
           </span>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold leading-[1.1] text-slate-900 mb-6 tracking-tight">
-            We take care of your insurance.
+            We take care of your insurance verification.
           </h2>
           <div className="text-[17px] text-slate-600 leading-relaxed mb-10 max-w-2xl font-medium space-y-4">
             <p>
