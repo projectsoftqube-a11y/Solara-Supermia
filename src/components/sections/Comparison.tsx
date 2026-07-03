@@ -205,10 +205,12 @@ export function Comparison() {
                   data-cta="book_demo" 
                   data-position="comparison" 
                   className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-white text-slate-900 font-bold text-base transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_-15px_rgba(255,255,255,0.5)] overflow-hidden" 
-                  href="https://app.solara.supermia.ai/"
+                  href="https://supermia.ai/schedule-demo/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <Calendar className="w-5 h-5 text-[#FF6A55]" />
-                  <span className="relative">Get Started</span>
+                  <span className="relative">Book a 20-min demo</span>
                   <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center transition-transform group-hover:translate-x-1">
                     <ArrowRight className="w-4 h-4 text-slate-900" />
                   </div>

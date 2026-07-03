@@ -86,10 +86,12 @@ export function FoundingOffer() {
                 <a 
                   data-cta="book_demo"
                   data-position="founding_section"
-                  href="https://app.solara.supermia.ai/"
+                  href="https://supermia.ai/schedule-demo/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-black font-bold text-base hover:bg-slate-200 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
                 >
-                  Claim your spot
+                  Book a 20-min demo
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <div className="flex items-center justify-center gap-2 text-[11px] text-slate-500 font-medium">

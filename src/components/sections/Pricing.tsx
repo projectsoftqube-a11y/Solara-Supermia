@@ -12,7 +12,7 @@ const plans = [
     monthlyPrice: 399,
     annualPrice: 339,
     savings: 720,
-    cta: "Start a 30-day trial",
+    cta: "Book a 20-min demo",
     features: [
       "Voice AI Agent — inbound only, 24/7",
       "Chat AI Agent — Web widget & SMS",
@@ -32,7 +32,7 @@ const plans = [
     monthlyPrice: 699,
     annualPrice: 599,
     savings: 1200,
-    cta: "Get Started",
+    cta: "Book a 20-min demo",
     popular: true,
     inheritLabel: "Everything in Essentials, plus",
     features: [
@@ -57,7 +57,7 @@ const plans = [
     annualPrice: 1299,
     priceSuffix: "/ location",
     savings: 2400,
-    cta: "Talk to sales",
+    cta: "Book a 20-min demo",
     inheritLabel: "Everything in Pro, plus",
     features: [
       "Multi-practice / multi-location roll-up",
@@ -212,10 +212,12 @@ export function Pricing() {
               <a
                 data-cta="book_demo"
                 data-position="pricing_essentials"
-                href="https://app.solara.supermia.ai/"
+                href="https://supermia.ai/schedule-demo/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-bold text-sm bg-slate-900 text-white hover:bg-slate-800 transition-all active:scale-[0.97] mb-8"
               >
-                Start a 30-day trial
+                Book a 20-min demo
                 <ArrowRight className="w-4 h-4" />
               </a>
 
@@ -321,10 +323,12 @@ export function Pricing() {
                 <a
                   data-cta="book_demo"
                   data-position="pricing_pro"
-                  href="https://app.solara.supermia.ai/"
+                  href="https://supermia.ai/schedule-demo/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-[#FF6A55] to-[#E54830] text-white hover:brightness-110 transition-all active:scale-[0.97] shadow-lg shadow-[#FF6A55]/30 mb-8"
                 >
-                  Get Started
+                  Book a 20-min demo
                   <ArrowRight className="w-4 h-4" />
                 </a>
 
@@ -412,10 +416,12 @@ export function Pricing() {
               <a
                 data-cta="book_demo"
                 data-position="pricing_enterprise"
-                href="https://app.solara.supermia.ai/"
+                href="https://supermia.ai/schedule-demo/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-bold text-sm bg-slate-900 text-white hover:bg-slate-800 transition-all active:scale-[0.97] mb-8"
               >
-                Talk to sales
+                Book a 20-min demo
                 <ArrowRight className="w-4 h-4" />
               </a>
 

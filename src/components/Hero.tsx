@@ -194,11 +194,11 @@ export function Hero() {
               className="flex flex-col sm:flex-row gap-4 mb-3"
             >
               <a
-                href="https://app.solara.supermia.ai/"
+                href="https://supermia.ai/schedule-demo/"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[color:var(--primary)] text-white font-semibold text-base hover:bg-[color:var(--primary-hover)] transition-colors shadow-lg shadow-[color:var(--primary)]/25"
               >
                 <Calendar className="w-5 h-5" />
-                Get Started
+                Book a 20-min demo
                 <ArrowRight className="w-5 h-5" />
               </a>
               <a
@@ -207,6 +207,22 @@ export function Hero() {
               >
                 See everything it does
                 <ChevronDown className="w-5 h-5 text-[color:var(--primary)]" />
+              </a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="mb-6"
+            >
+              <a
+                href="https://app.solara.supermia.ai/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-sm font-medium text-[color:var(--secondary-foreground)] hover:text-[color:var(--primary)] transition-colors"
+              >
+                Ready to buy? Start instantly →
               </a>
             </motion.div>
 

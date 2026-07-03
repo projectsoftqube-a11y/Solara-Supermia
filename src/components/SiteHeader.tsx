@@ -77,12 +77,12 @@ export function SiteHeader() {
             Log in
           </a>
           <a
-            href="https://app.solara.supermia.ai/"
+            href="https://supermia.ai/schedule-demo/"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden rounded-full bg-[color:var(--foreground)] px-5 py-2.5 text-[14px] font-medium text-white transition-all hover:bg-[color:var(--surface-dark-2)] sm:inline-flex"
           >
-            Get Started
+            Book a Demo
           </a>
           <button
             aria-label="Menu"
@@ -123,13 +123,13 @@ export function SiteHeader() {
             Log in
           </a>
           <a
-            href="https://app.solara.supermia.ai/"
+            href="https://supermia.ai/schedule-demo/"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setOpen(false)}
             className="mt-1 block rounded-2xl bg-[color:var(--foreground)] px-4 py-3 text-center text-[15px] font-medium text-white"
           >
-            Get Started
+            Book a Demo
           </a>
         </motion.div>
       )}

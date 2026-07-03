@@ -70,7 +70,7 @@ function Landing() {
           stats={[
             { value: "40+", label: "Tasks automated" },
             { value: "100%", label: "Synced to OpenDental" },
-            { value: "$2.4k+", label: "Production recovered" },
+            { value: "Instant", label: "Chart updates" },
             { value: "5★", label: "Patient experience" },
           ]}
         />

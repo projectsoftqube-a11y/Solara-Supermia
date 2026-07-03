@@ -225,9 +225,9 @@ export function Automation() {
             viewport={{ once: true }}
             className="mt-16 sm:mt-24 text-center"
           >
-            <a href="https://app.solara.supermia.ai/" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#FF6A55] text-white font-bold text-base hover:bg-[#FF8569] transition-all duration-300 shadow-xl shadow-[#FF6A55]/20 hover:shadow-2xl hover:shadow-[#FF6A55]/30 hover:-translate-y-1">
+            <a href="https://supermia.ai/schedule-demo/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#FF6A55] text-white font-bold text-base hover:bg-[#FF8569] transition-all duration-300 shadow-xl shadow-[#FF6A55]/20 hover:shadow-2xl hover:shadow-[#FF6A55]/30 hover:-translate-y-1">
               <Calendar className="w-5 h-5" />
-              See it in action
+              Book a 20-min demo
               <ArrowRight className="w-5 h-5" />
             </a>
             

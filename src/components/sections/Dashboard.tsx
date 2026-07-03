@@ -84,10 +84,10 @@ export function Dashboard() {
 
             <div className="grid gap-px bg-[color:var(--divider)] md:grid-cols-4">
               {[
-                { k: "Appointments booked", v: 412, delta: "+22% vs prev. 30 days", up: true },
-                { k: "Insurance verified", v: 388, delta: "+26% vs prev. 30 days", up: true },
-                { k: "Forms completed", v: 470, delta: "+31% vs prev. 30 days", up: true },
-                { k: "Revenue impact", v: 112, suffix: "k", prefix: "$", delta: "+27% vs prev. 30 days", up: true },
+                { k: "Appointments booked", v: 142, delta: "+22% vs prev. 30 days", up: true },
+                { k: "Insurance verified", v: 231, delta: "+26% vs prev. 30 days", up: true },
+                { k: "Forms completed", v: 188, delta: "+31% vs prev. 30 days", up: true },
+                { k: "Revenue impact", v: 47, suffix: "k", prefix: "$", delta: "+27% vs prev. 30 days", up: true },
               ].map((s) => (
                 <div key={s.k} className="bg-[color:var(--card)] p-6">
                   <div className="text-mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted-foreground)]">{s.k}</div>
@@ -131,9 +131,9 @@ export function Dashboard() {
                 <div className="text-[14px] font-medium text-[color:var(--foreground)]">By provider</div>
                 <ul className="mt-5 space-y-4">
                   {[
-                    { k: "Dr. Patel", v: 39, c: "var(--primary)" },
+                    { k: "Dr. Lee", v: 39, c: "var(--primary)" },
                     { k: "Dr. Lin", v: 34, c: "#0f172a" },
-                    { k: "Dr. Romero", v: 27, c: "#9ca3af" },
+                    { k: "Dr. Carter", v: 27, c: "#9ca3af" },
                   ].map((r) => (
                     <li key={r.k}>
                       <div className="flex justify-between text-[12px] text-[color:var(--foreground)]">
