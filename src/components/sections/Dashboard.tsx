@@ -65,9 +65,30 @@ export function Dashboard() {
           {/* Ambient Glow behind Dashboard */}
           <div className="absolute inset-0 bg-[#FF6A55]/15 blur-[100px] rounded-[40px] pointer-events-none" />
 
-          {/* Minimalist Dashboard Widget - Restored to original UI style */}
-          <div className="relative mt-16 overflow-hidden rounded-[32px] border border-[color:var(--border)] bg-[color:var(--card)] shadow-[0_32px_80px_rgba(15,23,42,0.10)]">
-            <div className="flex items-center justify-between border-b border-[color:var(--divider)] px-6 py-4 flex-wrap gap-4">
+          {/* Minimalist Dashboard Widget */}
+          <div className="relative mt-16 rounded-[32px] p-[1px] overflow-hidden bg-[color:var(--border)] shadow-[0_32px_80px_rgba(15,23,42,0.10)]">
+            {/* Rotating Border Effect */}
+            <motion.div 
+              animate={{ rotate: 360 }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              className="absolute top-1/2 left-1/2 aspect-square w-[200%] -translate-x-1/2 -translate-y-1/2 bg-[conic-gradient(from_0deg,transparent_0_340deg,#FF6A55_360deg)] opacity-70"
+            />
+            
+            <div className="relative h-full w-full overflow-hidden rounded-[31px] bg-[color:var(--card)]">
+              {/* Shine Effect */}
+              <motion.div
+                initial={{ x: "-200%" }}
+                animate={{ x: "400%" }}
+                transition={{ 
+                  duration: 2.5, 
+                  repeat: Infinity, 
+                  repeatDelay: 5, 
+                  ease: "easeInOut" 
+                }}
+                className="absolute inset-0 z-50 w-[30%] bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-[20deg] pointer-events-none mix-blend-overlay"
+              />
+
+              <div className="relative flex items-center justify-between border-b border-[color:var(--divider)] px-6 py-4 flex-wrap gap-4 z-10">
               <div className="flex items-center gap-3">
                 <div className="h-7 w-7 rounded-lg bg-[color:var(--primary)] text-white text-mono text-[12px] font-bold grid place-items-center">S</div>
                 <span className="text-[13px] font-medium text-[color:var(--foreground)]">Solara Console</span>
@@ -154,6 +175,7 @@ export function Dashboard() {
                   ))}
                 </ul>
               </div>
+            </div>
             </div>
           </div>
           <p className="text-xs text-slate-500 font-medium italic mt-4 text-center">

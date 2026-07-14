@@ -122,17 +122,39 @@ export function Hero() {
         <div className="grid lg:grid-cols-[1.05fr_1fr] gap-12 lg:gap-16 items-center">
           {/* LEFT CONTENT */}
           <div>
-            <motion.span
+            <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[color:var(--primary-soft)] border border-[color:var(--border)] mb-6"
+              className="relative inline-flex mb-6 rounded-full p-[1px] overflow-hidden shadow-sm bg-orange-100"
             >
-              <Sparkles className="w-4 h-4 text-[color:var(--primary)]" />
-              <span className="text-sm font-medium text-[color:var(--foreground)]">
-                The complete AI front office for dental practices
-              </span>
-            </motion.span>
+              {/* Rotating Border Effect */}
+              <motion.div 
+                animate={{ rotate: 360 }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                className="absolute top-1/2 left-1/2 aspect-square w-[300%] -translate-x-1/2 -translate-y-1/2 bg-[conic-gradient(from_0deg,transparent_0_300deg,#FF6A55_360deg)] opacity-70"
+              />
+
+              <div className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFF8ED] overflow-hidden w-full h-full">
+                {/* Shine Effect */}
+                <motion.div
+                  initial={{ x: "-200%" }}
+                  animate={{ x: "200%" }}
+                  transition={{ 
+                    duration: 2.5, 
+                    repeat: Infinity, 
+                    repeatDelay: 3, 
+                    ease: "easeInOut" 
+                  }}
+                  className="absolute inset-0 z-50 w-[40%] bg-gradient-to-r from-transparent via-white/80 to-transparent -skew-x-[20deg] pointer-events-none"
+                />
+
+                <Sparkles className="relative z-10 w-4 h-4 text-[#FF6A55]" />
+                <span className="relative z-10 text-sm font-medium text-slate-800">
+                  Supercharge your Dental Practice with Solara
+                </span>
+              </div>
+            </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
