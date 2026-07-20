@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Hero } from "@/components/Hero";
+import { CallbackChip } from "@/components/CallbackChip";
 import { VideoShowcase } from "@/components/sections/VideoShowcase";
 import { Capabilities } from "@/components/sections/Capabilities";
 import { Insurance } from "@/components/sections/Insurance";
@@ -37,6 +38,7 @@ function Landing() {
     <div className="min-h-screen bg-[color:var(--background)]">
       <SmoothScroll />
       <SiteHeader />
+      <CallbackChip />
       <main>
         <Hero />
         <VideoShowcase
