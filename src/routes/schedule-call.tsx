@@ -1,0 +1,904 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import {
+  ArrowRight,
+  Calendar as CalendarIcon,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  User,
+  Mail,
+  Phone,
+  Clock,
+  Loader2,
+  Star,
+  Sun,
+  Sunrise,
+  Sunset,
+  Globe,
+  Bot,
+  Database,
+  MessageSquare,
+  Stethoscope,
+  ShieldCheck,
+  BarChart3,
+  Sparkles,
+  PhoneCall,
+  Zap,
+  TrendingUp,
+  FileCheck,
+  Lock,
+  Activity,
+} from "lucide-react";
+import { SiteHeader } from "@/components/SiteHeader";
+import { Footer } from "@/components/sections/Footer";
+
+export const Route = createFileRoute("/schedule-call")({
+  head: () => ({
+    meta: [
+      { title: "Schedule a Call — Solara Dental AI" },
+      {
+        name: "description",
+        content:
+          "Schedule a call with a Solara specialist. Pick a date on the calendar, choose a time, and enter your details.",
+      },
+    ],
+  }),
+  component: ScheduleCallPage,
+});
+
+/* ── constants ── */
+const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const TIME_CATEGORIES = [
+  {
+    name: "Morning",
+    icon: Sunrise,
+    slots: [
+      "8:00 AM",
+      "8:30 AM",
+      "9:00 AM",
+      "9:30 AM",
+      "10:00 AM",
+      "10:30 AM",
+      "11:00 AM",
+      "11:30 AM",
+    ],
+  },
+  {
+    name: "Afternoon",
+    icon: Sun,
+    slots: [
+      "12:00 PM",
+      "12:30 PM",
+      "1:00 PM",
+      "1:30 PM",
+      "2:00 PM",
+      "2:30 PM",
+      "3:00 PM",
+      "3:30 PM",
+      "4:00 PM",
+      "4:30 PM",
+    ],
+  },
+  {
+    name: "Evening",
+    icon: Sunset,
+    slots: ["5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM"],
+  },
+];
+
+const ALL_TIME_SLOTS = TIME_CATEGORIES.flatMap((c) => c.slots);
+
+const DEMO_FEATURES = [
+  {
+    image: "/images/custom_images/ai_receptionist_voice.png",
+    icon: Bot,
+    badgeIcon: PhoneCall,
+    title: "24/7 AI Receptionist & Voice Assistant",
+    badge: "24/7 Phone Answering",
+    description:
+      "Answers incoming patient calls 24/7 in a natural human voice. Handles emergency bookings, appointment reschedules, and patient FAQs around the clock.",
+  },
+  {
+    image: "/images/custom_images/pms_calendar_sync.png",
+    icon: Database,
+    badgeIcon: Zap,
+    title: "Instant Bi-Directional PMS Sync",
+    badge: "Direct PMS Calendar Sync",
+    description:
+      "Seamless bi-directional integration with your practice management software. Books appointments directly into your live schedule with zero double-booking.",
+  },
+  {
+    image: "/images/custom_images/patient_recall_sms.png",
+    icon: MessageSquare,
+    badgeIcon: TrendingUp,
+    title: "Automated Patient Recall & Reactivation",
+    badge: "Auto Patient Reminders",
+    description:
+      "Fills unbooked hygiene chairs automatically. AI reaches out to overdue patients via personalized SMS & call to reactivate treatment plans.",
+  },
+  {
+    image: "/images/custom_images/clinical_intake_flow.png",
+    icon: Stethoscope,
+    badgeIcon: FileCheck,
+    title: "End-to-End Clinical Practice Flow",
+    badge: "Digital Intake Forms",
+    description:
+      "Automates front desk call handling, digital intake forms, insurance pre-checks, and post-op care instructions in one unified platform.",
+  },
+  {
+    image: "/images/custom_images/hipaa_security_shield.png",
+    icon: ShieldCheck,
+    badgeIcon: Lock,
+    title: "100% BAA & HIPAA Compliant Security",
+    badge: "100% HIPAA Compliant",
+    description:
+      "Built with enterprise medical security, AES-256 encryption, and signed Business Associate Agreements (BAA) for total patient health data privacy.",
+  },
+  {
+    image: "/images/custom_images/practice_revenue_analytics.png",
+    icon: BarChart3,
+    badgeIcon: Activity,
+    title: "Practice Growth & Revenue Intelligence",
+    badge: "Live Clinic Analytics",
+    description:
+      "Real-time analytics dashboard tracking call conversion rates, uncaptured revenue opportunities, and front desk operational efficiency.",
+  },
+];
+
+function toISO(d: Date) {
+  return d.toLocaleDateString("en-CA");
+}
+
+function parseSlotToMinutes(slot: string): number {
+  const [timePart, period] = slot.split(" ");
+  const [hoursValue, minutesValue] = timePart.split(":").map(Number);
+  let hours = hoursValue;
+  if (period === "PM" && hours !== 12) hours += 12;
+  if (period === "AM" && hours === 12) hours = 0;
+  return hours * 60 + minutesValue;
+}
+
+function isSlotAvailable(slot: string, selectedDateISO: string): boolean {
+  if (!selectedDateISO) return false;
+  const now = new Date();
+  const todayISO = toISO(now);
+
+  if (selectedDateISO === todayISO) {
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    const slotMinutes = parseSlotToMinutes(slot);
+    // Slot must be in the future (with a 15-minute booking buffer)
+    return slotMinutes > currentMinutes + 15;
+  }
+  return true;
+}
+
+function formatUSPhone(value: string): string {
+  const digits = value.replace(/\D/g, "").slice(0, 10);
+  if (!digits) return "";
+  if (digits.length <= 3) return `(${digits}`;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+}
+
+function ScheduleCallPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [dateOpen, setDateOpen] = useState(false);
+  const [timeOpen, setTimeOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+  });
+
+  const update = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setForm((f) => ({ ...f, [field]: e.target.value }));
+
+  const prettyDate = date
+    ? new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+      })
+    : "";
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    await new Promise((r) => setTimeout(r, 1000));
+    setSubmitting(false);
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="min-h-screen bg-white selection:bg-[#FF6A55]/20">
+      <SiteHeader />
+
+      <main className="relative overflow-hidden pb-28 pt-32 lg:pt-36">
+        {/* subtle background glow */}
+        <div className="pointer-events-none absolute inset-0 z-0">
+          <div
+            className="absolute inset-x-0 top-0 h-[450px]"
+            style={{
+              background:
+                "radial-gradient(ellipse 70% 100% at 50% 0%, rgba(249,115,22,0.07), transparent 70%)",
+            }}
+          />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-[720px]">
+            {/* Centered Heading */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-9 text-center"
+            >
+              <h1 className="font-display text-[34px] font-extrabold leading-[1.08] tracking-[-0.03em] text-slate-900 sm:text-[46px] lg:text-[52px]">
+                See Solara AI in Action.{" "}
+                <span className="block bg-gradient-to-r from-[#FF6A55] via-[#FF8042] to-[#FFB23E] bg-clip-text text-transparent">
+                  Book Your 1-on-1 Live Demo.
+                </span>
+              </h1>
+            </motion.div>
+
+            {/* Centered Single Column Form Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.14)] sm:p-8"
+            >
+              <AnimatePresence mode="wait">
+                {!submitted ? (
+                  <motion.form
+                    key="form"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onSubmit={handleSubmit}
+                    className="space-y-6"
+                  >
+                    {/* Form Fields - Continuous Flow */}
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <PageField icon={User} label="Your Full Name">
+                        <input
+                          required
+                          type="text"
+                          maxLength={30}
+                          enterKeyHint="next"
+                          autoComplete="name"
+                          value={form.name}
+                          onChange={(e) => {
+                            // Allow letters, spaces, hyphens, and apostrophes up to 30 characters
+                            const sanitized = e.target.value
+                              .replace(/[^a-zA-Z\s'-]/g, "")
+                              .slice(0, 30);
+                            setForm((f) => ({ ...f, name: sanitized }));
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              phoneInputRef.current?.focus();
+                            }
+                          }}
+                          placeholder="Dr. Sarah Jenkins"
+                          className={pageInput}
+                        />
+                      </PageField>
+
+                      <PageField icon={Phone} label="Phone Number">
+                        <input
+                          ref={phoneInputRef}
+                          required
+                          type="tel"
+                          inputMode="tel"
+                          enterKeyHint="next"
+                          autoComplete="tel"
+                          maxLength={14}
+                          value={form.phone}
+                          onChange={(e) => {
+                            const formatted = formatUSPhone(e.target.value);
+                            setForm((f) => ({ ...f, phone: formatted }));
+                            if (formatted.replace(/\D/g, "").length === 10) {
+                              setTimeout(() => setDateOpen(true), 150);
+                            }
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              phoneInputRef.current?.blur();
+                              if (form.phone.replace(/\D/g, "").length === 10) {
+                                setDateOpen(true);
+                              }
+                            }
+                          }}
+                          placeholder="(555) 234-5678"
+                          className={pageInput}
+                        />
+                      </PageField>
+                    </div>
+
+                    {/* Date & Time Selection */}
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      {/* Date Dropdown */}
+                      <div className="relative z-30">
+                        <div className="mb-2 flex items-center justify-between text-xs font-semibold text-slate-700">
+                          <span className="flex items-center gap-1.5">
+                            <CalendarIcon className="h-3.5 w-3.5 text-[#FF6A55]" />
+                            Select Date
+                          </span>
+                        </div>
+                        <CustomDateDropdown
+                          selectedDate={date}
+                          prettyDate={prettyDate}
+                          isOpen={dateOpen}
+                          onToggleOpen={setDateOpen}
+                          onSelectDate={(d) => {
+                            setDate(d);
+                            setTime("");
+                            setDateOpen(false);
+                            setTimeout(() => setTimeOpen(true), 150);
+                          }}
+                        />
+                      </div>
+
+                      {/* Custom Redesigned Time Picker Dropdown */}
+                      <div className="relative z-20">
+                        <div className="mb-2 flex items-center justify-between text-xs font-semibold text-slate-700">
+                          <span className="flex items-center gap-1.5">
+                            <Clock className="h-3.5 w-3.5 text-[#FF6A55]" />
+                            {date ? prettyDate.split(",")[0] : "Select Time"}
+                          </span>
+                          <span className="inline-flex items-center gap-1 rounded-full border border-slate-200/80 bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-600">
+                            <Globe className="h-3 w-3 text-[#FF6A55]" />
+                            EST (US Time)
+                          </span>
+                        </div>
+
+                        <CustomTimeDropdown
+                          disabled={!date}
+                          selectedTime={time}
+                          selectedDate={date}
+                          isOpen={timeOpen}
+                          onToggleOpen={setTimeOpen}
+                          onSelectTime={(t) => setTime(t)}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Selected Summary Pill */}
+                    {date && time && (
+                      <div className="flex items-center gap-3 rounded-2xl border border-[#FF6A55]/20 bg-[#FFF4EB] px-4 py-3 text-xs">
+                        <CalendarIcon className="h-4 w-4 shrink-0 text-[#FF6A55]" />
+                        <div className="text-slate-800 font-medium">
+                          Selected: <span className="font-bold text-slate-900">{prettyDate}</span>{" "}
+                          at <span className="font-bold text-slate-900">{time}</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Submit Button */}
+                    <button
+                      type="submit"
+                      disabled={
+                        !date ||
+                        !time ||
+                        form.name.trim().length < 2 ||
+                        form.phone.replace(/\D/g, "").length !== 10 ||
+                        submitting
+                      }
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#FF6A55] to-[#E55A45] py-4 text-sm font-bold text-white shadow-lg shadow-[#FF6A55]/25 transition hover:shadow-xl hover:shadow-[#FF6A55]/35 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      {submitting ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin" /> Scheduling Your Live Demo…
+                        </>
+                      ) : (
+                        <>
+                          Book Your Live Demo
+                          <ArrowRight className="h-4 w-4" />
+                        </>
+                      )}
+                    </button>
+                  </motion.form>
+                ) : (
+                  /* Confirmation View */
+                  <motion.div
+                    key="confirmed"
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="py-1"
+                  >
+                    <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="flex min-w-0 items-start gap-3 text-left">
+                        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-[#16C4B3] text-white shadow-lg shadow-[#16C4B3]/25">
+                          <Check className="h-5.5 w-5.5" strokeWidth={3} />
+                        </div>
+                        <div className="min-w-0">
+                          <h2 className="font-display text-xl font-extrabold tracking-tight text-slate-950 sm:text-2xl">
+                            {form.name ? `${form.name.split(" ")[0]}, ` : ""}you're booked.
+                          </h2>
+                          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm font-semibold text-slate-700">
+                            <span className="inline-flex items-center gap-1.5">
+                              <CalendarIcon className="h-4 w-4 text-[#FF6A55]" />
+                              {prettyDate}
+                            </span>
+                            <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:inline-block" />
+                            <span className="inline-flex items-center gap-1.5">
+                              <Clock className="h-4 w-4 text-[#FF6A55]" />
+                              {time} EST
+                            </span>
+                            <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:inline-block" />
+                            <span className="inline-flex items-center gap-1.5">
+                              <Phone className="h-4 w-4 text-[#FF6A55]" />
+                              {form.phone}
+                            </span>
+                          </div>
+                          <p className="mt-2 text-sm font-medium text-slate-500">
+                            A Solara specialist will call you then.
+                          </p>
+                        </div>
+                      </div>
+
+                      <a
+                        href="/"
+                        className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-950/15 transition hover:bg-slate-800"
+                      >
+                        Home
+                        <ArrowRight className="h-4 w-4" />
+                      </a>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Connected Section Divider */}
+        <div className="my-16 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 to-slate-200" />
+          <div className="flex items-center gap-2 rounded-full border border-[#FF6A55]/25 bg-[#FFF4EB] px-4 py-1 text-xs font-bold text-[#FF6A55] shadow-xs">
+            <Sparkles className="h-4 w-4" />
+            <span>What You'll Experience in Your Demo</span>
+          </div>
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent via-slate-200 to-slate-200" />
+        </div>
+
+        {/* Full Screen Width Section Header */}
+        <div className="mb-10 text-center px-4">
+          <h2 className="font-display text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+            How Solara Automates Your Practice
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 font-medium">
+            Eliminate missed calls, automate patient hygiene recall, and connect your PMS seamlessly
+            — so your team focuses on clinical patient care.
+          </p>
+        </div>
+
+        {/* FULL SCREEN WIDTH Continuous Moving Infinite Marquee Slider (Edge-to-Edge) */}
+        <div className="relative w-full overflow-hidden py-4">
+          {/* Deep edge gradient overlays for smooth edge fading */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-24 sm:w-44 bg-gradient-to-r from-white via-white/80 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-24 sm:w-44 bg-gradient-to-l from-white via-white/80 to-transparent" />
+
+          <motion.div
+            className="flex gap-6 w-max"
+            animate={{ x: ["0%", "-33.333%"] }}
+            transition={{
+              repeat: Infinity,
+              repeatType: "loop",
+              ease: "linear",
+              duration: 35,
+            }}
+          >
+            {[...DEMO_FEATURES, ...DEMO_FEATURES, ...DEMO_FEATURES].map((feat, idx) => {
+              const IconComp = feat.icon;
+              const BadgeIconComp = feat.badgeIcon;
+              return (
+                <div
+                  key={`${feat.title}-${idx}`}
+                  className="group relative flex w-[310px] sm:w-[370px] shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#FF6A55]/50 hover:shadow-xl"
+                >
+                  {/* Card Feature Image Preview */}
+                  <div className="relative h-48 w-full overflow-hidden bg-slate-100 border-b border-slate-100">
+                    <img
+                      src={feat.image}
+                      alt={feat.title}
+                      className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full border border-slate-200/90 bg-white/95 px-3 py-1 text-[11px] font-bold text-slate-900 shadow-sm backdrop-blur-md">
+                      <BadgeIconComp className="h-3.5 w-3.5 text-[#FF6A55]" />
+                      <span>{feat.badge}</span>
+                    </span>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="flex flex-1 flex-col justify-between p-5 sm:p-6">
+                    <div>
+                      <div className="mb-2.5 flex items-center gap-2">
+                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#FFF4EB] text-[#FF6A55]">
+                          <IconComp className="h-4 w-4" />
+                        </div>
+                        <h3 className="text-base font-bold text-slate-900 group-hover:text-[#FF6A55] transition-colors">
+                          {feat.title}
+                        </h3>
+                      </div>
+                      <p className="text-xs leading-relaxed text-slate-600">{feat.description}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
+
+/* ── Custom Redesigned Date Dropdown Component ── */
+function CustomDateDropdown({
+  selectedDate,
+  prettyDate,
+  isOpen,
+  onToggleOpen,
+  onSelectDate,
+}: {
+  selectedDate: string;
+  prettyDate: string;
+  isOpen: boolean;
+  onToggleOpen: (open: boolean) => void;
+  onSelectDate: (iso: string) => void;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        onToggleOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [onToggleOpen]);
+
+  return (
+    <div ref={containerRef} className="relative w-full">
+      {/* Trigger Button */}
+      <button
+        type="button"
+        onClick={() => onToggleOpen(!isOpen)}
+        className={`flex w-full items-center justify-between rounded-xl border px-3.5 py-3 text-xs font-semibold transition ${
+          isOpen
+            ? "border-[#FF6A55] bg-white ring-2 ring-[#FF6A55]/20 text-slate-900 shadow-sm"
+            : selectedDate
+              ? "border-[#FF6A55]/60 bg-[#FFF4EB]/40 text-[#FF6A55]"
+              : "border-slate-200 bg-white text-slate-700 hover:border-[#FF6A55]/50"
+        }`}
+      >
+        <span className="flex items-center gap-2 truncate">
+          <CalendarIcon
+            className={`h-4 w-4 shrink-0 ${selectedDate ? "text-[#FF6A55]" : "text-slate-400"}`}
+          />
+          {prettyDate || "Select a date on calendar…"}
+        </span>
+        <ChevronDown
+          className={`h-4 w-4 shrink-0 text-slate-400 transition-transform duration-200 ${
+            isOpen ? "rotate-180 text-[#FF6A55]" : ""
+          }`}
+        />
+      </button>
+
+      {/* Floating Calendar Popover */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.98 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="absolute left-0 top-full z-50 mt-2 w-[300px] sm:w-[320px] rounded-2xl border border-slate-200/90 bg-white p-2.5 shadow-[0_16px_36px_-8px_rgba(15,23,42,0.18)]"
+          >
+            <BookingCalendar
+              selected={selectedDate}
+              onSelect={(d) => {
+                onSelectDate(d);
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* ── Custom Redesigned Time Dropdown Component ── */
+function CustomTimeDropdown({
+  disabled,
+  selectedTime,
+  selectedDate,
+  isOpen,
+  onToggleOpen,
+  onSelectTime,
+}: {
+  disabled: boolean;
+  selectedTime: string;
+  selectedDate: string;
+  isOpen: boolean;
+  onToggleOpen: (open: boolean) => void;
+  onSelectTime: (t: string) => void;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        onToggleOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [onToggleOpen]);
+
+  return (
+    <div ref={containerRef} className="relative w-full">
+      {/* Trigger Button */}
+      <button
+        type="button"
+        disabled={disabled}
+        onClick={() => onToggleOpen(!isOpen)}
+        className={`flex w-full items-center justify-between rounded-xl border px-3.5 py-3 text-xs font-semibold transition ${
+          disabled
+            ? "cursor-not-allowed border-slate-200 bg-slate-50 text-slate-400"
+            : isOpen
+              ? "border-[#FF6A55] bg-white ring-2 ring-[#FF6A55]/20 text-slate-900 shadow-sm"
+              : selectedTime
+                ? "border-[#FF6A55]/60 bg-[#FFF4EB]/40 text-[#FF6A55]"
+                : "border-slate-200 bg-white text-slate-700 hover:border-[#FF6A55]/50"
+        }`}
+      >
+        <span className="flex items-center gap-2">
+          <Clock className={`h-4 w-4 ${selectedTime ? "text-[#FF6A55]" : "text-slate-400"}`} />
+          {selectedTime || (disabled ? "Pick date first" : "Select a time slot…")}
+        </span>
+        <ChevronDown
+          className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${
+            isOpen ? "rotate-180 text-[#FF6A55]" : ""
+          }`}
+        />
+      </button>
+
+      {/* Floating Dropdown Menu */}
+      <AnimatePresence>
+        {isOpen && !disabled && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.98 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_20px_45px_-8px_rgba(15,23,42,0.18)]"
+          >
+            <div className="max-h-[285px] overflow-y-auto p-3 pr-2.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-[#FF6A55]/60">
+              {(() => {
+                const hasAnySlot = TIME_CATEGORIES.some((c) =>
+                  c.slots.some((s) => isSlotAvailable(s, selectedDate)),
+                );
+                if (!hasAnySlot) {
+                  return (
+                    <div className="p-4 text-center text-xs font-medium text-slate-500">
+                      No remaining slots available today. Please pick a future date on the calendar.
+                    </div>
+                  );
+                }
+
+                return TIME_CATEGORIES.map((category) => {
+                  const CategoryIcon = category.icon;
+                  const validSlots = category.slots.filter((s) => isSlotAvailable(s, selectedDate));
+                  if (validSlots.length === 0) return null;
+
+                  return (
+                    <div key={category.name} className="mb-3.5 last:mb-0">
+                      {/* Category Header */}
+                      <div className="mb-2 flex items-center gap-1.5 rounded-lg border border-[#FF6A55]/15 bg-[#FFF4EB]/60 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-[#FF6A55]">
+                        <CategoryIcon className="h-3 w-3 shrink-0" />
+                        {category.name}
+                      </div>
+
+                      {/* Slot buttons grid */}
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {validSlots.map((slot) => {
+                          const isSelected = selectedTime === slot;
+                          return (
+                            <button
+                              key={slot}
+                              type="button"
+                              onClick={() => {
+                                onSelectTime(slot);
+                                onToggleOpen(false);
+                              }}
+                              className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition ${
+                                isSelected
+                                  ? "bg-gradient-to-r from-[#FF6A55] to-[#E55A45] text-white shadow-md shadow-[#FF6A55]/25 font-bold"
+                                  : "border border-slate-100 text-slate-700 hover:border-[#FF6A55]/30 hover:bg-[#FFF4EB]/70 hover:text-[#FF6A55]"
+                              }`}
+                            >
+                              <span>{slot}</span>
+                              {isSelected && (
+                                <Check className="h-3.5 w-3.5 stroke-[3] text-white" />
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                });
+              })()}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* ── Interactive Visual Monthly Calendar Component ── */
+function BookingCalendar({
+  selected,
+  onSelect,
+}: {
+  selected: string;
+  onSelect: (iso: string) => void;
+}) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const todayISO = toISO(today);
+  const selDate = selected ? new Date(`${selected}T00:00:00`) : null;
+
+  const [view, setView] = useState(() => {
+    const base = selDate ?? today;
+    return { y: base.getFullYear(), m: base.getMonth() };
+  });
+
+  const firstOfMonth = new Date(view.y, view.m, 1);
+  const startWeekday = firstOfMonth.getDay();
+  const daysInMonth = new Date(view.y, view.m + 1, 0).getDate();
+  const canPrev =
+    view.y > today.getFullYear() || (view.y === today.getFullYear() && view.m > today.getMonth());
+
+  const cells: (number | null)[] = [];
+  for (let i = 0; i < startWeekday; i++) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+
+  const shift = (delta: number) =>
+    setView((v) => {
+      const m = v.m + delta;
+      if (m < 0) return { y: v.y - 1, m: 11 };
+      if (m > 11) return { y: v.y + 1, m: 0 };
+      return { ...v, m };
+    });
+
+  return (
+    <div className="w-full p-1">
+      <div className="mb-3 flex items-center justify-between px-1">
+        <div className="font-display text-sm font-bold text-slate-900">
+          {MONTHS[view.m]} {view.y}
+        </div>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => canPrev && shift(-1)}
+            disabled={!canPrev}
+            aria-label="Previous month"
+            className="grid h-8 w-8 place-items-center rounded-lg text-slate-600 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-30"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => shift(1)}
+            aria-label="Next month"
+            className="grid h-8 w-8 place-items-center rounded-lg text-slate-600 transition hover:bg-slate-100"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+
+      <div className="mb-1 grid grid-cols-7 gap-1">
+        {WEEKDAYS.map((w) => (
+          <div
+            key={w}
+            className="grid h-8 place-items-center text-[11px] font-semibold text-slate-400"
+          >
+            {w}
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-7 gap-1">
+        {cells.map((day, i) => {
+          if (day === null) return <div key={`e${i}`} />;
+          const iso = toISO(new Date(view.y, view.m, day));
+          const isPast = iso < todayISO;
+          const isToday = iso === todayISO;
+          const isSelected = iso === selected;
+          const weekday = new Date(view.y, view.m, day).getDay();
+          const isWeekend = weekday === 0 || weekday === 6;
+          const disabled = isPast || isWeekend;
+
+          return (
+            <button
+              key={iso}
+              type="button"
+              disabled={disabled}
+              onClick={() => onSelect(iso)}
+              className={`grid h-9 place-items-center rounded-xl text-xs font-semibold transition ${
+                isSelected
+                  ? "bg-[#FF6A55] text-white shadow-md shadow-[#FF6A55]/30 font-bold"
+                  : disabled
+                    ? "cursor-not-allowed text-slate-300"
+                    : "text-slate-700 hover:bg-[#FFF4EB]"
+              } ${isToday && !isSelected ? "ring-1 ring-inset ring-[#FF6A55]/40" : ""}`}
+            >
+              {day}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+const pageInput =
+  "w-full rounded-xl border border-slate-200 bg-slate-50/60 px-3.5 py-3 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-[#FF6A55] focus:bg-white focus:ring-2 focus:ring-[#FF6A55]/20 font-medium";
+
+function PageField({
+  icon: Icon,
+  label,
+  children,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-slate-700">
+        <Icon className="h-3.5 w-3.5 text-[#FF6A55]" />
+        {label}
+      </span>
+      {children}
+    </label>
+  );
+}

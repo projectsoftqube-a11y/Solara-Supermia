@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as ScheduleCallRouteImport } from './routes/schedule-call'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as HipaaRouteImport } from './routes/hipaa'
 import { Route as DemoRouteImport } from './routes/demo'
@@ -18,6 +19,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScheduleCallRoute = ScheduleCallRouteImport.update({
+  id: '/schedule-call',
+  path: '/schedule-call',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/demo': typeof DemoRoute
   '/hipaa': typeof HipaaRoute
   '/privacy': typeof PrivacyRoute
+  '/schedule-call': typeof ScheduleCallRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/demo': typeof DemoRoute
   '/hipaa': typeof HipaaRoute
   '/privacy': typeof PrivacyRoute
+  '/schedule-call': typeof ScheduleCallRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,22 @@ export interface FileRoutesById {
   '/demo': typeof DemoRoute
   '/hipaa': typeof HipaaRoute
   '/privacy': typeof PrivacyRoute
+  '/schedule-call': typeof ScheduleCallRoute
   '/terms': typeof TermsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/demo' | '/hipaa' | '/privacy' | '/terms'
+  fullPaths: '/' | '/demo' | '/hipaa' | '/privacy' | '/schedule-call' | '/terms'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/demo' | '/hipaa' | '/privacy' | '/terms'
-  id: '__root__' | '/' | '/demo' | '/hipaa' | '/privacy' | '/terms'
+  to: '/' | '/demo' | '/hipaa' | '/privacy' | '/schedule-call' | '/terms'
+  id:
+    | '__root__'
+    | '/'
+    | '/demo'
+    | '/hipaa'
+    | '/privacy'
+    | '/schedule-call'
+    | '/terms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +92,7 @@ export interface RootRouteChildren {
   DemoRoute: typeof DemoRoute
   HipaaRoute: typeof HipaaRoute
   PrivacyRoute: typeof PrivacyRoute
+  ScheduleCallRoute: typeof ScheduleCallRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -86,6 +103,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/schedule-call': {
+      id: '/schedule-call'
+      path: '/schedule-call'
+      fullPath: '/schedule-call'
+      preLoaderRoute: typeof ScheduleCallRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -124,6 +148,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoRoute: DemoRoute,
   HipaaRoute: HipaaRoute,
   PrivacyRoute: PrivacyRoute,
+  ScheduleCallRoute: ScheduleCallRoute,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
