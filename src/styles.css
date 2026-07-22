@@ -222,3 +222,6 @@ a[href*="lovable.dev/"] {
   visibility: hidden !important;
   pointer-events: none !important;
 }
+.temp-hidden{
+  display: none !important;
+}

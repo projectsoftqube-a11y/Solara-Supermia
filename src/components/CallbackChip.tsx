@@ -149,7 +149,7 @@ export function CallbackChip() {
   return (
     <>
       {/* ── Always-visible callback pill, bottom-left ── */}
-      <div className="fixed bottom-6 left-6 z-50">
+      <div className="fixed bottom-6 left-6 z-50 temp-hidden">
         {/* Rotating attention nudge above the pill */}
         <div className="pointer-events-none absolute bottom-full left-1 mb-3 h-8 overflow-hidden">
           <AnimatePresence mode="wait">
