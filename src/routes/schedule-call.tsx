@@ -114,7 +114,7 @@ const DEMO_FEATURES = [
     title: "Never Miss a Patient Call",
     badge: "Zero Missed Calls",
     description:
-      "Your front desk is too busy managing the waiting room to answer every call. Our AI instantly answers and books new patients 24/7, even on weekends.",
+      "Our AI answers calls and books appointments 24/7, so your front desk can focus entirely on the patients in your clinic.",
   },
   {
     image: "/images/custom_images/human_double_bookings_1784716305311.png",
@@ -123,7 +123,7 @@ const DEMO_FEATURES = [
     title: "Eliminate Double Bookings",
     badge: "Flawless Schedule Sync",
     description:
-      "Stop paying staff to manually copy appointments. We write directly into Dentrix, OpenDental, and Eaglesoft in real-time, completely eliminating schedule conflicts.",
+      "Syncs seamlessly with your practice management software in real-time. No more manual data entry or double-booked chairs.",
   },
   {
     image: "/images/custom_images/human_hygiene_recalls_1784716317385.png",
@@ -132,7 +132,7 @@ const DEMO_FEATURES = [
     title: "Automate Hygiene Recalls",
     badge: "Keep Chairs Full",
     description:
-      "Don't force your staff to make hundreds of tedious phone calls. Our system automatically texts and reactivates overdue patients to keep your hygienists fully booked.",
+      "Automatically text and reactivate overdue patients to keep your hygiene schedule fully booked without manual phone calls.",
   },
   {
     image: "/images/custom_images/human_patient_intake_1784716328742.png",
@@ -141,7 +141,7 @@ const DEMO_FEATURES = [
     title: "Speed Up Patient Intake",
     badge: "No More Paperwork",
     description:
-      "Stop handing out clipboards. Patients complete digital intake and medical history on their phones before they arrive, so they go straight to the chair.",
+      "Patients complete digital intake forms on their phones before they arrive, completely eliminating waiting room bottlenecks.",
   },
   {
     image: "/images/custom_images/human_compliance_1784716338567.png",
@@ -150,7 +150,7 @@ const DEMO_FEATURES = [
     title: "Ensure Complete Compliance",
     badge: "Total Peace of Mind",
     description:
-      "Sleep easy knowing your practice is shielded. We enforce strict AES-256 encryption and full HIPAA compliance so you never worry about compromised patient data.",
+      "Your practice is fully protected. We use enterprise-grade encryption and guarantee 100% HIPAA compliance for total peace of mind.",
   },
   {
     image: "/images/custom_images/human_revenue_1784716348606.png",
@@ -159,7 +159,7 @@ const DEMO_FEATURES = [
     title: "Track Practice Revenue",
     badge: "Stop Leaking Revenue",
     description:
-      "Stop guessing why production is down. See exactly how many calls convert, track unaccepted treatment plans, and find exactly where your practice is losing money.",
+      "Easily track call conversions and uncaptured revenue in real-time. Get clear, actionable data to help your practice grow.",
   },
 ];
 
@@ -526,18 +526,18 @@ function ScheduleCallPage() {
               return (
                 <div
                   key={`${feat.title}-${idx}`}
-                  className="group relative flex w-92.5 shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#FF6A55]/50 hover:shadow-xl"
+                  className="group relative flex w-[420px] shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#FF6A55]/50 hover:shadow-xl"
                 >
                   {/* Card Feature Image Preview */}
-                  <div className="relative h-48 w-full overflow-hidden bg-slate-100 border-b border-slate-100">
+                  <div className="relative h-56 w-full overflow-hidden bg-slate-100 border-b border-slate-100">
                     <img
                       src={feat.image}
                       alt={feat.title}
-                      className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                     />
-                    <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full border border-slate-200/90 bg-white/95 px-3 py-1 text-[11px] font-bold text-slate-900 shadow-sm backdrop-blur-md">
-                      <BadgeIconComp className="h-3.5 w-3.5 text-[#FF6A55]" />
-                      <span>{feat.badge}</span>
+                    <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full border border-slate-200/90 bg-white/95 px-4 py-1.5 text-[12px] font-bold text-slate-900 shadow-sm backdrop-blur-md">
+                      <BadgeIconComp className="h-4 w-4 text-[#FF6A55]" />
+                      <span className="whitespace-nowrap">{feat.badge}</span>
                     </span>
                   </div>
 
@@ -552,7 +552,7 @@ function ScheduleCallPage() {
                           {feat.title}
                         </h3>
                       </div>
-                      <p className="text-xs leading-relaxed text-slate-600">{feat.description}</p>
+                      <p className="text-sm leading-relaxed text-slate-600">{feat.description}</p>
                     </div>
                   </div>
                 </div>
