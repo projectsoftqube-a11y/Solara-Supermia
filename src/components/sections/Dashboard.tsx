@@ -1,5 +1,5 @@
 import { motion, useInView, useMotionValue, useTransform, animate } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, ArrowDownRight, LayoutDashboard } from "lucide-react";
 
 function Stat({ value, suffix = "", prefix = "" }: { value: number; suffix?: string; prefix?: string }) {
@@ -16,6 +16,35 @@ function Stat({ value, suffix = "", prefix = "" }: { value: number; suffix?: str
 const bars = [12, 22, 38, 50, 62, 70, 55, 42, 32, 48, 60, 38];
 
 export function Dashboard() {
+  const [activeTab, setActiveTab] = useState("30 days");
+
+  const getStats = (tab: string) => {
+    switch (tab) {
+      case "7 days":
+        return [
+          { k: "Appointments booked", v: 38, delta: "+12% vs prev. 7 days", up: true },
+          { k: "Insurance verified", v: 62, delta: "+15% vs prev. 7 days", up: true },
+          { k: "Forms completed", v: 45, delta: "+18% vs prev. 7 days", up: true },
+          { k: "Revenue impact", v: 11, suffix: "k", prefix: "$", delta: "+14% vs prev. 7 days", up: true },
+        ];
+      case "90 days":
+        return [
+          { k: "Appointments booked", v: 412, delta: "+45% vs prev. 90 days", up: true },
+          { k: "Insurance verified", v: 705, delta: "+52% vs prev. 90 days", up: true },
+          { k: "Forms completed", v: 540, delta: "+48% vs prev. 90 days", up: true },
+          { k: "Revenue impact", v: 135, suffix: "k", prefix: "$", delta: "+38% vs prev. 90 days", up: true },
+        ];
+      case "30 days":
+      default:
+        return [
+          { k: "Appointments booked", v: 142, delta: "+22% vs prev. 30 days", up: true },
+          { k: "Insurance verified", v: 231, delta: "+26% vs prev. 30 days", up: true },
+          { k: "Forms completed", v: 188, delta: "+31% vs prev. 30 days", up: true },
+          { k: "Revenue impact", v: 47, suffix: "k", prefix: "$", delta: "+27% vs prev. 30 days", up: true },
+        ];
+    }
+  };
+
   return (
     <section id="dashboard" className="py-20 md:py-28 bg-[#FAF0DC] relative overflow-hidden">
       {/* Decorative Background Elements */}
@@ -95,8 +124,16 @@ export function Dashboard() {
                 <span className="text-mono text-[11px] text-[color:var(--muted-foreground)] hidden sm:inline">· Northside Family Dental</span>
               </div>
               <div className="flex gap-2">
-                {["7 days", "30 days", "90 days"].map((t, i) => (
-                  <button key={t} className={`rounded-lg px-4 py-1.5 text-[12px] ${i === 1 ? "bg-[color:var(--foreground)] text-white" : "text-[color:var(--muted-foreground)] hover:bg-[color:var(--muted)]"}`}>
+                {["7 days", "30 days", "90 days"].map((t) => (
+                  <button 
+                    key={t} 
+                    onClick={() => setActiveTab(t)}
+                    className={`rounded-lg px-4 py-1.5 text-[12px] font-medium transition-colors ${
+                      activeTab === t 
+                        ? "bg-[color:var(--foreground)] text-white" 
+                        : "text-[color:var(--muted-foreground)] hover:bg-[color:var(--muted)]"
+                    }`}
+                  >
                     {t}
                   </button>
                 ))}
@@ -104,16 +141,11 @@ export function Dashboard() {
             </div>
 
             <div className="grid gap-px bg-[color:var(--divider)] md:grid-cols-4">
-              {[
-                { k: "Appointments booked", v: 142, delta: "+22% vs prev. 30 days", up: true },
-                { k: "Insurance verified", v: 231, delta: "+26% vs prev. 30 days", up: true },
-                { k: "Forms completed", v: 188, delta: "+31% vs prev. 30 days", up: true },
-                { k: "Revenue impact", v: 47, suffix: "k", prefix: "$", delta: "+27% vs prev. 30 days", up: true },
-              ].map((s) => (
+              {getStats(activeTab).map((s) => (
                 <div key={s.k} className="bg-[color:var(--card)] p-6">
                   <div className="text-mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--muted-foreground)]">{s.k}</div>
                   <div className="text-display mt-2 text-[32px] text-[color:var(--foreground)]">
-                    <Stat value={s.v} prefix={s.prefix} suffix={s.suffix} />
+                    <Stat key={`${activeTab}-${s.k}`} value={s.v} prefix={s.prefix} suffix={s.suffix} />
                   </div>
                   <div className={`mt-2 inline-flex items-center gap-1 text-[12px] ${s.up ? "text-[color:var(--success)]" : "text-[color:var(--destructive)]"}`}>
                     {s.up ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />} {s.delta}
