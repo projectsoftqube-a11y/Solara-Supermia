@@ -108,7 +108,7 @@ const ALL_TIME_SLOTS = TIME_CATEGORIES.flatMap((c) => c.slots);
 
 const DEMO_FEATURES = [
   {
-    image: "/images/custom_images/ai_receptionist_voice.png",
+    image: "/images/custom_images/human_missed_calls_1784716295403.png",
     icon: Bot,
     badgeIcon: PhoneCall,
     title: "Never Miss a Patient Call",
@@ -117,7 +117,7 @@ const DEMO_FEATURES = [
       "Your front desk is too busy managing the waiting room to answer every call. Our AI instantly answers and books new patients 24/7, even on weekends.",
   },
   {
-    image: "/images/custom_images/pms_calendar_sync.png",
+    image: "/images/custom_images/human_double_bookings_1784716305311.png",
     icon: Database,
     badgeIcon: Zap,
     title: "Eliminate Double Bookings",
@@ -126,7 +126,7 @@ const DEMO_FEATURES = [
       "Stop paying staff to manually copy appointments. We write directly into Dentrix, OpenDental, and Eaglesoft in real-time, completely eliminating schedule conflicts.",
   },
   {
-    image: "/images/custom_images/patient_recall_sms.png",
+    image: "/images/custom_images/human_hygiene_recalls_1784716317385.png",
     icon: MessageSquare,
     badgeIcon: TrendingUp,
     title: "Automate Hygiene Recalls",
@@ -135,7 +135,7 @@ const DEMO_FEATURES = [
       "Don't force your staff to make hundreds of tedious phone calls. Our system automatically texts and reactivates overdue patients to keep your hygienists fully booked.",
   },
   {
-    image: "/images/custom_images/clinical_intake_flow.png",
+    image: "/images/custom_images/human_patient_intake_1784716328742.png",
     icon: Stethoscope,
     badgeIcon: FileCheck,
     title: "Speed Up Patient Intake",
@@ -144,7 +144,7 @@ const DEMO_FEATURES = [
       "Stop handing out clipboards. Patients complete digital intake and medical history on their phones before they arrive, so they go straight to the chair.",
   },
   {
-    image: "/images/custom_images/hipaa_security_shield.png",
+    image: "/images/custom_images/human_compliance_1784716338567.png",
     icon: ShieldCheck,
     badgeIcon: Lock,
     title: "Ensure Complete Compliance",
@@ -153,7 +153,7 @@ const DEMO_FEATURES = [
       "Sleep easy knowing your practice is shielded. We enforce strict AES-256 encryption and full HIPAA compliance so you never worry about compromised patient data.",
   },
   {
-    image: "/images/custom_images/practice_revenue_analytics.png",
+    image: "/images/custom_images/human_revenue_1784716348606.png",
     icon: BarChart3,
     badgeIcon: Activity,
     title: "Track Practice Revenue",
