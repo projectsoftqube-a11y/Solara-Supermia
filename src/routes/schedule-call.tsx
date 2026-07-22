@@ -111,55 +111,55 @@ const DEMO_FEATURES = [
     image: "/images/custom_images/ai_receptionist_voice.png",
     icon: Bot,
     badgeIcon: PhoneCall,
-    title: "24/7 AI Receptionist & Voice Assistant",
-    badge: "24/7 Phone Answering",
+    title: "Never Miss a Patient Call",
+    badge: "Zero Missed Calls",
     description:
-      "Answers incoming patient calls 24/7 in a natural human voice. Handles emergency bookings, appointment reschedules, and patient FAQs around the clock.",
+      "Your front desk is too busy managing the waiting room to answer every call. Our AI instantly answers and books new patients 24/7, even on weekends.",
   },
   {
     image: "/images/custom_images/pms_calendar_sync.png",
     icon: Database,
     badgeIcon: Zap,
-    title: "Instant Bi-Directional PMS Sync",
-    badge: "Direct PMS Calendar Sync",
+    title: "Eliminate Double Bookings",
+    badge: "Flawless Schedule Sync",
     description:
-      "Seamless bi-directional integration with your practice management software. Books appointments directly into your live schedule with zero double-booking.",
+      "Stop paying staff to manually copy appointments. We write directly into Dentrix, OpenDental, and Eaglesoft in real-time, completely eliminating schedule conflicts.",
   },
   {
     image: "/images/custom_images/patient_recall_sms.png",
     icon: MessageSquare,
     badgeIcon: TrendingUp,
-    title: "Automated Patient Recall & Reactivation",
-    badge: "Auto Patient Reminders",
+    title: "Automate Hygiene Recalls",
+    badge: "Keep Chairs Full",
     description:
-      "Fills unbooked hygiene chairs automatically. AI reaches out to overdue patients via personalized SMS & call to reactivate treatment plans.",
+      "Don't force your staff to make hundreds of tedious phone calls. Our system automatically texts and reactivates overdue patients to keep your hygienists fully booked.",
   },
   {
     image: "/images/custom_images/clinical_intake_flow.png",
     icon: Stethoscope,
     badgeIcon: FileCheck,
-    title: "End-to-End Clinical Practice Flow",
-    badge: "Digital Intake Forms",
+    title: "Speed Up Patient Intake",
+    badge: "No More Paperwork",
     description:
-      "Automates front desk call handling, digital intake forms, insurance pre-checks, and post-op care instructions in one unified platform.",
+      "Stop handing out clipboards. Patients complete digital intake and medical history on their phones before they arrive, so they go straight to the chair.",
   },
   {
     image: "/images/custom_images/hipaa_security_shield.png",
     icon: ShieldCheck,
     badgeIcon: Lock,
-    title: "100% BAA & HIPAA Compliant Security",
-    badge: "100% HIPAA Compliant",
+    title: "Ensure Complete Compliance",
+    badge: "Total Peace of Mind",
     description:
-      "Built with enterprise medical security, AES-256 encryption, and signed Business Associate Agreements (BAA) for total patient health data privacy.",
+      "Sleep easy knowing your practice is shielded. We enforce strict AES-256 encryption and full HIPAA compliance so you never worry about compromised patient data.",
   },
   {
     image: "/images/custom_images/practice_revenue_analytics.png",
     icon: BarChart3,
     badgeIcon: Activity,
-    title: "Practice Growth & Revenue Intelligence",
-    badge: "Live Clinic Analytics",
+    title: "Track Practice Revenue",
+    badge: "Stop Leaking Revenue",
     description:
-      "Real-time analytics dashboard tracking call conversion rates, uncaptured revenue opportunities, and front desk operational efficiency.",
+      "Stop guessing why production is down. See exactly how many calls convert, track unaccepted treatment plans, and find exactly where your practice is losing money.",
   },
 ];
 
@@ -236,9 +236,7 @@ function ScheduleCallPage() {
 
   return (
     <div className="min-h-screen bg-white selection:bg-[#FF6A55]/20">
-      <SiteHeader />
-
-      <main className="relative overflow-hidden pb-28 pt-32 lg:pt-36">
+      <main className="relative overflow-hidden pb-28 pt-10">
         {/* subtle background glow */}
         <div className="pointer-events-none absolute inset-0 z-0">
           <div
@@ -259,12 +257,15 @@ function ScheduleCallPage() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="mb-9 text-center"
             >
-              <h1 className="font-display text-[34px] font-extrabold leading-[1.08] tracking-[-0.03em] text-slate-900 sm:text-[46px] lg:text-[52px]">
-                See Solara AI in Action.{" "}
-                <span className="block bg-gradient-to-r from-[#FF6A55] via-[#FF8042] to-[#FFB23E] bg-clip-text text-transparent">
-                  Book Your 1-on-1 Live Demo.
+              <h1 className="font-display text-[26px] sm:text-[46px] lg:text-[52px] font-extrabold leading-[1.15] sm:leading-[1.08] tracking-tight sm:tracking-[-0.03em] text-slate-900 mx-auto max-w-sm sm:max-w-none">
+                Thank You for Continuing With Solara.{" "}
+                <span className="block bg-gradient-to-r from-[#FF6A55] via-[#FF8042] to-[#FFB23E] bg-clip-text text-transparent mt-1 sm:mt-2">
+                  Claim 2 Months On Us.
                 </span>
               </h1>
+              <p className="mx-auto mt-3 sm:mt-4 max-w-xl text-[14px] sm:text-base leading-relaxed text-slate-600 font-medium">
+                Thanks for clicking! Fill out the short form below to schedule your demo and activate your complimentary 2-month plan.
+              </p>
             </motion.div>
 
             {/* Centered Single Column Form Card */}
@@ -483,31 +484,31 @@ function ScheduleCallPage() {
         </div>
 
         {/* Connected Section Divider */}
-        <div className="my-16 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-center gap-4">
+        <div className="my-10 sm:my-16 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 to-slate-200" />
           <div className="flex items-center gap-2 rounded-full border border-[#FF6A55]/25 bg-[#FFF4EB] px-4 py-1 text-xs font-bold text-[#FF6A55] shadow-xs">
             <Sparkles className="h-4 w-4" />
-            <span>What You'll Experience in Your Demo</span>
+            <span>Why Choose Solara</span>
           </div>
           <div className="h-px flex-1 bg-gradient-to-l from-transparent via-slate-200 to-slate-200" />
         </div>
 
         {/* Full Screen Width Section Header */}
-        <div className="mb-10 text-center px-4">
+        <div className="mb-4 sm:mb-10 text-center px-4">
           <h2 className="font-display text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-            How Solara Automates Your Practice
+            Key Benefits
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 font-medium">
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 font-medium hidden sm:block">
             Eliminate missed calls, automate patient hygiene recall, and connect your PMS seamlessly
             — so your team focuses on clinical patient care.
           </p>
         </div>
 
-        {/* FULL SCREEN WIDTH Continuous Moving Infinite Marquee Slider (Edge-to-Edge) */}
-        <div className="relative w-full overflow-hidden py-4">
+        {/* Desktop Marquee Slider */}
+        <div className="relative w-full overflow-hidden py-4 hidden sm:block">
           {/* Deep edge gradient overlays for smooth edge fading */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-24 sm:w-44 bg-gradient-to-r from-white via-white/80 to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-24 sm:w-44 bg-gradient-to-l from-white via-white/80 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-24 bg-gradient-to-r from-white via-white/80 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-24 bg-gradient-to-l from-white via-white/80 to-transparent" />
 
           <motion.div
             className="flex gap-6 w-max"
@@ -525,7 +526,7 @@ function ScheduleCallPage() {
               return (
                 <div
                   key={`${feat.title}-${idx}`}
-                  className="group relative flex w-77.5 sm:w-92.5 shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#FF6A55]/50 hover:shadow-xl"
+                  className="group relative flex w-92.5 shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#FF6A55]/50 hover:shadow-xl"
                 >
                   {/* Card Feature Image Preview */}
                   <div className="relative h-48 w-full overflow-hidden bg-slate-100 border-b border-slate-100">
@@ -541,7 +542,7 @@ function ScheduleCallPage() {
                   </div>
 
                   {/* Card Content */}
-                  <div className="flex flex-1 flex-col justify-between p-5 sm:p-6">
+                  <div className="flex flex-1 flex-col justify-between p-6">
                     <div>
                       <div className="mb-2.5 flex items-center gap-2">
                         <div className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#FFF4EB] text-[#FF6A55]">
@@ -559,9 +560,27 @@ function ScheduleCallPage() {
             })}
           </motion.div>
         </div>
-      </main>
 
-      <Footer />
+        {/* Mobile Column View */}
+        <div className="flex flex-col px-6 pb-4 sm:hidden">
+          {DEMO_FEATURES.map((feat, idx) => {
+            const IconComp = feat.icon;
+            return (
+              <div
+                key={`mobile-${feat.title}-${idx}`}
+                className="flex items-center gap-2.5 py-2.5 border-b border-slate-200 last:border-0"
+              >
+                <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#FFF4EB] text-[#FF6A55]">
+                  <IconComp className="h-4 w-4" />
+                </div>
+                <h3 className="text-[15px] font-bold leading-tight text-slate-900">
+                  {feat.title}
+                </h3>
+              </div>
+            );
+          })}
+        </div>
+      </main>
     </div>
   );
 }
