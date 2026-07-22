@@ -22,7 +22,7 @@ import { Footer } from "@/components/sections/Footer";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Solara — AI Front Office OS for Dental Practices" },
+      { title: "Solara - AI Front Office OS for Dental Practices" },
       {
         name: "description",
         content:

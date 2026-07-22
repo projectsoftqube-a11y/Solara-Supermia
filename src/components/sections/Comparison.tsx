@@ -93,7 +93,7 @@ export function Comparison() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="hidden md:block w-full max-w-none mx-auto rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 overflow-hidden"
+          className="hidden md:block w-full max-w-360 mx-auto rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 overflow-hidden"
         >
           <div className="grid grid-cols-[1.7fr_1fr_1fr_1.2fr] bg-slate-900 text-white">
             <div className="px-5 py-4 text-sm font-semibold">Capability</div>
@@ -159,7 +159,7 @@ export function Comparison() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-none mx-auto mt-12 sm:mt-16 relative group"
+          className="w-full max-w-360 mx-auto mt-12 sm:mt-16 relative group"
         >
           {/* Animated gradient glow behind the card */}
           <div className="absolute -inset-[1px] bg-gradient-to-r from-[#FF6A55]/40 via-[#FFB23E]/40 to-[#FF6A55]/40 rounded-[34px] blur-sm opacity-50 group-hover:opacity-100 transition-opacity duration-700" />

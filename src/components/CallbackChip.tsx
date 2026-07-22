@@ -250,7 +250,7 @@ export function CallbackChip() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 24, scale: 0.96 }}
               transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-10 grid max-h-[92vh] w-full max-w-[760px] grid-cols-1 overflow-hidden rounded-[28px] bg-[color:var(--card)] shadow-[0_30px_80px_rgba(15,23,42,0.28)] md:grid-cols-[0.85fr_1fr]"
+              className="relative z-10 grid max-h-[92vh] w-full max-w-190 grid-cols-1 overflow-hidden rounded-lg bg-[color:var(--card)] shadow-[0_30px_80px_rgba(15,23,42,0.28)] md:grid-cols-[0.85fr_1fr]"
             >
               <button
                 onClick={closeModal}
@@ -339,7 +339,7 @@ export function CallbackChip() {
                       key="success"
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="flex min-h-[420px] flex-col items-center justify-center py-6 text-center"
+                      className="flex min-h-105 flex-col items-center justify-center py-6 text-center"
                     >
                       <div className="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full bg-[color:var(--success)]/12 text-[color:var(--success)]">
                         <Check className="h-8 w-8" strokeWidth={2.5} />
@@ -347,7 +347,7 @@ export function CallbackChip() {
                       <h4 className="font-display text-xl font-bold text-[color:var(--foreground)]">
                         You're all set{form.name ? `, ${form.name.split(" ")[0]}` : ""}!
                       </h4>
-                      <p className="mx-auto mt-2 max-w-[280px] text-sm leading-relaxed text-[color:var(--muted-foreground)]">
+                      <p className="mx-auto mt-2 max-w-70 text-sm leading-relaxed text-[color:var(--muted-foreground)]">
                         Our team will call you{prettyWhen}. Talk soon.
                       </p>
                       <button

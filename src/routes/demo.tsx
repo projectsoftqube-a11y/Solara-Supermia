@@ -114,21 +114,21 @@ function DemoPage() {
               <h1 className="font-display text-[40px] font-bold leading-[1.08] tracking-[-0.02em] text-slate-900 sm:text-[50px]">
                 Supercharge your{" "}
                 <span className="bg-gradient-to-r from-[#FF6A55] to-[#FFB23E] bg-clip-text text-transparent">
-                  entire front office.
+                  dental practice.
                 </span>
               </h1>
 
               <p className="mt-5 max-w-md text-[17px] leading-relaxed text-slate-600">
-                Stop losing patients to missed calls. In 20 minutes, see Solara answer every call,
-                verify insurance, and fill your schedule — live, on your own setup.
+                Every missed call is a lost patient. In just 20 minutes, watch Solara answer every
+                call, verify insurance, and keep your chairs full — running live on your own setup.
               </p>
 
               {/* three quick bullets */}
               <ul className="mt-8 space-y-3">
                 {[
-                  "Never miss another patient call",
-                  "Fill empty chairs automatically",
-                  "See exactly how it fits your practice",
+                  "Capture every call — even after hours",
+                  "Turn empty chairs into booked revenue",
+                  "Watch it run live on your own practice",
                 ].map((t) => (
                   <li key={t} className="flex items-center gap-3 text-[15px] font-semibold text-slate-800">
                     <Check className="h-5 w-5 shrink-0 text-[#FF6A55]" strokeWidth={2.5} />
@@ -338,8 +338,11 @@ function DemoPage() {
                         <Check className="h-8 w-8" strokeWidth={2.5} />
                       </div>
                       <h2 className="font-display text-2xl font-bold text-slate-900">
-                        Your demo is booked{form.name ? `, ${form.name.split(" ")[0]}` : ""}!
+                        Thank you{form.name ? `, ${form.name.split(" ")[0]}` : ""}!
                       </h2>
+                      <p className="mx-auto mt-2 max-w-sm text-[15px] font-medium text-slate-700">
+                        Your demo is booked — we can't wait to show you around.
+                      </p>
                       <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-slate-500">
                         We've reserved <span className="font-semibold text-slate-700">{prettyDate}</span> at{" "}
                         <span className="font-semibold text-slate-700">{time}</span>. A calendar invite

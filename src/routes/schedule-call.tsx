@@ -242,7 +242,7 @@ function ScheduleCallPage() {
         {/* subtle background glow */}
         <div className="pointer-events-none absolute inset-0 z-0">
           <div
-            className="absolute inset-x-0 top-0 h-[450px]"
+            className="absolute inset-x-0 top-0 h-112.5"
             style={{
               background:
                 "radial-gradient(ellipse 70% 100% at 50% 0%, rgba(249,115,22,0.07), transparent 70%)",
@@ -251,7 +251,7 @@ function ScheduleCallPage() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-[720px]">
+          <div className="mx-auto max-w-180">
             {/* Centered Heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -272,7 +272,7 @@ function ScheduleCallPage() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-10 rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.14)] sm:p-8"
+              className="relative z-10 rounded-lg border border-slate-200/80 bg-white p-6 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.14)] sm:p-8"
             >
               <AnimatePresence mode="wait">
                 {!submitted ? (
@@ -525,7 +525,7 @@ function ScheduleCallPage() {
               return (
                 <div
                   key={`${feat.title}-${idx}`}
-                  className="group relative flex w-[310px] sm:w-[370px] shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#FF6A55]/50 hover:shadow-xl"
+                  className="group relative flex w-77.5 sm:w-92.5 shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#FF6A55]/50 hover:shadow-xl"
                 >
                   {/* Card Feature Image Preview */}
                   <div className="relative h-48 w-full overflow-hidden bg-slate-100 border-b border-slate-100">
