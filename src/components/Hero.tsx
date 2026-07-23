@@ -216,7 +216,7 @@ export function Hero() {
               className="flex flex-col sm:flex-row gap-4 mb-3"
             >
               <a
-                href="https://supermia.ai/schedule-demo/"
+                href="/book-a-demo"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[color:var(--primary)] text-white font-semibold text-base hover:bg-[color:var(--primary-hover)] transition-colors shadow-lg shadow-[color:var(--primary)]/25"
               >
                 <Calendar className="w-5 h-5" />

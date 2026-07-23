@@ -88,9 +88,7 @@ export function CaseStudy() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            href="https://supermia.ai/schedule-demo/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/book-a-demo"
             className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full bg-slate-900 text-white font-bold text-[16px] hover:bg-slate-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 group"
           >
             Join the founding cohort → Book a 20-min demo

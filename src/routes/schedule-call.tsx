@@ -5,6 +5,7 @@ import {
   ArrowRight,
   Calendar as CalendarIcon,
   Check,
+  AlertCircle,
   ChevronLeft,
   ChevronRight,
   ChevronDown,
@@ -34,6 +35,9 @@ import {
 } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Footer } from "@/components/sections/Footer";
+import { submitCallbackRequest } from "@/lib/callback";
+import { toE164 } from "@/components/PhoneInput";
+import { EASTERN_TZ, getEasternNow } from "@/lib/eastern-time";
 
 export const Route = createFileRoute("/schedule-call")({
   head: () => ({
@@ -178,11 +182,12 @@ function parseSlotToMinutes(slot: string): number {
 
 function isSlotAvailable(slot: string, selectedDateISO: string): boolean {
   if (!selectedDateISO) return false;
-  const now = new Date();
-  const todayISO = toISO(now);
+  // Compared in US Eastern, not the visitor's zone — otherwise someone abroad
+  // sees slots that have already passed for the team taking the call.
+  const et = getEasternNow();
 
-  if (selectedDateISO === todayISO) {
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  if (selectedDateISO === et.iso) {
+    const currentMinutes = et.hour * 60 + et.minute;
     const slotMinutes = parseSlotToMinutes(slot);
     // Slot must be in the future (with a 15-minute booking buffer)
     return slotMinutes > currentMinutes + 15;
@@ -210,6 +215,7 @@ function ScheduleCallPage() {
   const [timeOpen, setTimeOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [sendError, setSendError] = useState("");
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -229,9 +235,34 @@ function ScheduleCallPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setSubmitting(false);
-    setSubmitted(true);
+    setSendError("");
+
+    try {
+      // This page collects a US number only, so it is always +1.
+      const result = await submitCallbackRequest({
+        data: {
+          name: form.name.trim(),
+          email: "", // no email field on this page — admin notification only
+          phone: toE164(form.phone, "US"),
+          phoneDisplay: form.phone,
+          phoneCountry: "US",
+          date,
+          time,
+          timezone: EASTERN_TZ,
+        },
+      });
+
+      if (!result.ok) {
+        setSendError(result.error);
+        return;
+      }
+      setSubmitted(true);
+    } catch (err) {
+      console.error("[schedule-call] submit failed", err);
+      setSendError("Something went wrong. Please try again, or email solara@supermia.ai.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -427,6 +458,16 @@ function ScheduleCallPage() {
                         </>
                       )}
                     </button>
+
+                    {sendError && (
+                      <p
+                        role="alert"
+                        className="flex items-start justify-center gap-1.5 text-center text-xs font-medium text-red-600"
+                      >
+                        <AlertCircle className="mt-px h-3.5 w-3.5 shrink-0" />
+                        {sendError}
+                      </p>
+                    )}
                   </motion.form>
                 ) : (
                   /* Confirmation View */
@@ -799,21 +840,21 @@ function BookingCalendar({
   selected: string;
   onSelect: (iso: string) => void;
 }) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const todayISO = toISO(today);
-  const selDate = selected ? new Date(`${selected}T00:00:00`) : null;
+  // "Today" in US Eastern, so a visitor abroad cannot pick a day that is
+  // already past for the team taking the call.
+  const todayISO = getEasternNow().iso;
+  const [todayY, todayM] = todayISO.split("-").map(Number);
+  const todayMonthIndex = todayM - 1;
 
   const [view, setView] = useState(() => {
-    const base = selDate ?? today;
-    return { y: base.getFullYear(), m: base.getMonth() };
+    const [y, m] = (selected || todayISO).split("-").map(Number);
+    return { y, m: m - 1 };
   });
 
   const firstOfMonth = new Date(view.y, view.m, 1);
   const startWeekday = firstOfMonth.getDay();
   const daysInMonth = new Date(view.y, view.m + 1, 0).getDate();
-  const canPrev =
-    view.y > today.getFullYear() || (view.y === today.getFullYear() && view.m > today.getMonth());
+  const canPrev = view.y > todayY || (view.y === todayY && view.m > todayMonthIndex);
 
   const cells: (number | null)[] = [];
   for (let i = 0; i < startWeekday; i++) cells.push(null);

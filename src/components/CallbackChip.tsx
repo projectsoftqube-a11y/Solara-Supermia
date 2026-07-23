@@ -1,48 +1,7 @@
-import { useState, useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import {
-  PhoneCall,
-  X,
-  User,
-  Phone,
-  Clock,
-  Calendar,
-  ChevronLeft,
-  ChevronRight,
-  MessageSquare,
-  Check,
-  Loader2,
-} from "lucide-react";
-
-interface CallbackForm {
-  name: string;
-  phone: string;
-  date: string;
-  time: string;
-  message: string;
-}
-
-const EMPTY_FORM: CallbackForm = { name: "", phone: "", date: "", time: "", message: "" };
-
-// Callback windows as ranges (2-hour blocks across business hours).
-const TIME_SLOTS = ["7 – 9 AM", "9 – 11 AM", "11 AM – 1 PM", "1 – 3 PM", "3 – 5 PM", "5 – 7 PM"];
-
-const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import { PhoneCall, X, Check } from "lucide-react";
+import { CallbackRequestForm, type CallbackSubmittedInfo } from "./CallbackRequestForm";
 
 // Rotating attention messages shown above the pill.
 const NUDGE_MESSAGES = [
@@ -55,9 +14,7 @@ const NUDGE_MESSAGES = [
 
 export function CallbackChip() {
   const [open, setOpen] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState<CallbackForm>(EMPTY_FORM);
+  const [result, setResult] = useState<CallbackSubmittedInfo | null>(null);
   const [nudgeIdx, setNudgeIdx] = useState(0);
 
   // Cycle the attention message every few seconds (paused while the modal is open).
@@ -110,40 +67,16 @@ export function CallbackChip() {
 
   const closeModal = () => {
     setOpen(false);
-    // Reset the success/form state shortly after the close animation
-    setTimeout(() => {
-      setSubmitted(false);
-      setForm(EMPTY_FORM);
-    }, 300);
+    // Reset the success state shortly after the close animation
+    setTimeout(() => setResult(null), 300);
   };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-
-    // TODO: Plug in your backend here.
-    // Send `form` (name, phone, time, message) to your API route / webhook / CRM.
-    // e.g. await fetch("/api/callback", { method: "POST", body: JSON.stringify(form) });
-    await new Promise((r) => setTimeout(r, 900)); // simulated request
-
-    setSubmitting(false);
-    setSubmitted(true);
-  };
-
-  const update =
-    (field: keyof CallbackForm) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-      setForm((f) => ({ ...f, [field]: e.target.value }));
-
-  // Min date for the picker = today (no past dates). Local component render, so Date is fine here.
-  const todayStr = new Date().toLocaleDateString("en-CA"); // YYYY-MM-DD
 
   // Human-friendly "when" string for the success screen.
   const prettyWhen = (() => {
-    if (!form.date) return form.time ? ` at ${form.time}` : " shortly";
-    const d = new Date(`${form.date}T00:00:00`);
-    const day = d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
-    return ` on ${day}${form.time ? ` at ${form.time}` : ""}`;
+    if (!result) return " shortly";
+    const at = result.timeLabel ? ` at ${result.timeLabel} ET` : "";
+    if (!result.dateLabel) return at || " shortly";
+    return ` on ${result.dateLabel}${at}`;
   })();
 
   return (
@@ -181,12 +114,7 @@ export function CallbackChip() {
             aria-hidden="true"
             initial={{ x: "-200%" }}
             animate={{ x: "350%" }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              repeatDelay: 3,
-              ease: "easeInOut",
-            }}
+            transition={{ duration: 1, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
             className="pointer-events-none absolute inset-y-0 left-0 z-10 w-1/3 -skew-x-[20deg] bg-gradient-to-r from-transparent via-white/60 to-transparent"
           />
 
@@ -334,7 +262,7 @@ export function CallbackChip() {
                 />
 
                 <AnimatePresence mode="wait">
-                  {submitted ? (
+                  {result ? (
                     <motion.div
                       key="success"
                       initial={{ opacity: 0, scale: 0.95 }}
@@ -345,7 +273,7 @@ export function CallbackChip() {
                         <Check className="h-8 w-8" strokeWidth={2.5} />
                       </div>
                       <h4 className="font-display text-xl font-bold text-[color:var(--foreground)]">
-                        You're all set{form.name ? `, ${form.name.split(" ")[0]}` : ""}!
+                        You're all set{result.name ? `, ${result.name.split(" ")[0]}` : ""}!
                       </h4>
                       <p className="mx-auto mt-2 max-w-70 text-sm leading-relaxed text-[color:var(--muted-foreground)]">
                         Our team will call you{prettyWhen}. Talk soon.
@@ -358,12 +286,11 @@ export function CallbackChip() {
                       </button>
                     </motion.div>
                   ) : (
-                    <motion.form
+                    <motion.div
                       key="form"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      onSubmit={handleSubmit}
                       className="relative"
                     >
                       {/* Mobile-only header (left rail is hidden on mobile) */}
@@ -376,61 +303,16 @@ export function CallbackChip() {
                         </p>
                       </div>
 
-                      <div className="space-y-4">
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                          <Field icon={User} label="Name">
-                            <input
-                              required
-                              type="text"
-                              value={form.name}
-                              onChange={update("name")}
-                              placeholder="Jane Cooper"
-                              className={inputClass}
-                            />
-                          </Field>
-
-                          <Field icon={Phone} label="Phone">
-                            <input
-                              required
-                              type="tel"
-                              value={form.phone}
-                              onChange={update("phone")}
-                              placeholder="(555) 012-3456"
-                              className={inputClass}
-                            />
-                          </Field>
-                        </div>
-
-                        <DateTimePicker
-                          date={form.date}
-                          time={form.time}
-                          onDate={(d) => setForm((f) => ({ ...f, date: d }))}
-                          onTime={(t) => setForm((f) => ({ ...f, time: t }))}
-                        />
-                      </div>
-
-                      <button
-                        type="submit"
-                        disabled={submitting}
-                        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[color:var(--primary)] py-3.5 text-sm font-semibold text-white shadow-lg shadow-[color:var(--primary)]/25 transition hover:bg-[color:var(--primary-hover)] disabled:opacity-70"
-                      >
-                        {submitting ? (
-                          <>
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                            Sending…
-                          </>
-                        ) : (
-                          <>
-                            Request my callback
-                            <PhoneCall className="h-4 w-4" />
-                          </>
-                        )}
-                      </button>
-
-                      <p className="mt-3 text-center text-xs text-[color:var(--muted-foreground)]">
-                        No spam. We only use this to call you back.
-                      </p>
-                    </motion.form>
+                      <CallbackRequestForm
+                        showEmail
+                        onSubmitted={setResult}
+                        footnote={
+                          <p className="mt-3 text-center text-xs text-[color:var(--muted-foreground)]">
+                            No spam. We only use this to call you back.
+                          </p>
+                        }
+                      />
+                    </motion.div>
                   )}
                 </AnimatePresence>
               </div>
@@ -439,329 +321,5 @@ export function CallbackChip() {
         )}
       </AnimatePresence>
     </>
-  );
-}
-
-const inputClass =
-  "w-full rounded-xl border border-[color:var(--border)] bg-[color:var(--background)] px-3.5 py-2.5 text-sm text-[color:var(--foreground)] placeholder:text-[color:var(--muted-foreground)] outline-none transition focus:border-[color:var(--primary)] focus:ring-2 focus:ring-[color:var(--primary)]/20";
-
-function Field({
-  icon: Icon,
-  label,
-  optional,
-  children,
-}: {
-  icon: React.ComponentType<{ className?: string }>;
-  label: string;
-  optional?: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <label className="block">
-      <span className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-[color:var(--secondary-foreground)]">
-        <Icon className="h-3.5 w-3.5 text-[color:var(--primary)]" />
-        {label}
-        {optional && (
-          <span className="font-normal text-[color:var(--muted-foreground)]">· optional</span>
-        )}
-      </span>
-      {children}
-    </label>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────
-   Custom date + time picker (fully branded, no native controls)
-   ───────────────────────────────────────────────────────────── */
-
-function toISO(d: Date) {
-  return d.toLocaleDateString("en-CA"); // YYYY-MM-DD, local
-}
-
-function DateTimePicker({
-  date,
-  time,
-  onDate,
-  onTime,
-}: {
-  date: string;
-  time: string;
-  onDate: (d: string) => void;
-  onTime: (t: string) => void;
-}) {
-  const [calOpen, setCalOpen] = useState(false);
-  const [calPosition, setCalPosition] = useState({ top: 0, left: 0, width: 300 });
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const popoverRef = useRef<HTMLDivElement>(null);
-
-  // Close the calendar popover on outside click
-  useEffect(() => {
-    if (!calOpen) return;
-    const onClick = (e: MouseEvent) => {
-      const target = e.target as Node;
-      if (
-        wrapRef.current &&
-        !wrapRef.current.contains(target) &&
-        popoverRef.current &&
-        !popoverRef.current.contains(target)
-      ) {
-        setCalOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onClick);
-    return () => document.removeEventListener("mousedown", onClick);
-  }, [calOpen]);
-
-  useEffect(() => {
-    if (!calOpen) return;
-
-    const updatePosition = () => {
-      const trigger = triggerRef.current;
-      if (!trigger) return;
-
-      const rect = trigger.getBoundingClientRect();
-      const gap = 8;
-      const margin = 16;
-      const viewportWidth = window.innerWidth;
-      const popoverWidth = Math.min(Math.max(rect.width, 300), viewportWidth - margin * 2);
-      const left = Math.min(Math.max(rect.left, margin), viewportWidth - popoverWidth - margin);
-
-      setCalPosition({
-        top: rect.bottom + gap,
-        left,
-        width: popoverWidth,
-      });
-    };
-
-    updatePosition();
-    window.addEventListener("resize", updatePosition);
-    window.addEventListener("scroll", updatePosition, true);
-    return () => {
-      window.removeEventListener("resize", updatePosition);
-      window.removeEventListener("scroll", updatePosition, true);
-    };
-  }, [calOpen]);
-
-  const prettyDate = date
-    ? new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-      })
-    : "";
-
-  return (
-    <div className="space-y-3.5">
-      {/* Date trigger + popover */}
-      <div ref={wrapRef} className="relative">
-        <span className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-[color:var(--secondary-foreground)]">
-          <Calendar className="h-3.5 w-3.5 text-[color:var(--primary)]" />
-          Preferred date
-        </span>
-        <button
-          ref={triggerRef}
-          type="button"
-          onClick={() => setCalOpen((o) => !o)}
-          className={`flex w-full items-center justify-between rounded-xl border bg-[color:var(--background)] px-3.5 py-2.5 text-left text-sm outline-none transition ${
-            calOpen
-              ? "border-[color:var(--primary)] ring-2 ring-[color:var(--primary)]/20"
-              : "border-[color:var(--border)]"
-          } ${date ? "text-[color:var(--foreground)]" : "text-[color:var(--muted-foreground)]"}`}
-        >
-          {prettyDate || "Pick a day"}
-          <ChevronRight
-            className={`h-4 w-4 text-[color:var(--muted-foreground)] transition-transform ${calOpen ? "rotate-90" : ""}`}
-          />
-        </button>
-
-        {typeof document !== "undefined" &&
-          createPortal(
-            <AnimatePresence>
-              {calOpen && (
-                <motion.div
-                  ref={popoverRef}
-                  initial={{ opacity: 0, y: -6, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -6, scale: 0.98 }}
-                  transition={{ duration: 0.16 }}
-                  style={{
-                    top: calPosition.top,
-                    left: calPosition.left,
-                    width: calPosition.width,
-                  }}
-                  className="fixed z-[80] max-h-[calc(100vh-2rem)] overflow-y-auto rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)] p-3 shadow-[0_16px_44px_rgba(15,23,42,0.16)]"
-                >
-                  <MiniCalendar
-                    selected={date}
-                    onSelect={(d) => {
-                      onDate(d);
-                      setCalOpen(false);
-                    }}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>,
-            document.body,
-          )}
-      </div>
-
-      {/* Time-range chips */}
-      <div>
-        <span className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-[color:var(--secondary-foreground)]">
-          <Clock className="h-3.5 w-3.5 text-[color:var(--primary)]" />
-          Preferred time (US time)
-        </span>
-        <div className="grid grid-cols-3 gap-2">
-          {TIME_SLOTS.map((slot) => {
-            const active = time === slot;
-            return (
-              <button
-                key={slot}
-                type="button"
-                onClick={() => onTime(active ? "" : slot)}
-                className={`rounded-xl border px-2 py-2 text-[13px] font-semibold transition ${
-                  active
-                    ? "border-[color:var(--primary)] bg-[color:var(--primary)] text-white shadow-sm shadow-[color:var(--primary)]/25"
-                    : "border-[color:var(--border)] bg-[color:var(--background)] text-[color:var(--secondary-foreground)] hover:border-[color:var(--primary)]/40 hover:text-[color:var(--foreground)]"
-                }`}
-              >
-                {slot}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MiniCalendar({
-  selected,
-  onSelect,
-}: {
-  selected: string;
-  onSelect: (iso: string) => void;
-}) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const todayISO = toISO(today);
-
-  const selDate = selected ? new Date(`${selected}T00:00:00`) : null;
-
-  // Which month is currently shown — defaults to the selected date's month, else this month.
-  const [view, setView] = useState(() => {
-    const base = selDate ?? today;
-    return { y: base.getFullYear(), m: base.getMonth() };
-  });
-
-  const firstOfMonth = new Date(view.y, view.m, 1);
-  const startWeekday = firstOfMonth.getDay(); // 0 = Sun
-  const daysInMonth = new Date(view.y, view.m + 1, 0).getDate();
-
-  // Can we go back a month? (don't allow navigating before the current month)
-  const canPrev =
-    view.y > today.getFullYear() || (view.y === today.getFullYear() && view.m > today.getMonth());
-
-  const cells: (number | null)[] = [];
-  for (let i = 0; i < startWeekday; i++) cells.push(null);
-  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
-
-  const shift = (delta: number) => {
-    setView((v) => {
-      const m = v.m + delta;
-      if (m < 0) return { y: v.y - 1, m: 11 };
-      if (m > 11) return { y: v.y + 1, m: 0 };
-      return { ...v, m };
-    });
-  };
-
-  return (
-    <div>
-      {/* Header */}
-      <div className="mb-2 flex items-center justify-between px-1">
-        <div className="font-display text-sm font-bold text-[color:var(--foreground)]">
-          {MONTHS[view.m]} {view.y}
-        </div>
-        <div className="flex items-center gap-1">
-          <button
-            type="button"
-            onClick={() => canPrev && shift(-1)}
-            disabled={!canPrev}
-            aria-label="Previous month"
-            className="grid h-7 w-7 place-items-center rounded-lg text-[color:var(--secondary-foreground)] transition hover:bg-[color:var(--muted)] disabled:cursor-not-allowed disabled:opacity-30"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            onClick={() => shift(1)}
-            aria-label="Next month"
-            className="grid h-7 w-7 place-items-center rounded-lg text-[color:var(--secondary-foreground)] transition hover:bg-[color:var(--muted)]"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-
-      {/* Weekday labels */}
-      <div className="mb-1 grid grid-cols-7 gap-1">
-        {WEEKDAYS.map((w) => (
-          <div
-            key={w}
-            className="grid h-7 place-items-center text-[11px] font-semibold text-[color:var(--muted-foreground)]"
-          >
-            {w}
-          </div>
-        ))}
-      </div>
-
-      {/* Days */}
-      <div className="grid grid-cols-7 gap-1">
-        {cells.map((day, i) => {
-          if (day === null) return <div key={`e${i}`} />;
-          const iso = toISO(new Date(view.y, view.m, day));
-          const isPast = iso < todayISO;
-          const isToday = iso === todayISO;
-          const isSelected = iso === selected;
-
-          return (
-            <button
-              key={iso}
-              type="button"
-              disabled={isPast}
-              onClick={() => onSelect(iso)}
-              className={`grid h-9 place-items-center rounded-lg text-[13px] font-medium transition ${
-                isSelected
-                  ? "bg-[color:var(--primary)] text-white shadow-sm shadow-[color:var(--primary)]/30"
-                  : isPast
-                    ? "cursor-not-allowed text-[color:var(--muted-foreground)]/40"
-                    : "text-[color:var(--foreground)] hover:bg-[color:var(--primary-soft)]"
-              } ${isToday && !isSelected ? "ring-1 ring-inset ring-[color:var(--primary)]/40" : ""}`}
-            >
-              {day}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Footer */}
-      <div className="mt-2 flex items-center justify-between border-t border-[color:var(--divider)] px-1 pt-2">
-        <button
-          type="button"
-          onClick={() => onSelect("")}
-          className="text-xs font-semibold text-[color:var(--muted-foreground)] transition hover:text-[color:var(--foreground)]"
-        >
-          Clear
-        </button>
-        <button
-          type="button"
-          onClick={() => onSelect(todayISO)}
-          className="text-xs font-semibold text-[color:var(--primary)] transition hover:text-[color:var(--primary-hover)]"
-        >
-          Today
-        </button>
-      </div>
-    </div>
   );
 }

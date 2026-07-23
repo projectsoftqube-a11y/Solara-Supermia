@@ -79,7 +79,7 @@ export function Footer() {
             <ul className="space-y-5 text-slate-400">
               <li>
                 <a
-                  href="mailto:hello@supermia.ai"
+                  href="mailto:solara@supermia.ai"
                   className="group inline-flex items-start gap-3 text-sm sm:text-base hover:text-white transition-colors"
                 >
                   <div className="mt-0.5 p-1.5 rounded-md bg-white/5 group-hover:bg-[#FF6A55]/20 group-hover:text-[#FF6A55] transition-colors">
@@ -87,7 +87,7 @@ export function Footer() {
                   </div>
                   <div>
                     <div className="font-medium text-white mb-0.5">Email Support</div>
-                    <div className="text-slate-500 text-sm">hello@supermia.ai</div>
+                    <div className="text-slate-500 text-sm">solara@supermia.ai</div>
                   </div>
                 </a>
               </li>
@@ -115,9 +115,9 @@ export function Footer() {
             </div>
             <ul className="space-y-4 text-slate-400">
               {[
-                { label: "Privacy Policy", href: "/privacy" },
-                { label: "Terms of Service", href: "/terms" },
-                { label: "HIPAA Compliance", href: "/hipaa" },
+                { label: "Privacy Policy", href: "/privacy-policy" },
+                { label: "Terms & Conditions", href: "/terms-conditions" },
+                { label: "HIPAA Compliance", href: "/hipaa-compliance" },
               ].map((item) => (
                 <li key={item.label}>
                   <a

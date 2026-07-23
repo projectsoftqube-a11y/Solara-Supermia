@@ -86,9 +86,7 @@ export function FoundingOffer() {
                 <a 
                   data-cta="book_demo"
                   data-position="founding_section"
-                  href="https://supermia.ai/schedule-demo/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/book-a-demo"
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white text-black font-bold text-base hover:bg-slate-200 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
                 >
                   Book a 20-min demo

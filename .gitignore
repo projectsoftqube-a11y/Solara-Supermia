@@ -31,3 +31,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Rendered email previews (generated, not source)
+email-preview
+
+# Local secrets — never commit
+.env
+.env.local
+.env.*.local
+!.env.example

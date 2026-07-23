@@ -9,16 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TermsConditionsRouteImport } from './routes/terms-conditions'
 import { Route as ScheduleCallRouteImport } from './routes/schedule-call'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as HipaaRouteImport } from './routes/hipaa'
-import { Route as DemoRouteImport } from './routes/demo'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as HipaaComplianceRouteImport } from './routes/hipaa-compliance'
+import { Route as BookADemoRouteImport } from './routes/book-a-demo'
 import { Route as IndexRouteImport } from './routes/index'
 
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
+const TermsConditionsRoute = TermsConditionsRouteImport.update({
+  id: '/terms-conditions',
+  path: '/terms-conditions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ScheduleCallRoute = ScheduleCallRouteImport.update({
@@ -26,19 +26,19 @@ const ScheduleCallRoute = ScheduleCallRouteImport.update({
   path: '/schedule-call',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HipaaRoute = HipaaRouteImport.update({
-  id: '/hipaa',
-  path: '/hipaa',
+const HipaaComplianceRoute = HipaaComplianceRouteImport.update({
+  id: '/hipaa-compliance',
+  path: '/hipaa-compliance',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DemoRoute = DemoRouteImport.update({
-  id: '/demo',
-  path: '/demo',
+const BookADemoRoute = BookADemoRouteImport.update({
+  id: '/book-a-demo',
+  path: '/book-a-demo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -49,60 +49,72 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/demo': typeof DemoRoute
-  '/hipaa': typeof HipaaRoute
-  '/privacy': typeof PrivacyRoute
+  '/book-a-demo': typeof BookADemoRoute
+  '/hipaa-compliance': typeof HipaaComplianceRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/schedule-call': typeof ScheduleCallRoute
-  '/terms': typeof TermsRoute
+  '/terms-conditions': typeof TermsConditionsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/demo': typeof DemoRoute
-  '/hipaa': typeof HipaaRoute
-  '/privacy': typeof PrivacyRoute
+  '/book-a-demo': typeof BookADemoRoute
+  '/hipaa-compliance': typeof HipaaComplianceRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/schedule-call': typeof ScheduleCallRoute
-  '/terms': typeof TermsRoute
+  '/terms-conditions': typeof TermsConditionsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/demo': typeof DemoRoute
-  '/hipaa': typeof HipaaRoute
-  '/privacy': typeof PrivacyRoute
+  '/book-a-demo': typeof BookADemoRoute
+  '/hipaa-compliance': typeof HipaaComplianceRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/schedule-call': typeof ScheduleCallRoute
-  '/terms': typeof TermsRoute
+  '/terms-conditions': typeof TermsConditionsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/demo' | '/hipaa' | '/privacy' | '/schedule-call' | '/terms'
+  fullPaths:
+    | '/'
+    | '/book-a-demo'
+    | '/hipaa-compliance'
+    | '/privacy-policy'
+    | '/schedule-call'
+    | '/terms-conditions'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/demo' | '/hipaa' | '/privacy' | '/schedule-call' | '/terms'
+  to:
+    | '/'
+    | '/book-a-demo'
+    | '/hipaa-compliance'
+    | '/privacy-policy'
+    | '/schedule-call'
+    | '/terms-conditions'
   id:
     | '__root__'
     | '/'
-    | '/demo'
-    | '/hipaa'
-    | '/privacy'
+    | '/book-a-demo'
+    | '/hipaa-compliance'
+    | '/privacy-policy'
     | '/schedule-call'
-    | '/terms'
+    | '/terms-conditions'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DemoRoute: typeof DemoRoute
-  HipaaRoute: typeof HipaaRoute
-  PrivacyRoute: typeof PrivacyRoute
+  BookADemoRoute: typeof BookADemoRoute
+  HipaaComplianceRoute: typeof HipaaComplianceRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ScheduleCallRoute: typeof ScheduleCallRoute
-  TermsRoute: typeof TermsRoute
+  TermsConditionsRoute: typeof TermsConditionsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
+    '/terms-conditions': {
+      id: '/terms-conditions'
+      path: '/terms-conditions'
+      fullPath: '/terms-conditions'
+      preLoaderRoute: typeof TermsConditionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/schedule-call': {
@@ -112,25 +124,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScheduleCallRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/hipaa': {
-      id: '/hipaa'
-      path: '/hipaa'
-      fullPath: '/hipaa'
-      preLoaderRoute: typeof HipaaRouteImport
+    '/hipaa-compliance': {
+      id: '/hipaa-compliance'
+      path: '/hipaa-compliance'
+      fullPath: '/hipaa-compliance'
+      preLoaderRoute: typeof HipaaComplianceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/demo': {
-      id: '/demo'
-      path: '/demo'
-      fullPath: '/demo'
-      preLoaderRoute: typeof DemoRouteImport
+    '/book-a-demo': {
+      id: '/book-a-demo'
+      path: '/book-a-demo'
+      fullPath: '/book-a-demo'
+      preLoaderRoute: typeof BookADemoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -145,11 +157,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DemoRoute: DemoRoute,
-  HipaaRoute: HipaaRoute,
-  PrivacyRoute: PrivacyRoute,
+  BookADemoRoute: BookADemoRoute,
+  HipaaComplianceRoute: HipaaComplianceRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   ScheduleCallRoute: ScheduleCallRoute,
-  TermsRoute: TermsRoute,
+  TermsConditionsRoute: TermsConditionsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -205,9 +205,7 @@ export function Comparison() {
                   data-cta="book_demo" 
                   data-position="comparison" 
                   className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-white text-slate-900 font-bold text-base transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_-15px_rgba(255,255,255,0.5)] overflow-hidden" 
-                  href="https://supermia.ai/schedule-demo/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/book-a-demo"
                 >
                   <Calendar className="w-5 h-5 text-[#FF6A55]" />
                   <span className="relative">Book a 20-min demo</span>

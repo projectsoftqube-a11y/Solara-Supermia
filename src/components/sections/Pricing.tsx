@@ -212,9 +212,7 @@ export function Pricing() {
               <a
                 data-cta="book_demo"
                 data-position="pricing_essentials"
-                href="https://supermia.ai/schedule-demo/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/book-a-demo"
                 className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-bold text-sm bg-slate-900 text-white hover:bg-slate-800 transition-all active:scale-[0.97] mb-8"
               >
                 Book a 20-min demo
@@ -323,9 +321,7 @@ export function Pricing() {
                 <a
                   data-cta="book_demo"
                   data-position="pricing_pro"
-                  href="https://supermia.ai/schedule-demo/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/book-a-demo"
                   className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-[#FF6A55] to-[#E54830] text-white hover:brightness-110 transition-all active:scale-[0.97] shadow-lg shadow-[#FF6A55]/30 mb-8"
                 >
                   Book a 20-min demo
@@ -416,9 +412,7 @@ export function Pricing() {
               <a
                 data-cta="book_demo"
                 data-position="pricing_enterprise"
-                href="https://supermia.ai/schedule-demo/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/book-a-demo"
                 className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-bold text-sm bg-slate-900 text-white hover:bg-slate-800 transition-all active:scale-[0.97] mb-8"
               >
                 Book a 20-min demo

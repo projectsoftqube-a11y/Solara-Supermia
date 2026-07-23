@@ -78,9 +78,7 @@ export function FinalCTA() {
           <a 
             data-cta="book_demo" 
             data-position="final" 
-            href="https://supermia.ai/schedule-demo/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/book-a-demo"
             className="group relative inline-flex items-center justify-center gap-4 px-12 py-6 rounded-[2rem] bg-[#FF6A55] text-white font-bold text-xl lg:text-2xl transition-all hover:scale-105 hover:bg-[#ff7a68] shadow-[0_0_80px_rgba(255,106,85,0.4)] active:scale-95"
           >
             <Calendar className="w-7 h-7" />

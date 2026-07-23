@@ -222,6 +222,69 @@ a[href*="lovable.dev/"] {
   visibility: hidden !important;
   pointer-events: none !important;
 }
-.temp-hidden{
-  display: none !important;
+
+/* Legal pages (privacy-policy, terms-conditions, hipaa-compliance) body copy.
+   Defined here because this project does not use @tailwindcss/typography. */
+.legal-content p {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: #4b5563;
+  overflow-wrap: break-word;
+}
+
+.legal-content p + p {
+  margin-top: 1rem;
+}
+
+.legal-content ul {
+  margin-top: 1rem;
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.legal-content li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #4b5563;
+  overflow-wrap: break-word;
+}
+
+.legal-content li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: #ff6a55;
+}
+
+.legal-content strong {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.legal-content a {
+  color: #ff6a55;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  overflow-wrap: break-word;
+}
+
+.legal-content a:hover {
+  color: #e55a45;
+}
+
+@media (min-width: 640px) {
+  .legal-content p,
+  .legal-content li {
+    font-size: 16px;
+  }
 }

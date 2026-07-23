@@ -3,6 +3,30 @@ import "./lib/error-capture";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 
+// Vite only loads VITE_-prefixed vars, and never into process.env — so
+// server-side secrets (SMTP_*) in a local .env would otherwise be invisible.
+// Dev only: in production the host supplies real environment variables, and
+// this branch is tree-shaken away.
+if (import.meta.env.DEV) {
+  const dotenv = await import("dotenv");
+  dotenv.config();
+
+  // Surface email config status at startup — a missing app password otherwise
+  // only shows up as a silently skipped send.
+  const host = process.env.SMTP_HOST;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  if (host && user && pass) {
+    console.log(`[email] SMTP ready — ${user} via ${host}:${process.env.SMTP_PORT || 587}`);
+  } else if (host || user) {
+    console.warn(
+      `[email] SMTP incomplete — missing ${["SMTP_HOST", "SMTP_USER", "SMTP_PASS"]
+        .filter((k) => !process.env[k])
+        .join(", ")}. Emails will be skipped until set in .env`,
+    );
+  }
+}
+
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
 };
