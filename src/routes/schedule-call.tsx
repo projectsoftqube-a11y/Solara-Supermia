@@ -453,7 +453,7 @@ function ScheduleCallPage() {
                         </>
                       ) : (
                         <>
-                          Book Your Live Demo
+                          Reserve Your Private Demo
                           <ArrowRight className="h-4 w-4" />
                         </>
                       )}
@@ -545,61 +545,66 @@ function ScheduleCallPage() {
           </p>
         </div>
 
-        {/* Desktop Marquee Slider */}
-        <div className="relative w-full overflow-hidden py-4 hidden sm:block">
-          {/* Deep edge gradient overlays for smooth edge fading */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-24 bg-gradient-to-r from-white via-white/80 to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-24 bg-gradient-to-l from-white via-white/80 to-transparent" />
-
-          <motion.div
-            className="flex gap-6 w-max"
-            animate={{ x: ["0%", "-33.333%"] }}
-            transition={{
-              repeat: Infinity,
-              repeatType: "loop",
-              ease: "linear",
-              duration: 35,
-            }}
-          >
-            {[...DEMO_FEATURES, ...DEMO_FEATURES, ...DEMO_FEATURES].map((feat, idx) => {
+        {/* Desktop Bento Grid */}
+        <div className="mx-auto hidden max-w-7xl px-4 py-4 sm:block lg:px-8">
+          <div className="grid auto-rows-[240px] grid-cols-3 gap-5">
+            {DEMO_FEATURES.map((feat, idx) => {
               const IconComp = feat.icon;
               const BadgeIconComp = feat.badgeIcon;
-              return (
-                <div
-                  key={`${feat.title}-${idx}`}
-                  className="group relative flex w-[420px] shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#FF6A55]/50 hover:shadow-xl"
-                >
-                  {/* Card Feature Image Preview */}
-                  <div className="relative h-56 w-full overflow-hidden bg-slate-100 border-b border-slate-100">
-                    <img
-                      src={feat.image}
-                      alt={feat.title}
-                      className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full border border-slate-200/90 bg-white/95 px-4 py-1.5 text-[12px] font-bold text-slate-900 shadow-sm backdrop-blur-md">
-                      <BadgeIconComp className="h-4 w-4 text-[#FF6A55]" />
-                      <span className="whitespace-nowrap">{feat.badge}</span>
-                    </span>
-                  </div>
+              // Bento sizing chosen so the 3-col grid packs with no gaps:
+              // tile 0 is a large 2×2 hero block; the other 5 tiles are 1×1.
+              // (2×2 adds 3 extra cells → 6 base + 3 = 9 = a clean 3×3 grid.)
+              const isHero = idx === 0;
 
-                  {/* Card Content */}
-                  <div className="flex flex-1 flex-col justify-between p-6">
-                    <div>
-                      <div className="mb-2.5 flex items-center gap-2">
-                        <div className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[#FFF4EB] text-[#FF6A55]">
-                          <IconComp className="h-4 w-4" />
-                        </div>
-                        <h3 className="text-base font-bold text-slate-900 group-hover:text-[#FF6A55] transition-colors">
-                          {feat.title}
-                        </h3>
+              return (
+                <motion.div
+                  key={`${feat.title}-${idx}`}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ delay: idx * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className={`group relative overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#FF6A55]/50 hover:shadow-xl ${
+                    isHero ? "col-span-2 row-span-2" : ""
+                  }`}
+                >
+                  {/* Full-bleed image */}
+                  <img
+                    src={feat.image}
+                    alt={feat.title}
+                    className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {/* Gradient scrim for text legibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent" />
+
+                  {/* Badge */}
+                  <span className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/95 px-3.5 py-1.5 text-[12px] font-bold text-slate-900 shadow-sm backdrop-blur-md">
+                    <BadgeIconComp className="h-4 w-4 text-[#FF6A55]" />
+                    <span className="whitespace-nowrap">{feat.badge}</span>
+                  </span>
+
+                  {/* Content overlaid at bottom */}
+                  <div className="absolute inset-x-0 bottom-0 z-10 p-6">
+                    <div className="mb-2 flex items-center gap-2">
+                      <div className={`inline-flex items-center justify-center rounded-lg bg-[#FF6A55] text-white shadow-md ${isHero ? "h-10 w-10" : "h-8 w-8"}`}>
+                        <IconComp className={isHero ? "h-5 w-5" : "h-4 w-4"} />
                       </div>
-                      <p className="text-sm leading-relaxed text-slate-600">{feat.description}</p>
+                      <h3 className={`font-bold text-white ${isHero ? "text-2xl" : "text-lg"}`}>{feat.title}</h3>
                     </div>
+                    {/* Hero shows description always; smaller tiles reveal it on hover */}
+                    <p
+                      className={`leading-relaxed text-white/80 ${isHero ? "text-[15px]" : "text-sm"} ${
+                        isHero
+                          ? ""
+                          : "max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:mt-1 group-hover:max-h-24 group-hover:opacity-100"
+                      }`}
+                    >
+                      {feat.description}
+                    </p>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
 
         {/* Mobile Column View */}

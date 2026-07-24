@@ -25,35 +25,35 @@ const blocks = [
 const oldWayCards = [
   {
     icon: PhoneMissed,
-    text: "Calls slip to voicemail after hours",
+    text: "Calls slip to voicemail the moment it gets busy",
     rotate: "-rotate-2",
     margin: "-ml-2 sm:-ml-6 mr-2 sm:mr-6",
     delay: 0.1
   },
   {
     icon: ClipboardX,
-    text: "Patients filling paper forms on clipboards",
+    text: "Patients hunched over clipboards in the waiting room",
     rotate: "rotate-1",
     margin: "ml-4 sm:ml-8 -mr-4 sm:-mr-8",
     delay: 0.2
   },
   {
     icon: ShieldAlert,
-    text: "Staff stuck on hold checking insurance",
+    text: "Staff on hold with carriers instead of with patients",
     rotate: "-rotate-1",
     margin: "-ml-1 sm:-ml-4 mr-1 sm:mr-4",
     delay: 0.3
   },
   {
     icon: UserMinus,
-    text: "No-shows leave chairs sitting empty",
+    text: "No-shows leave chairs — and revenue — sitting empty",
     rotate: "rotate-2",
     margin: "ml-2 sm:ml-6 -mr-2 sm:-mr-6",
     delay: 0.4
   },
   {
     icon: SearchX,
-    text: "New patients cannot find you online",
+    text: "New patients search \"dentist near me\" and find someone else",
     rotate: "-rotate-1",
     margin: "-ml-3 sm:-ml-8 mr-3 sm:mr-8",
     delay: 0.5
@@ -63,12 +63,12 @@ const oldWayCards = [
 const newWayCards = [
   {
     icon: PhoneCall,
-    text: "Every call answered and booked, 24/7",
+    text: "Every call answered and booked, day or night",
     delay: 0.1
   },
   {
     icon: ClipboardCheck,
-    text: "Forms filled on the patient's phone, no paper",
+    text: "Forms filled on the patient's phone before they arrive",
     delay: 0.2
   },
   {
@@ -78,12 +78,12 @@ const newWayCards = [
   },
   {
     icon: UserCheck,
-    text: "Open slots backfilled from your recall list",
+    text: "Open slots backfilled from your own recall list",
     delay: 0.4
   },
   {
     icon: TrendingUp,
-    text: "Found first on Google with SEO and Google Ads",
+    text: "You're the first name they find on Google",
     delay: 0.5
   }
 ];
@@ -102,7 +102,7 @@ export function Automation() {
             <span className="text-slate-500">No chasing.</span>
           </h2>
           <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-medium">
-            Solara doesn't help your team work harder — it removes the work entirely.
+            Solara doesn't help your team work harder. It takes the work off the table entirely.
           </p>
         </div>
 

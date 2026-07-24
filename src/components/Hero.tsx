@@ -23,8 +23,8 @@ const CAROUSEL_ITEMS = [
     id: "insurance",
     label: "Insurance",
     icon: ShieldCheck,
-    title: "Coverage verified before they sit down",
-    desc: "Eligibility and benefits checked automatically at intake.",
+    title: "Coverage confirmed before the chair",
+    desc: "Eligibility and benefits checked automatically at intake — nobody left on hold with a carrier.",
     previewType: "insurance",
     previewTitle: "Delta Dental PPO - active · cleaning covered 100% · 2 left this year",
   },
@@ -162,7 +162,7 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.05 }}
               className="font-display font-bold text-[color:var(--foreground)] mb-4 leading-[1.08] text-4xl sm:text-5xl"
             >
-              One platform for everything your front desk does:
+              Hire no one. Miss nothing.
               <span aria-hidden="true" className="block min-h-[1.5em] sm:min-h-[1.15em] mt-2">
                 <AnimatePresence mode="wait">
                   <motion.span
@@ -204,9 +204,9 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.15 }}
               className="text-lg sm:text-xl text-[color:var(--secondary-foreground)] mb-8 leading-relaxed max-w-xl"
             >
-              From insurance verification and patient intake to booking, recalls, paperwork, SEO,
-              and Google Ads. Solara runs your entire front office automatically, 24/7. Not just a
-              phone line. Your whole front desk, on autopilot.
+              Insurance verified before the patient sits down. Every call answered — after hours, at
+              lunch, mid-rush. Empty chairs filled from your own recall list. Solara runs the entire
+              front office in the background, so your team does dentistry instead of paperwork.
             </motion.p>
 
             <motion.div
@@ -220,33 +220,18 @@ export function Hero() {
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[color:var(--primary)] text-white font-semibold text-base hover:bg-[color:var(--primary-hover)] transition-colors shadow-lg shadow-[color:var(--primary)]/25"
               >
                 <Calendar className="w-5 h-5" />
-                Book a 20-min demo
+                Experience a Personalized Demo
                 <ArrowRight className="w-5 h-5" />
               </a>
               <a
                 href="#platform"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[color:var(--card)] border border-[color:var(--border)] text-[color:var(--foreground)] font-semibold text-base hover:border-[color:var(--primary)]/40 hover:shadow-md transition-all"
               >
-                See everything it does
+                See everything it handles
                 <ChevronDown className="w-5 h-5 text-[color:var(--primary)]" />
               </a>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="mb-6"
-            >
-              <a
-                href="https://app.solara.supermia.ai/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-sm font-medium text-[color:var(--secondary-foreground)] hover:text-[color:var(--primary)] transition-colors"
-              >
-                Ready to buy? Start instantly →
-              </a>
-            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -256,11 +241,11 @@ export function Hero() {
             >
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-[color:var(--success)] to-[#0E8C80] text-white text-sm font-bold shadow-sm shadow-[color:var(--success)]/20">
                 <Gift className="w-4 h-4" />
-                First 2 months free
+                Your founding rate, locked for good
               </span>
               <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-[color:var(--secondary-foreground)]">
                 <span className="inline-flex items-center gap-1">
-                  <Check className="w-3.5 h-3.5 text-[color:var(--success)]" /> No setup fee
+                  <Check className="w-3.5 h-3.5 text-[color:var(--success)]" /> White-glove setup included
                 </span>
                 <span className="inline-flex items-center gap-1">
                   <Check className="w-3.5 h-3.5 text-[color:var(--success)]" /> Cancel anytime

@@ -74,7 +74,7 @@ export function Comparison() {
             transition={{ delay: 0.1 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-slate-900 mb-6 leading-[1.1] tracking-tight"
           >
-            AI front office <span className="text-slate-300 font-medium italic px-2">vs.</span> front desk <span className="text-slate-300 font-medium italic px-2">vs.</span> basic chatbot
+            A full front office <span className="text-slate-300 font-medium italic px-2">vs.</span> a receptionist <span className="text-slate-300 font-medium italic px-2">vs.</span> a chatbot
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -208,7 +208,7 @@ export function Comparison() {
                   href="/book-a-demo"
                 >
                   <Calendar className="w-5 h-5 text-[#FF6A55]" />
-                  <span className="relative">Book a 20-min demo</span>
+                  <span className="relative">Request your white-glove call</span>
                   <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center transition-transform group-hover:translate-x-1">
                     <ArrowRight className="w-4 h-4 text-slate-900" />
                   </div>

@@ -31,7 +31,7 @@ export function CaseStudy() {
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FF6A55]/10 text-[#FF6A55] text-xs font-bold uppercase tracking-[0.2em] mb-6"
           >
-            <Sparkles size={14} /> Founding cohort
+            <Sparkles size={14} /> By invitation
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 10 }}
@@ -40,7 +40,7 @@ export function CaseStudy() {
             transition={{ delay: 0.1 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-slate-900 mb-6 leading-[1.08] tracking-tight"
           >
-            Built with our founding dental practices
+            We're taking 25 practices. Personally.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -49,7 +49,7 @@ export function CaseStudy() {
             transition={{ delay: 0.2 }}
             className="text-lg sm:text-xl text-slate-600 leading-relaxed font-medium max-w-2xl mx-auto"
           >
-            Solara is rolling out to a hand-picked founding cohort of clinics. We're onboarding real practices now — named results and case studies will appear here as our first clinics go live. Want to be one of them?
+            Solara is rolling out to a hand-picked founding cohort — and every clinic in it gets founder-assisted, white-glove onboarding. Named results and case studies land on this page as our first practices go live. Early is the whole advantage. This is the room to be in.
           </motion.p>
         </div>
 
@@ -91,7 +91,7 @@ export function CaseStudy() {
             href="/book-a-demo"
             className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full bg-slate-900 text-white font-bold text-[16px] hover:bg-slate-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 group"
           >
-            Join the founding cohort → Book a 20-min demo
+            Request your founding seat
             <ArrowRight size={20} className="group-hover:translate-x-1.5 transition-transform text-[#FF6A55]" />
           </motion.a>
         </div>

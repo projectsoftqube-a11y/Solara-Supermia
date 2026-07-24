@@ -204,25 +204,27 @@ export function CallbackChip() {
                   </p>
 
                   <div className="mt-5 border-t border-white/10 pt-4">
-                    <div className="mb-3 text-xs font-bold text-white">What happens next?</div>
-                    <ol className="space-y-2.5">
+                    <div className="mb-3 text-xs font-bold text-white">Here's what you'll fix</div>
+                    <ul className="space-y-3">
                       {[
-                        "We review your callback request",
-                        "A Solara specialist calls you",
-                        "We discuss your practice needs",
-                        "You receive a personalized next step",
-                      ].map((t, i) => (
-                        <li
-                          key={t}
-                          className="flex items-start gap-2.5 text-xs leading-snug text-white/80"
-                        >
-                          <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[color:var(--primary)]/15 text-[10px] font-bold text-[color:var(--primary)]">
-                            {i + 1}
+                        { pain: "Missed calls", gain: "Every call answered, 24/7" },
+                        { pain: "Hours on hold with carriers", gain: "Insurance & eligibility checked automatically" },
+                        { pain: "Empty chairs", gain: "Recall list fills your schedule" },
+                        { pain: "Front-desk overload", gain: "Intake & paperwork run themselves" },
+                      ].map((item) => (
+                        <li key={item.pain} className="flex items-start gap-2.5">
+                          <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[color:var(--primary)]/15 text-[color:var(--primary)]">
+                            <Check className="h-3 w-3" strokeWidth={3} />
                           </span>
-                          {t}
+                          <div className="leading-tight">
+                            <div className="text-xs font-semibold text-white">{item.gain}</div>
+                            <div className="text-[11px] text-white/50 line-through decoration-white/30">
+                              {item.pain}
+                            </div>
+                          </div>
                         </li>
                       ))}
-                    </ol>
+                    </ul>
                   </div>
                 </div>
 
@@ -306,11 +308,6 @@ export function CallbackChip() {
                       <CallbackRequestForm
                         showEmail
                         onSubmitted={setResult}
-                        footnote={
-                          <p className="mt-3 text-center text-xs text-[color:var(--muted-foreground)]">
-                            No spam. We only use this to call you back.
-                          </p>
-                        }
                       />
                     </motion.div>
                   )}

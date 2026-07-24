@@ -268,7 +268,7 @@ export function PhoneInput({
         onBlur={onBlur}
         placeholder={country.example ?? "Phone number"}
         aria-invalid={!!hasError}
-        className={`${inputClassName} pl-[6.5rem]`}
+        className={`${inputClassName} pl-[5.5rem]`}
       />
 
       {typeof document !== "undefined" &&
