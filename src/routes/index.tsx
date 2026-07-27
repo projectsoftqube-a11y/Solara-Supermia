@@ -16,6 +16,7 @@ import { FoundingOffer } from "@/components/sections/FoundingOffer";
 import { Pricing } from "@/components/sections/Pricing";
 import { FAQ } from "@/components/sections/FAQ";
 import { ContactForm } from "@/components/sections/ContactForm";
+import { Brochure } from "@/components/sections/Brochure";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Footer } from "@/components/sections/Footer";
 
@@ -82,6 +83,7 @@ function Landing() {
         <FoundingOffer />
         <Pricing />
         <FAQ />
+        <Brochure />
         <ContactForm />
         <FinalCTA />
         <Footer />

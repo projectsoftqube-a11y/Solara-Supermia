@@ -5,7 +5,7 @@ import {
   ShieldCheck,
   Calendar,
   ArrowRight,
-  Download,
+  ChevronDown,
   Gift,
   Check,
   Database,
@@ -224,13 +224,11 @@ export function Hero() {
                 <ArrowRight className="w-5 h-5" />
               </a>
               <a
-                href="/brochure/solara-brochure.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#platform"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[color:var(--card)] border border-[color:var(--border)] text-[color:var(--foreground)] font-semibold text-base hover:border-[color:var(--primary)]/40 hover:shadow-md transition-all"
               >
-                <Download className="w-5 h-5 text-[color:var(--primary)]" />
-                Download brochure
+                See everything it handles
+                <ChevronDown className="w-5 h-5 text-[color:var(--primary)]" />
               </a>
             </motion.div>
 
