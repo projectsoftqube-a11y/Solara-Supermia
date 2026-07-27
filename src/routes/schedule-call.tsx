@@ -32,6 +32,7 @@ import {
   FileCheck,
   Lock,
   Activity,
+  Gift,
 } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Footer } from "@/components/sections/Footer";
@@ -266,36 +267,57 @@ function ScheduleCallPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white selection:bg-[#FF6A55]/20">
+    <div className="min-h-screen bg-[#FFFBF6] selection:bg-[#FF6A55]/20">
       <main className="relative overflow-hidden pb-28 pt-10">
-        {/* subtle background glow */}
-        <div className="pointer-events-none absolute inset-0 z-0">
+        {/* ══ Rich ambient background ══ */}
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+          {/* aurora mesh — full coverage */}
           <div
-            className="absolute inset-x-0 top-0 h-112.5"
+            className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse 70% 100% at 50% 0%, rgba(249,115,22,0.07), transparent 70%)",
+                "radial-gradient(60% 55% at 15% 8%, rgba(255,178,62,0.28), transparent 60%)," +
+                "radial-gradient(55% 55% at 85% 4%, rgba(255,106,85,0.26), transparent 60%)," +
+                "radial-gradient(50% 45% at 92% 55%, rgba(22,196,179,0.14), transparent 60%)," +
+                "radial-gradient(55% 50% at 8% 62%, rgba(255,106,85,0.14), transparent 60%)," +
+                "radial-gradient(70% 60% at 50% 105%, rgba(255,178,62,0.16), transparent 65%)",
+            }}
+          />
+          {/* full-page grid, softly masked */}
+          <div
+            className="absolute inset-0 opacity-[0.7]"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(15,23,42,0.045) 1px, transparent 1px)," +
+                "linear-gradient(90deg, rgba(15,23,42,0.045) 1px, transparent 1px)",
+              backgroundSize: "48px 48px",
+              maskImage:
+                "radial-gradient(ellipse 90% 80% at 50% 30%, black 40%, transparent 85%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse 90% 80% at 50% 30%, black 40%, transparent 85%)",
             }}
           />
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-180">
-            {/* Centered Heading */}
+          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1fr)] lg:gap-16">
+            {/* ── FORM column (renders on the RIGHT on desktop) ── */}
+            <div className="lg:order-2">
+            {/* Heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-9 text-center"
+              className="mb-8 text-center"
             >
-              <h1 className="font-display text-[26px] sm:text-[46px] lg:text-[52px] font-extrabold leading-[1.15] sm:leading-[1.08] tracking-tight sm:tracking-[-0.03em] text-slate-900 mx-auto max-w-sm sm:max-w-none">
-                Thank You for Continuing With Solara.{" "}
-                <span className="block bg-gradient-to-r from-[#FF6A55] via-[#FF8042] to-[#FFB23E] bg-clip-text text-transparent mt-1 sm:mt-2">
-                  Claim 2 Months On Us.
+              <h1 className="font-display text-[26px] sm:text-[34px] lg:text-[38px] font-extrabold leading-[1.1] tracking-tight sm:tracking-[-0.02em] text-slate-900">
+                We'll take it from here,
+                <span className="block bg-gradient-to-r from-[#FF6A55] via-[#FF8042] to-[#FFB23E] bg-clip-text text-transparent mt-1">
+                  Doctor.
                 </span>
               </h1>
-              <p className="mx-auto mt-3 sm:mt-4 max-w-xl text-[14px] sm:text-base leading-relaxed text-slate-600 font-medium">
-                Thanks for clicking! Fill out the short form below to schedule your demo and activate your complimentary 2-month plan.
+              <p className="mx-auto mt-3 max-w-md text-[15px] sm:text-base leading-relaxed text-slate-600 font-medium">
+                Leave your number. A specialist calls you personally. Your first two months are on us.
               </p>
             </motion.div>
 
@@ -304,8 +326,11 @@ function ScheduleCallPage() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-10 rounded-lg border border-slate-200/80 bg-white p-6 shadow-[0_20px_50px_-12px_rgba(15,23,42,0.14)] sm:p-8"
+              className="relative z-10"
             >
+              {/* soft glow behind the card */}
+              <div className="pointer-events-none absolute -inset-4 rounded-[32px] bg-gradient-to-br from-[#FF6A55]/12 via-transparent to-[#FFB23E]/12 blur-2xl" />
+              <div className="relative rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_30px_70px_-20px_rgba(255,106,85,0.28)] backdrop-blur-xl ring-1 ring-slate-900/5 sm:p-8">
               <AnimatePresence mode="wait">
                 {!submitted ? (
                   <motion.form
@@ -520,7 +545,146 @@ function ScheduleCallPage() {
                   </motion.div>
                 )}
               </AnimatePresence>
+              </div>
             </motion.div>
+            </div>
+            {/* ── END LEFT ── */}
+
+            {/* ── PRODUCT VISUAL column (renders on the LEFT on desktop) ── */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="relative hidden lg:order-1 lg:block"
+            >
+              {/* ══ Glass + Aurora invitation card ══ */}
+              <div className="relative overflow-hidden rounded-[32px] p-[1.5px] shadow-[0_40px_100px_-30px_rgba(255,106,85,0.5)]">
+                {/* Animated aurora background */}
+                <div className="absolute inset-0 bg-[#0A0E17]">
+                  <motion.div
+                    aria-hidden="true"
+                    animate={{ x: [0, 40, -20, 0], y: [0, -30, 20, 0], scale: [1, 1.15, 1] }}
+                    transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -left-1/4 -top-1/4 h-[130%] w-[80%] rounded-full bg-[#FF6A55]/50 blur-[90px]"
+                  />
+                  <motion.div
+                    aria-hidden="true"
+                    animate={{ x: [0, -40, 30, 0], y: [0, 30, -20, 0], scale: [1, 1.2, 1] }}
+                    transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    className="absolute -right-1/4 top-0 h-[110%] w-[75%] rounded-full bg-[#FFB23E]/40 blur-[90px]"
+                  />
+                  <motion.div
+                    aria-hidden="true"
+                    animate={{ x: [0, 25, -35, 0], y: [0, -20, 25, 0], scale: [1, 1.1, 1] }}
+                    transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                    className="absolute bottom-0 left-1/4 h-[90%] w-[70%] rounded-full bg-[#16C4B3]/30 blur-[90px]"
+                  />
+                </div>
+
+                {/* Frosted glass panel */}
+                <div className="relative rounded-[31px] bg-slate-950/40 p-8 text-white ring-1 ring-inset ring-white/15 backdrop-blur-2xl">
+                  {/* top sheen */}
+                  <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+
+                  {/* Header: badge + serial */}
+                  <div className="flex items-center justify-between">
+                    <motion.span
+                      animate={{ boxShadow: ["0 0 0 0 rgba(255,178,62,0)", "0 0 16px 1px rgba(255,178,62,0.35)", "0 0 0 0 rgba(255,178,62,0)"] }}
+                      transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+                      className="relative inline-flex items-center gap-2 rounded-full bg-white/10 py-1.5 pl-2 pr-4 ring-1 ring-white/20 backdrop-blur"
+                    >
+                      <span className="relative grid h-5 w-5 place-items-center rounded-full bg-white text-[#E5482F] shadow-sm">
+                        <motion.span
+                          animate={{ scale: [1, 1.18, 1] }}
+                          transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                          <Sparkles className="h-3 w-3" strokeWidth={2.5} />
+                        </motion.span>
+                      </span>
+                      <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white">
+                        By invitation only
+                      </span>
+                    </motion.span>
+
+                  </div>
+
+                  {/* Title */}
+                  <div className="mt-7">
+                    <h3 className="font-display text-[31px] font-extrabold leading-[1.05] tracking-tight drop-shadow-sm">
+                      Reserved for a
+                      <span className="block bg-gradient-to-r from-white via-[#FFE7C7] to-[#FFB23E] bg-clip-text text-transparent">
+                        select few practices.
+                      </span>
+                    </h3>
+                    <p className="mt-3.5 max-w-sm text-[14px] leading-relaxed text-white/70">
+                      Your practice has been hand-selected for Solara's private rollout, a distinction
+                      we extend to only 25 clinics. This is your personal invitation to claim it.
+                    </p>
+                  </div>
+
+                  {/* Perks as glowing glass chips */}
+                  <ul className="mt-7 space-y-3">
+                    {[
+                      {
+                        icon: Gift,
+                        title: "Two months, entirely on us",
+                        desc: "Go live and let it run before a single bill arrives.",
+                        tint: "from-[#FF8A5B] to-[#E5482F]",
+                      },
+                      {
+                        icon: Sparkles,
+                        title: "We build it around you, by hand",
+                        desc: "A founder sets up your entire practice, end to end. You just show up.",
+                        tint: "from-[#16C4B3] to-[#0E8C80]",
+                      },
+                      {
+                        icon: Lock,
+                        title: "No surprises, ever",
+                        desc: "Transparent pricing with no hidden fees and no setup costs.",
+                        tint: "from-[#FFB23E] to-[#F59A1E]",
+                      },
+                    ].map((p) => (
+                      <li
+                        key={p.title}
+                        className="flex items-start gap-3.5 rounded-2xl bg-white/[0.07] p-3.5 ring-1 ring-white/10 backdrop-blur transition-colors hover:bg-white/[0.11]"
+                      >
+                        <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${p.tint} text-white shadow-lg ring-1 ring-white/20`}>
+                          <p.icon className="h-4 w-4" />
+                        </span>
+                        <div>
+                          <div className="text-[14.5px] font-bold leading-tight text-white">{p.title}</div>
+                          <div className="mt-0.5 text-[12.5px] leading-relaxed text-white/60">{p.desc}</div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Footer: scarcity */}
+                  <div className="mt-6 flex items-center gap-4">
+                    <div className="flex-1">
+                      <div className="mb-1.5 flex items-center justify-between text-[11px] font-bold uppercase tracking-wider">
+                        <span className="inline-flex items-center gap-1.5 text-white/70">
+                          <span className="relative flex h-1.5 w-1.5">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FFB23E] opacity-70" />
+                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#FFB23E]" />
+                          </span>
+                          Seats claimed
+                        </span>
+                        <span className="text-white">19 / 25</span>
+                      </div>
+                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/15">
+                        <div className="h-full w-[76%] rounded-full bg-gradient-to-r from-[#FFB23E] to-[#FF6A55] shadow-[0_0_12px_rgba(255,178,62,0.7)]" />
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-display text-2xl font-extrabold leading-none text-white">6</div>
+                      <div className="text-[10px] font-semibold uppercase tracking-wider text-white/50">left</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            {/* ── END LEFT VISUAL ── */}
           </div>
         </div>
 
