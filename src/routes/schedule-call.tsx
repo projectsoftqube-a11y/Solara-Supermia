@@ -937,7 +937,7 @@ function CustomTimeDropdown({
             transition={{ duration: 0.18, ease: "easeOut" }}
             className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_20px_45px_-8px_rgba(15,23,42,0.18)]"
           >
-            <div className="max-h-[285px] overflow-y-auto p-3 pr-2.5 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-[#FF6A55]/60">
+            <div data-lenis-prevent className="max-h-[285px] overflow-y-auto p-3 pr-2.5">
               {(() => {
                 const hasAnySlot = TIME_CATEGORIES.some((c) =>
                   c.slots.some((s) => isSlotAvailable(s, selectedDate)),

@@ -199,11 +199,17 @@ export function PhoneInput({
       setPos({ top: r.bottom + 8, left, width });
     };
     place();
+    // Reposition on page scroll/resize — but ignore scroll events that originate
+    // inside the dropdown's own list, otherwise the wheel fights the reposition.
+    const onScroll = (e: Event) => {
+      if (panelRef.current?.contains(e.target as Node)) return;
+      place();
+    };
     window.addEventListener("resize", place);
-    window.addEventListener("scroll", place, true);
+    window.addEventListener("scroll", onScroll, true);
     return () => {
       window.removeEventListener("resize", place);
-      window.removeEventListener("scroll", place, true);
+      window.removeEventListener("scroll", onScroll, true);
     };
   }, [open]);
 
@@ -297,7 +303,7 @@ export function PhoneInput({
                   </div>
                 </div>
 
-                <ul className="max-h-60 overflow-y-auto py-1">
+                <ul data-lenis-prevent className="max-h-60 overflow-y-auto overscroll-contain py-1">
                   {filtered.map((c) => (
                     <li key={c.iso}>
                       <button
