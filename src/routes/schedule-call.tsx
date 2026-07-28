@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -209,13 +209,13 @@ function ScheduleCallPage() {
     window.scrollTo(0, 0);
   }, []);
 
+  const navigate = useNavigate();
   const phoneInputRef = useRef<HTMLInputElement>(null);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [dateOpen, setDateOpen] = useState(false);
   const [timeOpen, setTimeOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [sendError, setSendError] = useState("");
   const [form, setForm] = useState({
     name: "",
@@ -255,13 +255,26 @@ function ScheduleCallPage() {
 
       if (!result.ok) {
         setSendError(result.error);
+        setSubmitting(false);
         return;
       }
-      setSubmitted(true);
+
+      // Dedicated URL so the conversion is countable in analytics.
+      // Booking details ride along in history state for the confirmation copy.
+      navigate({
+        to: "/thank-you",
+        state: {
+          booking: {
+            name: form.name.trim(),
+            phone: form.phone,
+            date,
+            time,
+          },
+        } as never,
+      });
     } catch (err) {
       console.error("[schedule-call] submit failed", err);
       setSendError("Something went wrong. Please try again, or email solara@supermia.ai.");
-    } finally {
       setSubmitting(false);
     }
   };
@@ -331,13 +344,7 @@ function ScheduleCallPage() {
               {/* soft glow behind the card */}
               <div className="pointer-events-none absolute -inset-4 rounded-[32px] bg-gradient-to-br from-[#FF6A55]/12 via-transparent to-[#FFB23E]/12 blur-2xl" />
               <div className="relative rounded-3xl border border-white/60 bg-white/90 p-6 shadow-[0_30px_70px_-20px_rgba(255,106,85,0.28)] backdrop-blur-xl ring-1 ring-slate-900/5 sm:p-8">
-              <AnimatePresence mode="wait">
-                {!submitted ? (
-                  <motion.form
-                    key="form"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                  <form
                     onSubmit={handleSubmit}
                     className="space-y-6"
                   >
@@ -493,58 +500,7 @@ function ScheduleCallPage() {
                         {sendError}
                       </p>
                     )}
-                  </motion.form>
-                ) : (
-                  /* Confirmation View */
-                  <motion.div
-                    key="confirmed"
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className="py-1"
-                  >
-                    <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-                      <div className="flex min-w-0 items-start gap-3 text-left">
-                        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-[#16C4B3] text-white shadow-lg shadow-[#16C4B3]/25">
-                          <Check className="h-5.5 w-5.5" strokeWidth={3} />
-                        </div>
-                        <div className="min-w-0">
-                          <h2 className="font-display text-xl font-extrabold tracking-tight text-slate-950 sm:text-2xl">
-                            {form.name ? `${form.name.split(" ")[0]}, ` : ""}you're booked.
-                          </h2>
-                          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm font-semibold text-slate-700">
-                            <span className="inline-flex items-center gap-1.5">
-                              <CalendarIcon className="h-4 w-4 text-[#FF6A55]" />
-                              {prettyDate}
-                            </span>
-                            <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:inline-block" />
-                            <span className="inline-flex items-center gap-1.5">
-                              <Clock className="h-4 w-4 text-[#FF6A55]" />
-                              {time} EST
-                            </span>
-                            <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:inline-block" />
-                            <span className="inline-flex items-center gap-1.5">
-                              <Phone className="h-4 w-4 text-[#FF6A55]" />
-                              {form.phone}
-                            </span>
-                          </div>
-                          <p className="mt-2 text-sm font-medium text-slate-500">
-                            A Solara specialist will call you then.
-                          </p>
-                        </div>
-                      </div>
-
-                      <a
-                        href="/"
-                        className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-950/15 transition hover:bg-slate-800"
-                      >
-                        Home
-                        <ArrowRight className="h-4 w-4" />
-                      </a>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  </form>
               </div>
             </motion.div>
             </div>
