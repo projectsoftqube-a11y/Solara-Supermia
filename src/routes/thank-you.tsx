@@ -72,8 +72,9 @@ function ThankYouPage() {
   const hasDetails = Boolean(prettyDate && booking.time);
 
   return (
-    // Locked to the viewport: the page never scrolls, content is sized to fit.
-    <div className="flex h-[100dvh] flex-col overflow-hidden bg-[#FFFBF6] selection:bg-[#FF6A55]/20">
+    // Desktop is locked to the viewport and never scrolls. On mobile the two
+    // columns stack past one screen, so the lock is released and the page scrolls.
+    <div className="flex min-h-dvh flex-col bg-[#FFFBF6] selection:bg-[#FF6A55]/20 lg:h-dvh lg:min-h-0 lg:overflow-hidden">
       {/* Hairline accent along the very top edge */}
       <div className="h-[3px] w-full shrink-0 bg-[#FF6A55]" />
 
@@ -91,13 +92,13 @@ function ThankYouPage() {
       </header>
 
       {/* Two full-height columns: ivory editorial left, white panel right */}
-      <main className="grid flex-1 overflow-hidden lg:grid-cols-[1.05fr_0.95fr]">
+      <main className="grid flex-1 lg:grid-cols-[1.05fr_0.95fr] lg:overflow-hidden">
         {/* ── LEFT: the confirmation ── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="relative flex flex-col justify-center overflow-hidden px-6 py-8 sm:px-10 lg:pl-[max(2.5rem,calc((100vw-1080px)/2))]"
+          className="relative flex flex-col justify-center px-6 pb-6 pt-9 sm:px-10 lg:overflow-hidden lg:py-8 lg:pl-[max(2.5rem,calc((100vw-1080px)/2))]"
         >
           {/* faint editorial rule work, no glow */}
           <div
@@ -160,9 +161,9 @@ function ThankYouPage() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col justify-center overflow-hidden border-slate-900/8 bg-white px-6 py-8 sm:px-10 lg:border-l lg:pr-[max(2.5rem,calc((100vw-1080px)/2))]"
+          className="flex flex-col justify-center border-t border-slate-900/8 bg-white px-6 py-8 sm:px-10 lg:border-l lg:border-t-0 lg:overflow-hidden lg:pr-[max(2.5rem,calc((100vw-1080px)/2))]"
         >
-          <div className="w-full max-w-100">
+          <div className="w-full max-w-100 lg:mx-0">
             {hasDetails && (
               <div className="overflow-hidden rounded-2xl border border-slate-900/10 bg-[#FFFBF6]">
                 {/* Ticket header */}
