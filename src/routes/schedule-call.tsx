@@ -727,22 +727,48 @@ function ScheduleCallPage() {
           </div>
         </div>
 
-        {/* Mobile Column View */}
-        <div className="flex flex-col px-6 pb-4 sm:hidden">
+        {/* Mobile Card View — same image cards as desktop, compacted in height */}
+        <div className="flex flex-col gap-3 px-4 pb-4 sm:hidden">
           {DEMO_FEATURES.map((feat, idx) => {
             const IconComp = feat.icon;
+            const BadgeIconComp = feat.badgeIcon;
             return (
-              <div
+              <motion.div
                 key={`mobile-${feat.title}-${idx}`}
-                className="flex items-center gap-2.5 py-2.5 border-b border-slate-200 last:border-0"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: idx * 0.05, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                className="relative h-[150px] overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm"
               >
-                <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#FFF4EB] text-[#FF6A55]">
-                  <IconComp className="h-4 w-4" />
+                {/* Full-bleed image */}
+                <img
+                  src={feat.image}
+                  alt={feat.title}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover object-center"
+                />
+                {/* Gradient scrim for text legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/35 to-transparent" />
+
+                {/* Badge */}
+                <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/95 px-2.5 py-1 text-[10.5px] font-bold text-slate-900 shadow-sm backdrop-blur-md">
+                  <BadgeIconComp className="h-3 w-3 text-[#FF6A55]" />
+                  <span className="whitespace-nowrap">{feat.badge}</span>
+                </span>
+
+                {/* Content overlaid at bottom */}
+                <div className="absolute inset-x-0 bottom-0 z-10 p-3.5">
+                  <div className="flex items-center gap-2">
+                    <div className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#FF6A55] text-white shadow-md">
+                      <IconComp className="h-3.5 w-3.5" />
+                    </div>
+                    <h3 className="text-[15px] font-bold leading-tight text-white">
+                      {feat.title}
+                    </h3>
+                  </div>
                 </div>
-                <h3 className="text-[15px] font-bold leading-tight text-slate-900">
-                  {feat.title}
-                </h3>
-              </div>
+              </motion.div>
             );
           })}
         </div>
