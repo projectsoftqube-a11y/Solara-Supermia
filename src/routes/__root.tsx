@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -118,14 +119,22 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+// Focused conversion pages: the floating bot competes with the form/confirmation,
+// so it is suppressed there and left in place everywhere else.
+const HIDE_FLOATING_BOTS_ON = ["/schedule-call", "/thank-you"];
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { pathname } = useRouterState({ select: (s) => s.location });
+  const showFloatingBots = !HIDE_FLOATING_BOTS_ON.includes(
+    pathname.replace(/\/+$/, "") || "/",
+  );
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      <FloatingBots />
+      {showFloatingBots && <FloatingBots />}
     </QueryClientProvider>
   );
 }

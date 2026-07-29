@@ -144,7 +144,7 @@ const DEFAULT_BUTTON =
 
 export function CallbackRequestForm({
   showEmail = true,
-  submitLabel = "Reserve Your Private Demo",
+  submitLabel = "Submit",
   submittingLabel = "Sending…",
   submitIcon = <PhoneCall className="h-4 w-4" />,
   buttonClassName = DEFAULT_BUTTON,

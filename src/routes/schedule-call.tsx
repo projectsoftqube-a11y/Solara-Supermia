@@ -4,35 +4,22 @@ import { motion, AnimatePresence } from "motion/react";
 import {
   ArrowRight,
   Calendar as CalendarIcon,
-  Check,
   AlertCircle,
+  Check,
   ChevronLeft,
   ChevronRight,
   ChevronDown,
   User,
-  Mail,
   Phone,
   Clock,
   Loader2,
-  Star,
-  Sun,
-  Sunrise,
-  Sunset,
   Globe,
-  Bot,
-  Database,
-  MessageSquare,
-  Stethoscope,
-  ShieldCheck,
-  BarChart3,
+  MailOpen,
   Sparkles,
-  PhoneCall,
-  Zap,
-  TrendingUp,
-  FileCheck,
-  Lock,
-  Activity,
-  Gift,
+  Rocket,
+  BadgePercent,
+  HandHeart,
+  Compass,
 } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Footer } from "@/components/sections/Footer";
@@ -71,129 +58,8 @@ const MONTHS = [
   "December",
 ];
 
-const TIME_CATEGORIES = [
-  {
-    name: "Morning",
-    icon: Sunrise,
-    slots: [
-      "8:00 AM",
-      "8:30 AM",
-      "9:00 AM",
-      "9:30 AM",
-      "10:00 AM",
-      "10:30 AM",
-      "11:00 AM",
-      "11:30 AM",
-    ],
-  },
-  {
-    name: "Afternoon",
-    icon: Sun,
-    slots: [
-      "12:00 PM",
-      "12:30 PM",
-      "1:00 PM",
-      "1:30 PM",
-      "2:00 PM",
-      "2:30 PM",
-      "3:00 PM",
-      "3:30 PM",
-      "4:00 PM",
-      "4:30 PM",
-    ],
-  },
-  {
-    name: "Evening",
-    icon: Sunset,
-    slots: ["5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM"],
-  },
-];
-
-const ALL_TIME_SLOTS = TIME_CATEGORIES.flatMap((c) => c.slots);
-
-const DEMO_FEATURES = [
-  {
-    image: "/images/custom_images/human_missed_calls_1784716295403.png",
-    icon: Bot,
-    badgeIcon: PhoneCall,
-    title: "Never Miss a Patient Call",
-    badge: "Zero Missed Calls",
-    description:
-      "Our AI answers calls and books appointments 24/7, so your front desk can focus entirely on the patients in your clinic.",
-  },
-  {
-    image: "/images/custom_images/human_double_bookings_1784716305311.png",
-    icon: Database,
-    badgeIcon: Zap,
-    title: "Eliminate Double Bookings",
-    badge: "Flawless Schedule Sync",
-    description:
-      "Syncs seamlessly with your practice management software in real-time. No more manual data entry or double-booked chairs.",
-  },
-  {
-    image: "/images/custom_images/human_hygiene_recalls_1784716317385.png",
-    icon: MessageSquare,
-    badgeIcon: TrendingUp,
-    title: "Automate Hygiene Recalls",
-    badge: "Keep Chairs Full",
-    description:
-      "Automatically text and reactivate overdue patients to keep your hygiene schedule fully booked without manual phone calls.",
-  },
-  {
-    image: "/images/custom_images/human_patient_intake_1784716328742.png",
-    icon: Stethoscope,
-    badgeIcon: FileCheck,
-    title: "Speed Up Patient Intake",
-    badge: "No More Paperwork",
-    description:
-      "Patients complete digital intake forms on their phones before they arrive, completely eliminating waiting room bottlenecks.",
-  },
-  {
-    image: "/images/custom_images/human_compliance_1784716338567.png",
-    icon: ShieldCheck,
-    badgeIcon: Lock,
-    title: "Ensure Complete Compliance",
-    badge: "Total Peace of Mind",
-    description:
-      "Your practice is fully protected. We use enterprise-grade encryption and guarantee 100% HIPAA compliance for total peace of mind.",
-  },
-  {
-    image: "/images/custom_images/human_revenue_1784716348606.png",
-    icon: BarChart3,
-    badgeIcon: Activity,
-    title: "Track Practice Revenue",
-    badge: "Stop Leaking Revenue",
-    description:
-      "Easily track call conversions and uncaptured revenue in real-time. Get clear, actionable data to help your practice grow.",
-  },
-];
-
 function toISO(d: Date) {
   return d.toLocaleDateString("en-CA");
-}
-
-function parseSlotToMinutes(slot: string): number {
-  const [timePart, period] = slot.split(" ");
-  const [hoursValue, minutesValue] = timePart.split(":").map(Number);
-  let hours = hoursValue;
-  if (period === "PM" && hours !== 12) hours += 12;
-  if (period === "AM" && hours === 12) hours = 0;
-  return hours * 60 + minutesValue;
-}
-
-function isSlotAvailable(slot: string, selectedDateISO: string): boolean {
-  if (!selectedDateISO) return false;
-  // Compared in US Eastern, not the visitor's zone — otherwise someone abroad
-  // sees slots that have already passed for the team taking the call.
-  const et = getEasternNow();
-
-  if (selectedDateISO === et.iso) {
-    const currentMinutes = et.hour * 60 + et.minute;
-    const slotMinutes = parseSlotToMinutes(slot);
-    // Slot must be in the future (with a 15-minute booking buffer)
-    return slotMinutes > currentMinutes + 15;
-  }
-  return true;
 }
 
 function formatUSPhone(value: string): string {
@@ -216,11 +82,16 @@ function ScheduleCallPage() {
   const [dateOpen, setDateOpen] = useState(false);
   const [timeOpen, setTimeOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [consent, setConsent] = useState(false);
   const [sendError, setSendError] = useState("");
   const [form, setForm] = useState({
     name: "",
     phone: "",
   });
+
+  // Either popover overlaps the invitation card's top-right corner, so the VIP
+  // seal steps out of the way while one is open.
+  const pickerOpen = dateOpen || timeOpen;
 
   const update = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -281,7 +152,9 @@ function ScheduleCallPage() {
 
   return (
     <div className="min-h-screen bg-[#FFFBF6] selection:bg-[#FF6A55]/20">
-      <main className="relative overflow-hidden pb-28 pt-10">
+      {/* Single full-height section: the form is the whole page now that the
+          benefits grid is gone, so the wash spans the entire viewport. */}
+      <main className="relative flex min-h-screen items-center overflow-hidden py-12 lg:py-16">
         {/* ══ Rich ambient background ══ */}
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           {/* aurora mesh — full coverage */}
@@ -289,14 +162,15 @@ function ScheduleCallPage() {
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(60% 55% at 15% 8%, rgba(255,178,62,0.28), transparent 60%)," +
-                "radial-gradient(55% 55% at 85% 4%, rgba(255,106,85,0.26), transparent 60%)," +
-                "radial-gradient(50% 45% at 92% 55%, rgba(22,196,179,0.14), transparent 60%)," +
-                "radial-gradient(55% 50% at 8% 62%, rgba(255,106,85,0.14), transparent 60%)," +
-                "radial-gradient(70% 60% at 50% 105%, rgba(255,178,62,0.16), transparent 65%)",
+                "radial-gradient(60% 50% at 15% 6%, rgba(255,178,62,0.30), transparent 62%)," +
+                "radial-gradient(55% 50% at 85% 4%, rgba(255,106,85,0.26), transparent 62%)," +
+                "radial-gradient(50% 45% at 95% 45%, rgba(22,196,179,0.16), transparent 62%)," +
+                "radial-gradient(55% 45% at 5% 45%, rgba(255,106,85,0.18), transparent 62%)," +
+                "radial-gradient(60% 45% at 20% 96%, rgba(255,178,62,0.26), transparent 64%)," +
+                "radial-gradient(60% 45% at 82% 98%, rgba(255,106,85,0.20), transparent 64%)",
             }}
           />
-          {/* full-page grid, softly masked */}
+          {/* full-page grid, masked from the centre so it reaches every edge */}
           <div
             className="absolute inset-0 opacity-[0.7]"
             style={{
@@ -305,9 +179,9 @@ function ScheduleCallPage() {
                 "linear-gradient(90deg, rgba(15,23,42,0.045) 1px, transparent 1px)",
               backgroundSize: "48px 48px",
               maskImage:
-                "radial-gradient(ellipse 90% 80% at 50% 30%, black 40%, transparent 85%)",
+                "radial-gradient(ellipse 95% 90% at 50% 50%, black 45%, transparent 92%)",
               WebkitMaskImage:
-                "radial-gradient(ellipse 90% 80% at 50% 30%, black 40%, transparent 85%)",
+                "radial-gradient(ellipse 95% 90% at 50% 50%, black 45%, transparent 92%)",
             }}
           />
         </div>
@@ -330,7 +204,7 @@ function ScheduleCallPage() {
                 </span>
               </h1>
               <p className="mx-auto mt-3 max-w-md text-[15px] sm:text-base leading-relaxed text-slate-600 font-medium">
-                Leave your number. A specialist calls you personally. Your first two months are on us.
+                Leave your number and pick a time. Our AI agent calls you right on schedule.
               </p>
             </motion.div>
 
@@ -467,12 +341,33 @@ function ScheduleCallPage() {
                       </div>
                     )}
 
+                    {/* Consent — required before an automated call may be placed */}
+                    <label className="flex cursor-pointer items-start gap-2.5">
+                      <span className="relative mt-px flex h-4.5 w-4.5 shrink-0 items-center justify-center">
+                        <input
+                          type="checkbox"
+                          required
+                          checked={consent}
+                          onChange={(e) => setConsent(e.target.checked)}
+                          className="peer h-4.5 w-4.5 cursor-pointer appearance-none rounded-[5px] border border-slate-300 bg-white transition checked:border-[#FF6A55] checked:bg-[#FF6A55] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF6A55]/50"
+                        />
+                        <Check
+                          className="pointer-events-none absolute h-3 w-3 text-white opacity-0 transition-opacity peer-checked:opacity-100"
+                          strokeWidth={3.5}
+                        />
+                      </span>
+                      <span className="text-[11.5px] leading-relaxed text-slate-500">
+                        I agree to receive an automated call from Solara's AI agent at this number.
+                      </span>
+                    </label>
+
                     {/* Submit Button */}
                     <button
                       type="submit"
                       disabled={
                         !date ||
                         !time ||
+                        !consent ||
                         form.name.trim().length < 2 ||
                         form.phone.replace(/\D/g, "").length !== 10 ||
                         submitting
@@ -485,7 +380,7 @@ function ScheduleCallPage() {
                         </>
                       ) : (
                         <>
-                          Reserve Your Private Demo
+                          Submit
                           <ArrowRight className="h-4 w-4" />
                         </>
                       )}
@@ -511,8 +406,27 @@ function ScheduleCallPage() {
               initial={{ opacity: 0, scale: 0.96, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="relative hidden lg:order-1 lg:block"
+              className="relative lg:order-1"
             >
+              {/* VIP seal — sits outside the clipping wrapper so it can overhang the corner.
+                  Hidden while a picker is open, since the popover overlaps this corner. */}
+              <motion.img
+                src="/images/vip-badge.png"
+                alt="VIP"
+                initial={{ scale: 0.6, opacity: 0, rotate: -14 }}
+                animate={{
+                  scale: pickerOpen ? 0.85 : 1,
+                  opacity: pickerOpen ? 0 : 1,
+                  rotate: 0,
+                }}
+                transition={
+                  pickerOpen
+                    ? { duration: 0.15, ease: "easeOut" }
+                    : { delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+                }
+                className="pointer-events-none absolute -right-4 -top-4 z-30 h-20 w-20 drop-shadow-[0_14px_32px_rgba(229,72,47,0.55)] sm:-right-7 sm:-top-7 sm:h-32 sm:w-32"
+              />
+
               {/* ══ Glass + Aurora invitation card ══ */}
               <div className="relative overflow-hidden rounded-[32px] p-[1.5px] shadow-[0_40px_100px_-30px_rgba(255,106,85,0.5)]">
                 {/* Animated aurora background */}
@@ -538,7 +452,7 @@ function ScheduleCallPage() {
                 </div>
 
                 {/* Frosted glass panel */}
-                <div className="relative rounded-[31px] bg-slate-950/40 p-8 text-white ring-1 ring-inset ring-white/15 backdrop-blur-2xl">
+                <div className="relative rounded-[31px] bg-slate-950/40 p-6 text-white ring-1 ring-inset ring-white/15 backdrop-blur-2xl sm:p-8">
                   {/* top sheen */}
                   <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
 
@@ -554,7 +468,7 @@ function ScheduleCallPage() {
                           animate={{ scale: [1, 1.18, 1] }}
                           transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
                         >
-                          <Sparkles className="h-3 w-3" strokeWidth={2.5} />
+                          <MailOpen className="h-3 w-3" strokeWidth={2.5} />
                         </motion.span>
                       </span>
                       <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white">
@@ -563,6 +477,7 @@ function ScheduleCallPage() {
                     </motion.span>
 
                   </div>
+
 
                   {/* Title */}
                   <div className="mt-7">
@@ -573,204 +488,69 @@ function ScheduleCallPage() {
                       </span>
                     </h3>
                     <p className="mt-3.5 max-w-sm text-[14px] leading-relaxed text-white/70">
-                      Your practice has been hand-selected for Solara's private rollout, a distinction
-                      we extend to only 25 clinics. This is your personal invitation to claim it.
+                      Yours was chosen. Most practices never see this page, and the ones that do are
+                      picked by hand. Claim your seat and everything after is handled for you.
                     </p>
                   </div>
 
                   {/* Perks as glowing glass chips */}
-                  <ul className="mt-7 space-y-3">
+                  <ul className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {[
                       {
-                        icon: Gift,
-                        title: "Two months, entirely on us",
-                        desc: "Go live and let it run before a single bill arrives.",
+                        icon: Rocket,
+                        title: "Priority Access",
+                        desc: "Skip the waitlist and go live ahead of everyone else.",
                         tint: "from-[#FF8A5B] to-[#E5482F]",
                       },
                       {
-                        icon: Sparkles,
-                        title: "We build it around you, by hand",
-                        desc: "A founder sets up your entire practice, end to end. You just show up.",
+                        icon: BadgePercent,
+                        title: "Founder Pricing",
+                        desc: "Early pricing, reserved for our first practices.",
+                        tint: "from-[#FFB23E] to-[#F59A1E]",
+                      },
+                      {
+                        icon: HandHeart,
+                        title: "White-Glove Onboarding",
+                        desc: "We set up your entire practice, end to end.",
                         tint: "from-[#16C4B3] to-[#0E8C80]",
                       },
                       {
-                        icon: Lock,
-                        title: "No surprises, ever",
-                        desc: "Transparent pricing with no hidden fees and no setup costs.",
-                        tint: "from-[#FFB23E] to-[#F59A1E]",
+                        icon: Compass,
+                        title: "Shape the Product",
+                        desc: "Your feedback goes straight onto the roadmap.",
+                        tint: "from-[#FF8A5B] to-[#E5482F]",
                       },
                     ].map((p) => (
                       <li
                         key={p.title}
-                        className="flex items-start gap-3.5 rounded-2xl bg-white/[0.07] p-3.5 ring-1 ring-white/10 backdrop-blur transition-colors hover:bg-white/[0.11]"
+                        className="group/perk relative flex items-start gap-3 overflow-hidden rounded-2xl bg-white/6 p-3 ring-1 ring-white/10 backdrop-blur transition-colors hover:bg-white/10 sm:flex-col sm:gap-0 sm:p-4"
                       >
-                        <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${p.tint} text-white shadow-lg ring-1 ring-white/20`}>
-                          <p.icon className="h-4 w-4" />
+                        {/* tinted corner glow, keyed to the icon */}
+                        <span
+                          aria-hidden="true"
+                          className={`pointer-events-none absolute -left-6 -top-6 h-16 w-16 rounded-full bg-gradient-to-br ${p.tint} opacity-20 blur-2xl transition-opacity group-hover/perk:opacity-35`}
+                        />
+                        <span
+                          className={`relative grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${p.tint} text-white shadow-lg ring-1 ring-white/20 sm:h-10 sm:w-10`}
+                        >
+                          <p.icon className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
                         </span>
-                        <div>
-                          <div className="text-[14.5px] font-bold leading-tight text-white">{p.title}</div>
-                          <div className="mt-0.5 text-[12.5px] leading-relaxed text-white/60">{p.desc}</div>
+                        <div className="relative min-w-0 sm:mt-3">
+                          <div className="text-[14px] font-bold leading-tight text-white sm:text-[14.5px]">
+                            {p.title}
+                          </div>
+                          <div className="mt-1 text-[12.5px] leading-relaxed text-white/60">
+                            {p.desc}
+                          </div>
                         </div>
                       </li>
                     ))}
                   </ul>
-
-                  {/* Footer: scarcity */}
-                  <div className="mt-6 flex items-center gap-4">
-                    <div className="flex-1">
-                      <div className="mb-1.5 flex items-center justify-between text-[11px] font-bold uppercase tracking-wider">
-                        <span className="inline-flex items-center gap-1.5 text-white/70">
-                          <span className="relative flex h-1.5 w-1.5">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FFB23E] opacity-70" />
-                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#FFB23E]" />
-                          </span>
-                          Seats claimed
-                        </span>
-                        <span className="text-white">19 / 25</span>
-                      </div>
-                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/15">
-                        <div className="h-full w-[76%] rounded-full bg-gradient-to-r from-[#FFB23E] to-[#FF6A55] shadow-[0_0_12px_rgba(255,178,62,0.7)]" />
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-display text-2xl font-extrabold leading-none text-white">6</div>
-                      <div className="text-[10px] font-semibold uppercase tracking-wider text-white/50">left</div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </motion.div>
             {/* ── END LEFT VISUAL ── */}
           </div>
-        </div>
-
-        {/* Connected Section Divider */}
-        <div className="my-10 sm:my-16 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 to-slate-200" />
-          <div className="flex items-center gap-2 rounded-full border border-[#FF6A55]/25 bg-[#FFF4EB] px-4 py-1 text-xs font-bold text-[#FF6A55] shadow-xs">
-            <Sparkles className="h-4 w-4" />
-            <span>Why Choose Solara</span>
-          </div>
-          <div className="h-px flex-1 bg-gradient-to-l from-transparent via-slate-200 to-slate-200" />
-        </div>
-
-        {/* Full Screen Width Section Header */}
-        <div className="mb-4 sm:mb-10 text-center px-4">
-          <h2 className="font-display text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-            Key Benefits
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 font-medium hidden sm:block">
-            Eliminate missed calls, automate patient hygiene recall, and connect your PMS seamlessly
-            — so your team focuses on clinical patient care.
-          </p>
-        </div>
-
-        {/* Desktop Bento Grid */}
-        <div className="mx-auto hidden max-w-7xl px-4 py-4 sm:block lg:px-8">
-          <div className="grid auto-rows-[240px] grid-cols-3 gap-5">
-            {DEMO_FEATURES.map((feat, idx) => {
-              const IconComp = feat.icon;
-              const BadgeIconComp = feat.badgeIcon;
-              // Bento sizing chosen so the 3-col grid packs with no gaps:
-              // tile 0 is a large 2×2 hero block; the other 5 tiles are 1×1.
-              // (2×2 adds 3 extra cells → 6 base + 3 = 9 = a clean 3×3 grid.)
-              const isHero = idx === 0;
-
-              return (
-                <motion.div
-                  key={`${feat.title}-${idx}`}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ delay: idx * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className={`group relative overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#FF6A55]/50 hover:shadow-xl ${
-                    isHero ? "col-span-2 row-span-2" : ""
-                  }`}
-                >
-                  {/* Full-bleed image */}
-                  <img
-                    src={feat.image}
-                    alt={feat.title}
-                    className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {/* Gradient scrim for text legibility */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent" />
-
-                  {/* Badge */}
-                  <span className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/95 px-3.5 py-1.5 text-[12px] font-bold text-slate-900 shadow-sm backdrop-blur-md">
-                    <BadgeIconComp className="h-4 w-4 text-[#FF6A55]" />
-                    <span className="whitespace-nowrap">{feat.badge}</span>
-                  </span>
-
-                  {/* Content overlaid at bottom */}
-                  <div className="absolute inset-x-0 bottom-0 z-10 p-6">
-                    <div className="mb-2 flex items-center gap-2">
-                      <div className={`inline-flex items-center justify-center rounded-lg bg-[#FF6A55] text-white shadow-md ${isHero ? "h-10 w-10" : "h-8 w-8"}`}>
-                        <IconComp className={isHero ? "h-5 w-5" : "h-4 w-4"} />
-                      </div>
-                      <h3 className={`font-bold text-white ${isHero ? "text-2xl" : "text-lg"}`}>{feat.title}</h3>
-                    </div>
-                    {/* Hero shows description always; smaller tiles reveal it on hover */}
-                    <p
-                      className={`leading-relaxed text-white/80 ${isHero ? "text-[15px]" : "text-sm"} ${
-                        isHero
-                          ? ""
-                          : "max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:mt-1 group-hover:max-h-24 group-hover:opacity-100"
-                      }`}
-                    >
-                      {feat.description}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Mobile Card View — same image cards as desktop, compacted in height */}
-        <div className="flex flex-col gap-3 px-4 pb-4 sm:hidden">
-          {DEMO_FEATURES.map((feat, idx) => {
-            const IconComp = feat.icon;
-            const BadgeIconComp = feat.badgeIcon;
-            return (
-              <motion.div
-                key={`mobile-${feat.title}-${idx}`}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ delay: idx * 0.05, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="relative h-[150px] overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm"
-              >
-                {/* Full-bleed image */}
-                <img
-                  src={feat.image}
-                  alt={feat.title}
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover object-center"
-                />
-                {/* Gradient scrim for text legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/35 to-transparent" />
-
-                {/* Badge */}
-                <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/95 px-2.5 py-1 text-[10.5px] font-bold text-slate-900 shadow-sm backdrop-blur-md">
-                  <BadgeIconComp className="h-3 w-3 text-[#FF6A55]" />
-                  <span className="whitespace-nowrap">{feat.badge}</span>
-                </span>
-
-                {/* Content overlaid at bottom */}
-                <div className="absolute inset-x-0 bottom-0 z-10 p-3.5">
-                  <div className="flex items-center gap-2">
-                    <div className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#FF6A55] text-white shadow-md">
-                      <IconComp className="h-3.5 w-3.5" />
-                    </div>
-                    <h3 className="text-[15px] font-bold leading-tight text-white">
-                      {feat.title}
-                    </h3>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
         </div>
       </main>
     </div>
@@ -870,6 +650,9 @@ function CustomTimeDropdown({
   onSelectTime: (t: string) => void;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  // The clock popover is tall; flip it above the trigger when the viewport
+  // cannot fit it below.
+  const [dropUp, setDropUp] = useState(false);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -880,6 +663,16 @@ function CustomTimeDropdown({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [onToggleOpen]);
+
+  useEffect(() => {
+    if (!isOpen || !containerRef.current) return;
+    const POPOVER_H = 380; // readout + clock face + actions
+    const rect = containerRef.current.getBoundingClientRect();
+    const below = window.innerHeight - rect.bottom;
+    const above = rect.top;
+    // Only flip when there genuinely is more room above, so we never make it worse.
+    setDropUp(below < POPOVER_H && above > below);
+  }, [isOpen]);
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -900,7 +693,7 @@ function CustomTimeDropdown({
       >
         <span className="flex items-center gap-2">
           <Clock className={`h-4 w-4 ${selectedTime ? "text-[#FF6A55]" : "text-slate-400"}`} />
-          {selectedTime || (disabled ? "Pick date first" : "Select a time slot…")}
+          {selectedTime || (disabled ? "Pick date first" : "Pick a time…")}
         </span>
         <ChevronDown
           className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${
@@ -913,74 +706,255 @@ function CustomTimeDropdown({
       <AnimatePresence>
         {isOpen && !disabled && (
           <motion.div
-            initial={{ opacity: 0, y: 6, scale: 0.98 }}
+            initial={{ opacity: 0, y: dropUp ? -6 : 6, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 6, scale: 0.98 }}
+            exit={{ opacity: 0, y: dropUp ? -6 : 6, scale: 0.98 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_20px_45px_-8px_rgba(15,23,42,0.18)]"
+            className={`absolute right-0 z-50 w-65 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_20px_45px_-8px_rgba(15,23,42,0.18)] ${
+              dropUp ? "bottom-full mb-2" : "top-full mt-2"
+            }`}
           >
-            <div data-lenis-prevent className="max-h-[285px] overflow-y-auto p-3 pr-2.5">
-              {(() => {
-                const hasAnySlot = TIME_CATEGORIES.some((c) =>
-                  c.slots.some((s) => isSlotAvailable(s, selectedDate)),
-                );
-                if (!hasAnySlot) {
-                  return (
-                    <div className="p-4 text-center text-xs font-medium text-slate-500">
-                      No remaining slots available today. Please pick a future date on the calendar.
-                    </div>
-                  );
-                }
-
-                return TIME_CATEGORIES.map((category) => {
-                  const CategoryIcon = category.icon;
-                  const validSlots = category.slots.filter((s) => isSlotAvailable(s, selectedDate));
-                  if (validSlots.length === 0) return null;
-
-                  return (
-                    <div key={category.name} className="mb-3.5 last:mb-0">
-                      {/* Category Header */}
-                      <div className="mb-2 flex items-center gap-1.5 rounded-lg border border-[#FF6A55]/15 bg-[#FFF4EB]/60 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-[#FF6A55]">
-                        <CategoryIcon className="h-3 w-3 shrink-0" />
-                        {category.name}
-                      </div>
-
-                      {/* Slot buttons grid */}
-                      <div className="grid grid-cols-2 gap-1.5">
-                        {validSlots.map((slot) => {
-                          const isSelected = selectedTime === slot;
-                          return (
-                            <button
-                              key={slot}
-                              type="button"
-                              onClick={() => {
-                                onSelectTime(slot);
-                                onToggleOpen(false);
-                              }}
-                              className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition ${
-                                isSelected
-                                  ? "bg-gradient-to-r from-[#FF6A55] to-[#E55A45] text-white shadow-md shadow-[#FF6A55]/25 font-bold"
-                                  : "border border-slate-100 text-slate-700 hover:border-[#FF6A55]/30 hover:bg-[#FFF4EB]/70 hover:text-[#FF6A55]"
-                              }`}
-                            >
-                              <span>{slot}</span>
-                              {isSelected && (
-                                <Check className="h-3.5 w-3.5 stroke-[3] text-white" />
-                              )}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                });
-              })()}
+            <div data-lenis-prevent className="p-3">
+              <ClockPicker
+                value={selectedTime}
+                onChange={onSelectTime}
+                onDone={() => onToggleOpen(false)}
+              />
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   );
+}
+
+/* ── Analog clock time picker ──
+   Two stages: drag/click the hour hand, then the minute hand. The user can land
+   on any time; minutes snap to 5 so the hand does not feel jittery. */
+function ClockPicker({
+  value,
+  onChange,
+  onDone,
+}: {
+  value: string;
+  onChange: (t: string) => void;
+  onDone: () => void;
+}) {
+  const faceRef = useRef<HTMLDivElement>(null);
+  const [stage, setStage] = useState<"hour" | "minute">("hour");
+  const [dragging, setDragging] = useState(false);
+
+  const parsed = parseDisplayTime(value);
+  const [hour, setHour] = useState(parsed?.hour ?? 9);
+  const [minute, setMinute] = useState(parsed?.minute ?? 0);
+  const [period, setPeriod] = useState<"AM" | "PM">(parsed?.period ?? "AM");
+
+  // Keep the picker in step when the field is cleared or set elsewhere.
+  useEffect(() => {
+    const p = parseDisplayTime(value);
+    if (!p) return;
+    setHour(p.hour);
+    setMinute(p.minute);
+    setPeriod(p.period);
+  }, [value]);
+
+  // Mirrors the current selection so pointer handlers never read stale values.
+  const liveRef = useRef({ hour, minute, period });
+  liveRef.current = { hour, minute, period };
+
+  const emit = (h: number, m: number, p: "AM" | "PM") =>
+    onChange(`${h}:${String(m).padStart(2, "0")} ${p}`);
+
+  // Convert a pointer position into an angle, then into an hour or minute.
+  const applyFromPoint = (clientX: number, clientY: number, forStage: "hour" | "minute") => {
+    const el = faceRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const deg = (Math.atan2(clientY - cy, clientX - cx) * 180) / Math.PI + 90;
+    const norm = (deg + 360) % 360;
+
+    // Read from the ref, not the render closure, so a fast drag always emits
+    // the current hour/minute/period pairing.
+    const cur = liveRef.current;
+    if (forStage === "hour") {
+      const h = Math.round(norm / 30) % 12 || 12;
+      setHour(h);
+      emit(h, cur.minute, cur.period);
+    } else {
+      const raw = Math.round(norm / 6) % 60;
+      const snapped = (Math.round(raw / 5) * 5) % 60;
+      setMinute(snapped);
+      emit(cur.hour, snapped, cur.period);
+    }
+  };
+
+  const handleDown = (e: React.PointerEvent) => {
+    setDragging(true);
+    e.currentTarget.setPointerCapture(e.pointerId);
+    applyFromPoint(e.clientX, e.clientY, stage);
+  };
+  const handleMove = (e: React.PointerEvent) => {
+    if (!dragging) return;
+    applyFromPoint(e.clientX, e.clientY, stage);
+  };
+  const handleUp = () => {
+    if (!dragging) return;
+    setDragging(false);
+    // Advance hour -> minute automatically, mirroring native pickers.
+    if (stage === "hour") setStage("minute");
+  };
+
+  const handAngle = stage === "hour" ? (hour % 12) * 30 : minute * 6;
+  const marks = stage === "hour"
+    ? Array.from({ length: 12 }, (_, i) => ({ label: String(i + 1), angle: (i + 1) * 30 }))
+    : Array.from({ length: 12 }, (_, i) => ({
+        label: String(i * 5).padStart(2, "0"),
+        angle: i * 30,
+      }));
+
+  return (
+    <div className="select-none">
+      {/* Readout — the two segments double as stage tabs */}
+      <div className="mb-3 flex items-center justify-center gap-1.5">
+        <button
+          type="button"
+          onClick={() => setStage("hour")}
+          className={`rounded-xl px-2.5 py-1 font-display text-[28px] font-extrabold leading-none tabular-nums transition ${
+            stage === "hour"
+              ? "bg-[#FFF4EB] text-[#FF6A55] ring-1 ring-[#FF6A55]/25"
+              : "text-slate-400 hover:bg-slate-50 hover:text-slate-600"
+          }`}
+        >
+          {hour}
+        </button>
+        <span className="font-display text-[26px] font-extrabold leading-none text-slate-300">:</span>
+        <button
+          type="button"
+          onClick={() => setStage("minute")}
+          className={`rounded-xl px-2.5 py-1 font-display text-[28px] font-extrabold leading-none tabular-nums transition ${
+            stage === "minute"
+              ? "bg-[#FFF4EB] text-[#FF6A55] ring-1 ring-[#FF6A55]/25"
+              : "text-slate-400 hover:bg-slate-50 hover:text-slate-600"
+          }`}
+        >
+          {String(minute).padStart(2, "0")}
+        </button>
+
+        {/* AM/PM segmented control */}
+        <div className="ml-2 flex overflow-hidden rounded-lg ring-1 ring-slate-200">
+          {(["AM", "PM"] as const).map((p) => (
+            <button
+              key={p}
+              type="button"
+              onClick={() => {
+                setPeriod(p);
+                emit(hour, minute, p);
+              }}
+              className={`px-2.5 py-1.5 text-[10.5px] font-bold transition ${
+                period === p
+                  ? "bg-[#FF6A55] text-white"
+                  : "bg-white text-slate-500 hover:bg-slate-50"
+              }`}
+            >
+              {p}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Clock face */}
+      <div
+        ref={faceRef}
+        onPointerDown={handleDown}
+        onPointerMove={handleMove}
+        onPointerUp={handleUp}
+        onPointerCancel={handleUp}
+        className={`relative mx-auto h-53 w-53 touch-none rounded-full bg-slate-50 ring-1 transition-shadow ${
+          dragging ? "cursor-grabbing ring-[#FF6A55]/30" : "cursor-grab ring-slate-200/80"
+        }`}
+      >
+        {/* hand */}
+        <div
+          className="absolute left-1/2 top-1/2 origin-bottom rounded-full bg-[#FF6A55]"
+          style={{
+            width: 2,
+            height: "38%",
+            transform: `translate(-50%, -100%) rotate(${handAngle}deg)`,
+            transformOrigin: "50% 100%",
+            transition: dragging ? "none" : "transform 200ms cubic-bezier(0.16,1,0.3,1)",
+          }}
+        />
+        {/* hand tip */}
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 grid h-8 w-8 place-items-center rounded-full bg-[#FF6A55] shadow-[0_2px_10px_rgba(255,106,85,0.5)]"
+          style={{
+            transform: `rotate(${handAngle}deg) translateY(-76px) rotate(${-handAngle}deg) translate(-50%, -50%)`,
+            transformOrigin: "0 0",
+            transition: dragging ? "none" : "transform 200ms cubic-bezier(0.16,1,0.3,1)",
+          }}
+        />
+        {/* centre pin */}
+        <div className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF6A55] ring-2 ring-white" />
+
+        {/* numerals */}
+        {marks.map((mk) => {
+          const rad = ((mk.angle - 90) * Math.PI) / 180;
+          const radius = 76;
+          const x = Math.cos(rad) * radius;
+          const y = Math.sin(rad) * radius;
+          const active =
+            stage === "hour"
+              ? Number(mk.label) === hour
+              : Number(mk.label) === minute;
+          return (
+            <span
+              key={`${stage}-${mk.label}`}
+              className={`pointer-events-none absolute grid h-8 w-8 place-items-center rounded-full text-[12.5px] tabular-nums transition-colors ${
+                active ? "font-extrabold text-white" : "font-semibold text-slate-500"
+              }`}
+              style={{
+                left: `calc(50% + ${x}px)`,
+                top: `calc(50% + ${y}px)`,
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              {mk.label}
+            </span>
+          );
+        })}
+      </div>
+
+      {/* Actions */}
+      <div className="mt-3 flex items-center justify-between gap-2 border-t border-slate-100 pt-3">
+        <span className="text-[11px] font-medium text-slate-400">
+          {stage === "hour" ? "Choose the hour" : "Choose the minutes"}
+        </span>
+        <button
+          type="button"
+          onClick={() => {
+            emit(hour, minute, period);
+            onDone();
+          }}
+          className="rounded-lg bg-slate-950 px-4 py-2 text-[12px] font-bold text-white transition hover:bg-slate-800"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/** Parse "9:30 AM" back into parts so the picker reopens where the user left it. */
+function parseDisplayTime(v: string): { hour: number; minute: number; period: "AM" | "PM" } | null {
+  const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec(v?.trim() ?? "");
+  if (!m) return null;
+  return {
+    hour: Number(m[1]),
+    minute: Number(m[2]),
+    period: m[3].toUpperCase() as "AM" | "PM",
+  };
 }
 
 /* ── Interactive Visual Monthly Calendar Component ── */
