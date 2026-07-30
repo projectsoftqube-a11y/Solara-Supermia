@@ -204,8 +204,9 @@ function ScheduleCallPage() {
                 </span>
               </h1>
               <p className="mx-auto mt-3 max-w-md text-[15px] sm:text-base leading-relaxed text-slate-600 font-medium">
-                Leave your number and pick a time. Our AI agent calls you right on schedule.
-              </p>
+Please share your details below, and our AI
+Onboarding Concierge will reach out to get you
+started.​              </p>
             </motion.div>
 
             {/* Centered Single Column Form Card */}
@@ -487,10 +488,6 @@ function ScheduleCallPage() {
                         select few practices.
                       </span>
                     </h3>
-                    <p className="mt-3.5 max-w-sm text-[14px] leading-relaxed text-white/70">
-                      Yours was chosen. Most practices never see this page, and the ones that do are
-                      picked by hand. Claim your seat and everything after is handled for you.
-                    </p>
                   </div>
 
                   {/* Perks as glowing glass chips */}
@@ -499,25 +496,25 @@ function ScheduleCallPage() {
                       {
                         icon: Rocket,
                         title: "Priority Access",
-                        desc: "Skip the waitlist and go live ahead of everyone else.",
+                        desc: "Be among the first dental practices to experience Solara before public launch.",
                         tint: "from-[#FF8A5B] to-[#E5482F]",
                       },
                       {
                         icon: BadgePercent,
                         title: "Founder Pricing",
-                        desc: "Early pricing, reserved for our first practices.",
+                        desc: "Lock in exclusive early adopter pricing available only to founding clinics.",
                         tint: "from-[#FFB23E] to-[#F59A1E]",
                       },
                       {
                         icon: HandHeart,
                         title: "White-Glove Onboarding",
-                        desc: "We set up your entire practice, end to end.",
+                        desc: "Enjoy a dedicated, hands-on setup experience with personalized support.",
                         tint: "from-[#16C4B3] to-[#0E8C80]",
                       },
                       {
                         icon: Compass,
                         title: "Shape the Product",
-                        desc: "Your feedback goes straight onto the roadmap.",
+                        desc: "Help shape Solara's future by sharing feedback that influences new features.​",
                         tint: "from-[#FF8A5B] to-[#E5482F]",
                       },
                     ].map((p) => (

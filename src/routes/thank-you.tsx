@@ -132,15 +132,15 @@ function ThankYouPage() {
             </span>
 
             <h1 className="mt-6 font-display text-[32px] font-extrabold leading-[1.04] tracking-[-0.025em] text-slate-950 sm:text-[42px]">
-              {firstName ? `${firstName}, your seat` : "Your seat"}
+             Dr {firstName ? `${firstName}, your seat` : "Your seat"}
               <br />
               is secured.
             </h1>
 
             <p className="mx-auto mt-4 max-w-[420px] text-[14.5px] leading-relaxed text-slate-600">
               {hasDetails
-                ? "Your line is reserved for the time below. Answer when it rings and you will see exactly what Solara does for a practice like yours."
-                : "Your place is held. Expect your call shortly to lock in the time that suits you."}
+                ? "Our AI Onboarding Concierge will personally call you at your preferred date and time to help you get started with Solara.​"
+                : "Your line is reserved for the time below. Answer when it rings and you will see exactly what Solara does for a practice like yours."}
             </p>
           </motion.div>
 
@@ -203,12 +203,12 @@ function ThankYouPage() {
                  give the visitor a route back to booking. */
               <>
                 <div className="flex items-center justify-between border-b border-dashed border-slate-900/12 px-5 py-3 sm:px-6">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
-                    Your request
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-1000">
+                    VIP Onboarding​
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-[#16C4B3]/12 px-2.5 py-1 text-[9.5px] font-bold uppercase tracking-[0.12em] text-[#0E8C80]">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#16C4B3]" />
-                    Received
+                    Slot Confirmed​
                   </span>
                 </div>
                 <div className="px-5 py-5 sm:px-6">
