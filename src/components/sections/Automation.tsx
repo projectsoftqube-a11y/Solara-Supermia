@@ -236,7 +236,7 @@ export function Automation() {
                  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-[#FF6A55] to-[#FFB23E] group-hover:w-2 transition-all"></div>
                  
                  <div className="flex items-center gap-2 text-[#FF6A55] font-black text-[11px] sm:text-[12px] uppercase tracking-[0.15em]">
-                   <Sparkles className="w-3.5 h-3.5" /> First 2 months free
+                   <Sparkles className="w-3.5 h-3.5" /> First 2 months free on Essentials
                  </div>
                  
                  <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-slate-200"></div>

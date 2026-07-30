@@ -9,9 +9,9 @@ const plans = [
     icon: User,
     tagline: "Solo practices",
     desc: "The always-on phone & chat agent. Stop losing after-hours calls.",
-    monthlyPrice: 399,
-    annualPrice: 339,
-    savings: 720,
+    monthlyPrice: 179,
+    annualPrice: 149,
+    savings: 360,
     cta: "Book a 20-min demo",
     features: [
       "Voice AI Agent — inbound only, 24/7",
@@ -29,9 +29,9 @@ const plans = [
     icon: Crown,
     tagline: "Growing groups",
     desc: "The complete always-on front office. Outbound, scheduling, intelligence & clinical.",
-    monthlyPrice: 699,
-    annualPrice: 599,
-    savings: 1200,
+    monthlyPrice: 399,
+    annualPrice: 349,
+    savings: 600,
     cta: "Book a 20-min demo",
     popular: true,
     inheritLabel: "Everything in Essentials, plus",
@@ -42,7 +42,6 @@ const plans = [
       "Form Builder & paperless intake",
       "Visit notes written automatically",
       "360° Patient View & activity hub",
-      "Insurance Verification — pre-arrival",
       "5,000 AI call minutes / month",
       "Priority support · 4-hour response",
     ],
@@ -53,10 +52,10 @@ const plans = [
     icon: Building2,
     tagline: "Multi-location",
     desc: "For dental groups with multiple locations. Scale, centralize, and report.",
-    monthlyPrice: 1499,
-    annualPrice: 1299,
-    priceSuffix: "/ location",
-    savings: 2400,
+    // Priced per engagement, so this tier shows "Custom" instead of a figure.
+    custom: true,
+    customLabel: "Custom",
+    customNote: "Priced to your group",
     cta: "Book a 20-min demo",
     inheritLabel: "Everything in Pro, plus",
     features: [
@@ -95,7 +94,7 @@ export function Pricing() {
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FF6A55]/10 border border-[#FF6A55]/20 mb-6"
           >
             <Gift className="w-3.5 h-3.5 text-[#FF6A55]" />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#FF6A55]">Founding offer · first 2 months free</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#FF6A55]">Founding offer · first 2 months free on Essentials</span>
           </motion.div>
 
           <motion.h2
@@ -310,12 +309,9 @@ export function Pricing() {
                   </div>
                 </div>
 
-                {/* Free badge */}
-                <div className="mb-6">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#FFB23E] text-[#0B1219]">
-                    <Gift className="w-3 h-3" /> First 2 months free
-                  </span>
-                </div>
+                {/* Spacer keeps this card's CTA aligned with Essentials, which
+                    is the only tier carrying the free-months badge. */}
+                <div className="mb-6 h-[26px]" />
 
                 {/* CTA */}
                 <a
@@ -388,25 +384,20 @@ export function Pricing() {
               <div className="mb-2">
                 <div className="flex items-baseline gap-1.5">
                   <span className="text-5xl font-display font-bold text-slate-900 tracking-tight">
-                    ${annual ? plans[2].annualPrice : plans[2].monthlyPrice}
+                    {plans[2].customLabel}
                   </span>
                   <span className="text-sm text-slate-400 font-medium">/ location / mo</span>
                 </div>
                 <div className="h-5 mt-1">
-                  {annual && (
-                    <span className="text-xs font-bold text-[#FFB23E]">
-                      Billed annually · save ${plans[2].savings}/yr
-                    </span>
-                  )}
+                  <span className="text-xs font-bold text-[#FFB23E]">
+                    {plans[2].customNote}
+                  </span>
                 </div>
               </div>
 
-              {/* Free badge */}
-              <div className="mb-6">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#16C4B3]/10 text-[#0E8C80]">
-                  <Gift className="w-3 h-3" /> First 2 months free
-                </span>
-              </div>
+              {/* Spacer keeps this card's CTA aligned with Essentials, which
+                  is the only tier carrying the free-months badge. */}
+              <div className="mb-6 h-6.5" />
 
               {/* CTA */}
               <a

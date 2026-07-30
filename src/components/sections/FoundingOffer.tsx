@@ -48,7 +48,7 @@ export function FoundingOffer() {
             transition={{ delay: 0.2 }}
             className="text-base sm:text-lg text-slate-400 max-w-2xl font-medium leading-relaxed"
           >
-            Join the founding cohort and run your whole front office free. Use the time to launch Solara, test it on real calls, and watch the schedule fill before a monthly bill ever starts.
+            Join the founding cohort and run Essentials free for two months. Use the time to launch Solara, test it on real calls, and watch the schedule fill before a monthly bill ever starts.
           </motion.p>
         </div>
 
@@ -74,7 +74,8 @@ export function FoundingOffer() {
               
               <div className="text-[10px] font-mono uppercase tracking-widest text-[#FFB23E] font-bold mb-4 mt-2">Founding Offer</div>
               <div className="text-7xl lg:text-8xl font-display font-bold text-white tracking-tighter leading-none mb-2">$0</div>
-              <div className="text-lg text-[#FF6A55] font-bold mb-8">for your first 2 months</div>
+              <div className="text-lg text-[#FF6A55] font-bold mb-1">for your first 2 months</div>
+              <div className="text-xs font-semibold text-slate-400 mb-8">on the Essentials plan</div>
               
               <div className="mt-auto space-y-4 text-center">
                 <div className="p-3 rounded-2xl bg-white/5 border border-white/5">

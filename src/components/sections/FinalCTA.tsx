@@ -90,7 +90,7 @@ export function FinalCTA() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 mt-4">
             <span className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#FFB23E]/10 border border-[#FFB23E]/20 text-[#FFB23E] font-bold text-base lg:text-lg">
               <Gift className="w-5 h-5" />
-              First 2 months free for founding clinics
+              First 2 months free on Essentials for founding clinics
             </span>
             <div className="flex flex-wrap items-center justify-center gap-3 text-slate-300 font-medium text-sm lg:text-base">
               <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 shadow-sm">

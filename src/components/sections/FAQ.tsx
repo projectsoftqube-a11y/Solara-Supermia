@@ -5,7 +5,7 @@ import { X, ArrowUpRight } from "lucide-react";
 const faqs = [
   {
     question: "Is it really free for the first 2 months?",
-    answer: "Yes. Founding clinics run the whole platform free for the first two months, with no setup fee and the option to cancel anytime. You use the time to launch Solara and see the schedule impact before any monthly bill starts."
+    answer: "Yes, on the Essentials plan. Founding clinics run Essentials free for the first two months, with no setup fee and the option to cancel anytime. You use the time to launch Solara and see the schedule impact before any monthly bill starts. Pro and Enterprise are billed from the first month."
   },
   {
     question: "Is this just a voice bot?",
