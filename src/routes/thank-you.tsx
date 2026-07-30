@@ -33,21 +33,6 @@ export const Route = createFileRoute("/thank-you")({
   component: ThankYouPage,
 });
 
-const NEXT_STEPS = [
-  {
-    title: "We review your practice",
-    desc: "The call starts already knowing your numbers.",
-  },
-  {
-    title: "You see it run live",
-    desc: "Exactly how Solara handles your front office.",
-  },
-  {
-    title: "We set it up by hand",
-    desc: "You just show up. We configure everything.",
-  },
-];
-
 function ThankYouPage() {
   const router = useRouter();
 
@@ -113,7 +98,8 @@ function ThankYouPage() {
             Solara
           </span>
         </a>
-        <span className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#16C4B3]/12 px-3 py-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-[#0B7A70] ring-1 ring-[#16C4B3]/30">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#16C4B3]" />
           Booking confirmed
         </span>
       </header>
@@ -249,56 +235,13 @@ function ThankYouPage() {
             )}
           </motion.div>
 
-          {/* ── What follows: three numbered steps in a row ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.24, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-8"
-          >
-            <div className="flex items-center gap-3">
-              <span className="h-px flex-1 bg-slate-900/10" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
-                What follows
-              </span>
-              <span className="h-px flex-1 bg-slate-900/10" />
-            </div>
-
-            <ol className="mt-5 grid gap-4 sm:grid-cols-3 sm:gap-3">
-              {NEXT_STEPS.map((item, i) => (
-                <motion.li
-                  key={item.title}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: 0.3 + i * 0.07,
-                    duration: 0.45,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="flex gap-3 sm:flex-col sm:gap-0"
-                >
-                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white font-mono text-[10px] font-bold text-[#FF6A55] shadow-sm ring-1 ring-[#FF6A55]/25">
-                    {i + 1}
-                  </span>
-                  <div className="min-w-0 sm:mt-3">
-                    <div className="text-[13.5px] font-bold leading-snug text-slate-900">
-                      {item.title}
-                    </div>
-                    <div className="mt-1 text-[12.5px] leading-relaxed text-slate-500">
-                      {item.desc}
-                    </div>
-                  </div>
-                </motion.li>
-              ))}
-            </ol>
-          </motion.div>
 
           {/* ── Actions ── */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.44, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-9 flex flex-col items-center gap-3"
+            transition={{ delay: 0.26, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-8 flex flex-col items-center gap-3"
           >
             <a
               href="/"
@@ -307,11 +250,11 @@ function ThankYouPage() {
               Back to home
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </a>
-            <span className="text-center text-[12.5px] text-slate-500">
-              Need a different time?{" "}
+            <span className="text-center text-[12.5px] font-medium text-slate-600">
+              Your line to us stays open.{" "}
               <a
                 href="mailto:solara@supermia.ai"
-                className="font-semibold text-[#FF6A55] underline-offset-2 hover:underline"
+                className="font-bold text-[#E5482F] underline underline-offset-2 decoration-[#E5482F]/30 transition-colors hover:decoration-[#E5482F]"
               >
                 solara@supermia.ai
               </a>
