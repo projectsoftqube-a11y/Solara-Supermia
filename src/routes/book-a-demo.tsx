@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { motion } from "motion/react";
 import { Check, Star, Clock, Video } from "lucide-react";
@@ -23,6 +23,8 @@ export const Route = createFileRoute("/book-a-demo")({
 const CALENDLY_URL = "https://calendly.com/solara-supermia/30min";
 
 function DemoPage() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -126,7 +128,11 @@ function DemoPage() {
               transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="overflow-hidden rounded-[24px] border border-slate-200/80 bg-white shadow-[0_20px_50px_-12px_rgba(15,23,42,0.14)] sm:rounded-[28px]"
             >
-              <CalendlyEmbed url={CALENDLY_URL} className="h-[820px] sm:h-[760px] lg:h-[700px]" />
+              <CalendlyEmbed
+                url={CALENDLY_URL}
+                className="h-[820px] sm:h-[760px] lg:h-[700px]"
+                onEventScheduled={() => navigate({ to: "/booking-confirmed" })}
+              />
             </motion.div>
           </div>
         </div>
