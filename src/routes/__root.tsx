@@ -107,11 +107,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
-      <body>
+      {/* suppressHydrationWarning: browser extensions (ColorZilla, Grammarly, etc.)
+          inject attributes like cz-shortcut-listen onto <body> before React
+          hydrates, which would otherwise log a hydration-mismatch warning.
+          This only suppresses attribute diffs on <body> itself, not its content. */}
+      <body suppressHydrationWarning>
         {children}
         <Scripts />
       </body>
