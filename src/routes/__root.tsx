@@ -87,8 +87,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Solara - AI Front Office OS for Dental Practices" },
       { name: "twitter:description", content: "Solara is the AI front office operating system for dental practices. Insurance, calls, booking, intake, recall, notes, analytics — unified with OpenDental." },
-      { property: "og:image", content: "/images/logo.svg" },
-      { name: "twitter:image", content: "/images/logo.svg" },
+      { property: "og:image", content: "https://solara.supermia.ai/images/logo.png" },
+      { name: "twitter:image", content: "https://solara.supermia.ai/images/logo.png" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/images/secondary-logo.svg" },

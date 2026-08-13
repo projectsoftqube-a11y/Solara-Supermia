@@ -159,6 +159,17 @@ export function Footer() {
               · Botfinity Inc.
             </p>
             <p className="hidden sm:block text-white/20">|</p>
+            <p>
+              <a
+                href="https://supermia.ai/industries/healthcare/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 font-medium hover:text-[#FF6A55] transition-colors"
+              >
+                SuperMIA AI for Healthcare
+              </a>
+            </p>
+            <p className="hidden sm:block text-white/20">|</p>
             <p>All rights reserved.</p>
           </div>
           <p className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
