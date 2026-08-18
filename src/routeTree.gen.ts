@@ -14,6 +14,7 @@ import { Route as TermsConditionsRouteImport } from './routes/terms-conditions'
 import { Route as ScheduleCallRouteImport } from './routes/schedule-call'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as HipaaComplianceRouteImport } from './routes/hipaa-compliance'
+import { Route as BookingConfirmedRouteImport } from './routes/booking-confirmed'
 import { Route as BookADemoRouteImport } from './routes/book-a-demo'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -42,6 +43,11 @@ const HipaaComplianceRoute = HipaaComplianceRouteImport.update({
   path: '/hipaa-compliance',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingConfirmedRoute = BookingConfirmedRouteImport.update({
+  id: '/booking-confirmed',
+  path: '/booking-confirmed',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BookADemoRoute = BookADemoRouteImport.update({
   id: '/book-a-demo',
   path: '/book-a-demo',
@@ -56,6 +62,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/book-a-demo': typeof BookADemoRoute
+  '/booking-confirmed': typeof BookingConfirmedRoute
   '/hipaa-compliance': typeof HipaaComplianceRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/schedule-call': typeof ScheduleCallRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/book-a-demo': typeof BookADemoRoute
+  '/booking-confirmed': typeof BookingConfirmedRoute
   '/hipaa-compliance': typeof HipaaComplianceRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/schedule-call': typeof ScheduleCallRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/book-a-demo': typeof BookADemoRoute
+  '/booking-confirmed': typeof BookingConfirmedRoute
   '/hipaa-compliance': typeof HipaaComplianceRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/schedule-call': typeof ScheduleCallRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/book-a-demo'
+    | '/booking-confirmed'
     | '/hipaa-compliance'
     | '/privacy-policy'
     | '/schedule-call'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/book-a-demo'
+    | '/booking-confirmed'
     | '/hipaa-compliance'
     | '/privacy-policy'
     | '/schedule-call'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/book-a-demo'
+    | '/booking-confirmed'
     | '/hipaa-compliance'
     | '/privacy-policy'
     | '/schedule-call'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BookADemoRoute: typeof BookADemoRoute
+  BookingConfirmedRoute: typeof BookingConfirmedRoute
   HipaaComplianceRoute: typeof HipaaComplianceRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ScheduleCallRoute: typeof ScheduleCallRoute
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HipaaComplianceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/booking-confirmed': {
+      id: '/booking-confirmed'
+      path: '/booking-confirmed'
+      fullPath: '/booking-confirmed'
+      preLoaderRoute: typeof BookingConfirmedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/book-a-demo': {
       id: '/book-a-demo'
       path: '/book-a-demo'
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BookADemoRoute: BookADemoRoute,
+  BookingConfirmedRoute: BookingConfirmedRoute,
   HipaaComplianceRoute: HipaaComplianceRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   ScheduleCallRoute: ScheduleCallRoute,

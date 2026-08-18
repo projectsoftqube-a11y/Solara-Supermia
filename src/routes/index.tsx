@@ -30,6 +30,14 @@ export const Route = createFileRoute("/")({
         content:
           "Solara is the AI front office operating system for dental practices. Insurance, calls, booking, intake, recall, notes, analytics — unified with OpenDental.",
       },
+      // Self-referencing og:url for the homepage (scoped here, not the root
+      // shell, so subpages don't all report the homepage URL).
+      { property: "og:url", content: "https://solara.supermia.ai/" },
+    ],
+    links: [
+      // Self-referencing canonical for the homepage. Kept per-route rather than
+      // global so /book-a-demo, /schedule-call, etc. aren't canonicalised to "/".
+      { rel: "canonical", href: "https://solara.supermia.ai/" },
     ],
   }),
   component: Landing,

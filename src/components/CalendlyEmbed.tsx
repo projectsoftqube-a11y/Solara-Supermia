@@ -14,7 +14,24 @@ type CalendlyEmbedProps = {
   /** Full Calendly scheduling URL, e.g. https://calendly.com/solara-supermia/30min */
   url: string;
   className?: string;
+  /**
+   * Fired once the invitee completes a booking. Use this to route to a
+   * confirmation page yourself — it avoids Calendly's "You are leaving
+   * Calendly" interstitial, which the dashboard redirect always shows for
+   * embedded widgets.
+   */
+  onEventScheduled?: () => void;
 };
+
+function isCalendlyEvent(e: MessageEvent): boolean {
+  return (
+    typeof e.origin === "string" &&
+    e.origin.includes("calendly.com") &&
+    typeof e.data === "object" &&
+    e.data !== null &&
+    "event" in e.data
+  );
+}
 
 /**
  * Inline Calendly scheduler.
@@ -24,8 +41,22 @@ type CalendlyEmbedProps = {
  * auto-scan, because that scan only runs on first load — on client-side
  * route changes the widget would otherwise render blank.
  */
-export function CalendlyEmbed({ url, className = "" }: CalendlyEmbedProps) {
+export function CalendlyEmbed({ url, className = "", onEventScheduled }: CalendlyEmbedProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Keep the latest callback without re-subscribing the message listener.
+  const onScheduledRef = useRef(onEventScheduled);
+  onScheduledRef.current = onEventScheduled;
+
+  useEffect(() => {
+    const onMessage = (e: MessageEvent) => {
+      if (isCalendlyEvent(e) && e.data.event === "calendly.event_scheduled") {
+        onScheduledRef.current?.();
+      }
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
