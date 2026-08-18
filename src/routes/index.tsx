@@ -7,6 +7,7 @@ import { VideoShowcase } from "@/components/sections/VideoShowcase";
 import { Capabilities } from "@/components/sections/Capabilities";
 import { Insurance } from "@/components/sections/Insurance";
 import { Automation } from "@/components/sections/Automation";
+import { ShortVideo } from "@/components/sections/ShortVideo";
 import { VoiceBot } from "@/components/sections/VoiceBot";
 import { CaseStudy } from "@/components/sections/CaseStudy";
 import { OpenDental } from "@/components/sections/OpenDental";
@@ -60,6 +61,7 @@ function Landing() {
         <Capabilities />
         <Insurance />
         <Automation />
+        <ShortVideo />
         <VoiceBot />
         <CaseStudy />
         <VideoShowcase
