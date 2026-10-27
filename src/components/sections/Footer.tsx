@@ -141,12 +141,24 @@ export function Footer() {
           </h2>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row gap-6 md:items-center justify-between text-slate-500 text-xs sm:text-sm">
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-6">
-            <p>© {new Date().getFullYear()} Solara Dental AI</p>
-            <p className="hidden sm:block text-white/20">|</p>
-            <p>
+        {/* Bottom Bar
+
+            The meta line wraps as a row of whole items rather than being
+            squeezed into fixed columns: `flex-wrap` lets it break between
+            items, and each item carries its own `whitespace-nowrap` so a
+            break never lands inside a phrase ("Softqube Technologies / LLC").
+            The separators are decorative `<span>`s — as `<p>` elements a
+            screen reader announced each bare "|" as content. They hide
+            themselves once the row wraps onto its own line. */}
+        <div className="pt-8 border-t border-white/10 flex flex-col gap-y-5 gap-x-8 lg:flex-row lg:items-center lg:justify-between text-slate-500 text-xs sm:text-sm">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <p className="whitespace-nowrap">
+              © {new Date().getFullYear()} Solara Dental AI
+            </p>
+
+            <span aria-hidden="true" className="text-white/20">|</span>
+
+            <p className="whitespace-nowrap">
               by{" "}
               <a
                 href="https://supermia.ai/"
@@ -158,8 +170,10 @@ export function Footer() {
               </a>{" "}
               · Botfinity Inc.
             </p>
-            <p className="hidden sm:block text-white/20">|</p>
-            <p>
+
+            <span aria-hidden="true" className="text-white/20">|</span>
+
+            <p className="whitespace-nowrap">
               <a
                 href="https://supermia.ai/industries/healthcare/"
                 target="_blank"
@@ -169,10 +183,14 @@ export function Footer() {
                 SuperMIA AI for Healthcare
               </a>
             </p>
-            <p className="hidden sm:block text-white/20">|</p>
-            <p>All rights reserved.</p>
-            <p className="hidden sm:block text-white/20">|</p>
-            <p>
+
+            <span aria-hidden="true" className="text-white/20">|</span>
+
+            <p className="whitespace-nowrap">All rights reserved.</p>
+
+            <span aria-hidden="true" className="text-white/20">|</span>
+
+            <p className="whitespace-nowrap">
               Design &amp; Develop by{" "}
               <a
                 href="https://softqubes.com/"
@@ -184,7 +202,11 @@ export function Footer() {
               </a>
             </p>
           </div>
-          <p className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
+
+          {/* `shrink-0` so the badge keeps its pill shape instead of being
+              compressed until "Made with" and "for dental teams." split
+              across lines. */}
+          <p className="flex shrink-0 items-center gap-2 whitespace-nowrap self-start lg:self-auto bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
             Made with{" "}
             <img
               src="/images/secondary-logo.svg"
