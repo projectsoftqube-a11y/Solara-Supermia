@@ -171,6 +171,18 @@ export function Footer() {
             </p>
             <p className="hidden sm:block text-white/20">|</p>
             <p>All rights reserved.</p>
+            <p className="hidden sm:block text-white/20">|</p>
+            <p>
+              Design &amp; Develop by{" "}
+              <a
+                href="https://softqubes.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-300 font-bold hover:text-[#FF6A55] transition-colors"
+              >
+                Softqube Technologies LLC
+              </a>
+            </p>
           </div>
           <p className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
             Made with{" "}
