@@ -36,7 +36,9 @@ dist-ssr
 email-preview
 
 # Local secrets — never commit
+
+# env files: every type (.env, .env.local, .env.development, .env.production, .env.example, *.env, .envrc)
 .env
-.env.local
-.env.*.local
-!.env.example
+.env.*
+*.env
+.envrc
