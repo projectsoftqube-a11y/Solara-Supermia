@@ -3,9 +3,9 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Footer } from "@/components/sections/Footer";
-import { ChevronRight, ChevronDown, ArrowUp, ListOrdered, Mail, ShieldCheck } from "lucide-react";
+import { ChevronDown, ArrowUp, ListOrdered, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import Link from "next/link";
+import { Container, Eyebrow, Highlighted, NightBackdrop } from "@/components/inner/PageShell";
 
 export type LegalSection = {
   id: string;
@@ -89,7 +89,7 @@ export function LegalLayout({
   return (
     // overflow-x-clip (not -hidden): `hidden` creates a scroll container that
     // would break position: sticky on the sidebar below.
-    <div className="min-h-screen overflow-x-clip bg-[#FAF8F4] selection:bg-[#FF6A55]/20">
+    <div className="min-h-screen overflow-x-clip bg-[#FFF9F2] selection:bg-[#FF6A55]/20">
       {/* Reading progress */}
       <div className="fixed top-0 right-0 left-0 z-[60] h-[3px] bg-transparent">
         <div
@@ -98,65 +98,44 @@ export function LegalLayout({
         />
       </div>
 
-      <SiteHeader />
+      <SiteHeader solid />
 
-      <main className="relative pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pt-36">
-        {/* Ambient background */}
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute -top-[15%] -left-[20%] h-[45%] w-[70%] rounded-full bg-gradient-to-br from-[#FFB23E]/20 to-[#FF6A55]/5 blur-[100px]" />
-          <div className="absolute top-[25%] -right-[20%] h-[50%] w-[60%] rounded-full bg-gradient-to-bl from-[#16C4B3]/12 to-transparent blur-[100px]" />
-        </div>
+      <main id="main" className="relative pb-20 sm:pb-28">
+        <section className="relative isolate overflow-clip bg-[#060F14] text-white">
+          <NightBackdrop />
+          <Container className="pt-32 pb-24 sm:pt-40 sm:pb-28 lg:pt-44 lg:pb-32">
+            <Eyebrow tone="night">{eyebrow}</Eyebrow>
 
-        <div className="relative z-10 mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
-          {/* ---------- Hero ---------- */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-10 sm:mb-14"
-          >
-            {/* Breadcrumb */}
-            <nav className="mb-5 flex flex-wrap items-center gap-1.5 text-[12px] font-medium sm:text-sm">
-              <Link href="/" className="text-slate-500 transition-colors hover:text-[#FF6A55]">
-                Home
-              </Link>
-              <ChevronRight className="h-3.5 w-3.5 shrink-0 text-slate-300" />
-              <span className="text-slate-500">{eyebrow}</span>
-              <ChevronRight className="h-3.5 w-3.5 shrink-0 text-slate-300" />
-              <span className="font-semibold text-slate-900">{title}</span>
-            </nav>
+            <h1 className="mt-7 max-w-[1240px] font-display text-[42px] leading-[1.03] font-extrabold tracking-[-0.03em] text-balance sm:text-6xl lg:text-7xl xl:text-[88px]">
+              <Highlighted text={title} />
+            </h1>
 
-            <div className="relative overflow-hidden rounded-[24px] border border-white/60 bg-gradient-to-br from-white via-white to-[#FFF6EC] p-6 shadow-[0_20px_50px_-20px_rgba(15,23,42,0.18)] sm:rounded-[32px] sm:p-10 lg:p-12">
-              <div className="pointer-events-none absolute -top-20 -right-16 h-56 w-56 rounded-full bg-gradient-to-br from-[#FF6A55]/15 to-transparent blur-3xl" />
+            {intro && (
+              <p className="mt-7 max-w-[860px] text-lg leading-relaxed text-slate-300 sm:text-xl lg:text-[21px]">
+                {intro}
+              </p>
+            )}
 
-              <span className="relative mb-5 inline-flex items-center gap-2 rounded-full border border-[#FF6A55]/20 bg-[#FFF0EB] px-3 py-1.5 text-[10px] font-bold tracking-[0.16em] text-[#FF6A55] uppercase sm:text-[11px]">
-                <ShieldCheck className="h-3.5 w-3.5" />
-                {eyebrow}
+            <div className="mt-9 flex flex-wrap items-center gap-3">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[13px] font-semibold text-white">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#16C4B3]" aria-hidden="true" />
+                Last updated: {lastUpdated}
               </span>
-
-              <h1 className="relative mb-4 font-display text-[27px] leading-[1.1] font-black tracking-tight break-words text-slate-900 sm:text-5xl lg:text-6xl">
-                {title}
-              </h1>
-
-              {intro && (
-                <p className="relative mb-6 max-w-2xl text-[15px] leading-relaxed text-slate-600 sm:text-lg">
-                  {intro}
-                </p>
-              )}
-
-              <div className="relative flex flex-wrap items-center gap-2 sm:gap-3">
-                <span className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-3.5 py-2 text-[11px] font-semibold text-white sm:text-xs">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#16C4B3]" />
-                  Last updated: {lastUpdated}
-                </span>
-                <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-[11px] font-semibold text-slate-600 sm:text-xs">
-                  <ListOrdered className="h-3.5 w-3.5 text-[#FF6A55]" />
-                  {sections.length} sections
-                </span>
-              </div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[13px] font-semibold text-white">
+                <ListOrdered className="h-3.5 w-3.5 text-[#FFB23E]" aria-hidden="true" />
+                {sections.length} sections
+              </span>
             </div>
-          </motion.div>
+          </Container>
 
+          {/* The body slides up over the hero as a rounded sheet. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 bottom-0 h-8 rounded-t-[32px] bg-[#FFF9F2] sm:h-12 sm:rounded-t-[48px]"
+          />
+        </section>
+
+        <Container className="relative z-10 pt-8 sm:pt-12">
           {/* ---------- Mobile TOC ---------- */}
           <div className="sticky top-[72px] z-30 mb-8 lg:hidden">
             <button
@@ -265,7 +244,7 @@ export function LegalLayout({
 
                   {/* Body copy styling lives in styles.css (.legal-content) —
                       this project has no @tailwindcss/typography plugin. */}
-                  <div className="legal-content pl-0 sm:pl-14">{s.content}</div>
+                  <div className="legal-content max-w-[920px] pl-0 sm:pl-14">{s.content}</div>
                 </motion.section>
               ))}
 
@@ -300,7 +279,7 @@ export function LegalLayout({
               </motion.div>
             </div>
           </div>
-        </div>
+        </Container>
       </main>
 
       {/* Back to top */}

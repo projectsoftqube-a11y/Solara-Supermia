@@ -4,17 +4,12 @@ import { LegalLayout, type LegalSection } from "@/components/layouts/LegalLayout
 import { JsonLd } from "@/components/seo/JsonLd";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { getPage } from "@/lib/seo/pages";
-import { breadcrumbNode, ids, webPageNode } from "@/lib/seo/schema";
+import { ids, webPageNode } from "@/lib/seo/schema";
 
 const PATH = "/hipaa-compliance";
 const page = getPage(PATH);
 
 export const metadata: Metadata = pageMetadata(page);
-
-const crumbs = [
-  { name: "Home", path: "/" },
-  { name: page.label.replace(/^./, (c) => c.toUpperCase()), path: PATH },
-];
 
 const sections: LegalSection[] = [
   {
@@ -117,11 +112,9 @@ export default function HipaaCompliance() {
             path: PATH,
             title: page.title,
             description: page.description,
-            crumbs,
             dateModified: page.lastModified,
             about: ids.organization,
           }),
-          breadcrumbNode(PATH, crumbs),
         ]}
       />
       <LegalLayout

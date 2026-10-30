@@ -252,6 +252,45 @@
   }
 }
 
+/* Inner pages: sections slide up as they enter the viewport. CSS only and
+   never transparent, so nothing is hidden from crawlers or slow devices. */
+@keyframes solara-rise {
+  from {
+    translate: 0 48px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes solara-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: solara-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 28%;
+    }
+  }
+
+  .float-chip {
+    animation: solara-float 7s ease-in-out infinite;
+  }
+
+  .float-chip-late {
+    animation: solara-float 8s ease-in-out 1.5s infinite;
+  }
+}
+
 /* Legal pages (privacy-policy, terms-conditions, hipaa-compliance) body copy.
    Defined here because this project does not use @tailwindcss/typography. */
 .legal-content p {

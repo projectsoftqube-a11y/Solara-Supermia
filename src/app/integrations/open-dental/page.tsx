@@ -1,33 +1,28 @@
 import type { Metadata } from "next";
 
 import {
-  ArticleSections,
   CtaBand,
   FaqList,
   KeyTakeaways,
   RelatedLinks,
   StepsSection,
+  StorySections,
 } from "@/components/inner/ContentBlocks";
 import { PageHero } from "@/components/inner/PageHero";
 import { PageShell } from "@/components/inner/PageShell";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqsById } from "@/content/faqs";
-import type { ContentSection } from "@/content/features";
+import { getFeature, type ContentSection } from "@/content/features";
 import { platformLinks } from "@/content/navigation";
+import { featurePhotos } from "@/content/photos";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { getPage } from "@/lib/seo/pages";
-import { breadcrumbNode, faqNode, webPageNode } from "@/lib/seo/schema";
+import { faqNode, webPageNode } from "@/lib/seo/schema";
 
 const PATH = "/integrations/open-dental";
 const page = getPage(PATH);
 
 export const metadata: Metadata = pageMetadata(page);
-
-const crumbs = [
-  { name: "Home", path: "/" },
-  { name: "Platform", path: "/platform" },
-  { name: "OpenDental integration", path: PATH },
-];
 
 const IMAGE = {
   src: "/images/automation_schedule.png",
@@ -99,24 +94,29 @@ export default function OpenDentalPage() {
             path: PATH,
             title: page.title,
             description: page.description,
-            crumbs,
             image: IMAGE.src,
             datePublished: page.datePublished,
             dateModified: page.lastModified,
             speakable: [".answer-block", ".key-takeaways"],
           }),
-          breadcrumbNode(PATH, crumbs),
           faqNode(PATH, faqs),
         ]}
       />
 
       <PageHero
-        crumbs={crumbs}
         eyebrow="OpenDental integration"
         title="Solara and OpenDental: bookings that land straight in your schedule"
+        highlight="straight in your schedule"
         answer="Solara integrates with OpenDental practice management software. It keeps patients, appointments, providers, operatories, procedure codes, insurance and revenue in sync, checks provider and operatory availability before booking, and writes every booking, reschedule and transfer back to OpenDental automatically, so there is no double entry or end-of-day reconciliation."
         updated={page.lastModified}
         image={IMAGE}
+        chips={["Availability checked", "Booking written back"]}
+        facts={[
+          { value: "Two-way", label: "Sync between Solara and OpenDental" },
+          { value: "Checked first", label: "Provider and operatory availability" },
+          { value: "Written back", label: "Every booking, reschedule and transfer" },
+          { value: "Same line", label: "Works with your existing phone number" },
+        ]}
       />
 
       <KeyTakeaways
@@ -128,7 +128,14 @@ export default function OpenDentalPage() {
         ]}
       />
 
-      <ArticleSections sections={sections} />
+      <StorySections
+        sections={sections}
+        images={[
+          featurePhotos.frontDeskCalendar,
+          featurePhotos.frontDeskCall,
+          featurePhotos.performanceMonitor,
+        ]}
+      />
 
       <StepsSection
         heading="How do you connect Solara to OpenDental?"
@@ -158,7 +165,8 @@ export default function OpenDentalPage() {
         title="What runs on the OpenDental connection"
         cards={relatedHrefs.map((href) => {
           const link = platformLinks.find((l) => l.href === href)!;
-          return { title: link.label, href, summary: link.description ?? "", icon: link.icon };
+          const image = getFeature(href.split("/").at(-1)!)?.image.src;
+          return { title: link.label, href, summary: link.description ?? "", image };
         })}
       />
 

@@ -2,8 +2,9 @@ import { Clock } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { TableFrame } from "@/components/inner/ComparisonTable";
 import {
-  ArticleSections,
+  ArticleBody,
   CtaBand,
   FaqList,
   KeyTakeaways,
@@ -11,16 +12,15 @@ import {
   Sources,
 } from "@/components/inner/ContentBlocks";
 import { PageHero } from "@/components/inner/PageHero";
-import { PageShell } from "@/components/inner/PageShell";
+import { ButtonLink, PageShell } from "@/components/inner/PageShell";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getPost, postPath, posts, readingMinutes, wordCount } from "@/content/blog";
 import type { BlogPost } from "@/content/blog";
 import { featurePath, getFeature } from "@/content/features";
-import { platformLinks } from "@/content/navigation";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { ogImagePath } from "@/lib/seo/og";
 import { getPage } from "@/lib/seo/pages";
-import { absoluteUrl, breadcrumbNode, faqNode, ids, webPageNode } from "@/lib/seo/schema";
+import { absoluteUrl, faqNode, ids, webPageNode } from "@/lib/seo/schema";
 
 export function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
@@ -35,15 +35,15 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
 /** A real <table> placed after the section it belongs to. */
 function PostTable({ table }: { table: NonNullable<BlogPost["table"]> }) {
   return (
-    <div className="overflow-x-auto rounded-3xl border border-slate-200/80 bg-white">
-      <table className="w-full min-w-[600px] border-collapse text-left text-[14.5px]">
-        <caption className="px-5 pt-5 pb-3 text-left text-[13px] font-semibold text-slate-600">
+    <TableFrame>
+      <table className="w-full min-w-[620px] border-collapse text-left text-[15.5px]">
+        <caption className="px-6 pt-6 pb-4 text-left text-[14px] font-semibold text-slate-600">
           {table.caption}
         </caption>
         <thead>
-          <tr className="bg-slate-900 text-white">
+          <tr className="bg-[#0A1A1F] text-white">
             {table.columns.map((column) => (
-              <th key={column} scope="col" className="px-5 py-3.5 text-[13px] font-semibold">
+              <th key={column} scope="col" className="px-6 py-4 text-[14px] font-semibold">
                 {column}
               </th>
             ))}
@@ -51,17 +51,14 @@ function PostTable({ table }: { table: NonNullable<BlogPost["table"]> }) {
         </thead>
         <tbody>
           {table.rows.map((row, i) => (
-            <tr
-              key={i}
-              className={`border-t border-slate-100 align-top ${i % 2 ? "bg-slate-50/50" : ""}`}
-            >
+            <tr key={i} className="border-t border-slate-100 align-top">
               {row.map((cell, j) =>
                 j === 0 ? (
-                  <th key={j} scope="row" className="px-5 py-3.5 font-semibold text-slate-900">
+                  <th key={j} scope="row" className="px-6 py-4 font-semibold text-slate-900">
                     {cell}
                   </th>
                 ) : (
-                  <td key={j} className="px-5 py-3.5 text-slate-700">
+                  <td key={j} className="px-6 py-4 text-slate-700">
                     {cell}
                   </td>
                 ),
@@ -70,7 +67,7 @@ function PostTable({ table }: { table: NonNullable<BlogPost["table"]> }) {
           ))}
         </tbody>
       </table>
-    </div>
+    </TableFrame>
   );
 }
 
@@ -82,11 +79,6 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
   const path = postPath(slug);
   const page = getPage(path);
   const url = absoluteUrl(path);
-  const crumbs = [
-    { name: "Home", path: "/" },
-    { name: "Blog", path: "/blog" },
-    { name: post.h1, path },
-  ];
 
   const relatedFeatures = post.relatedFeatures.map((featureSlug) => {
     const feature = getFeature(featureSlug);
@@ -96,9 +88,10 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
       title: feature.name,
       href,
       summary: feature.summary,
-      icon: platformLinks.find((link) => link.href === href)?.icon,
+      image: feature.image.src,
     };
   });
+  const primary = getFeature(post.relatedFeatures[0]);
   const morePosts = posts.filter((p) => p.slug !== slug).slice(0, 4 - relatedFeatures.length);
 
   return (
@@ -109,7 +102,6 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
             path,
             title: page.title,
             description: page.description,
-            crumbs,
             datePublished: post.datePublished,
             dateModified: post.dateModified,
             speakable: [".answer-block", ".key-takeaways"],
@@ -132,20 +124,19 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
             wordCount: wordCount(post),
             citation: post.citations.map((c) => c.url),
           },
-          breadcrumbNode(path, crumbs),
           faqNode(path, post.faqs),
         ]}
       />
 
       <PageHero
-        crumbs={crumbs}
         eyebrow={post.category}
         title={post.h1}
         answer={post.answer}
         updated={post.dateModified}
+        image={primary?.image}
         actions={
-          <p className="inline-flex items-center gap-2 text-[14px] font-medium text-slate-600">
-            <Clock className="h-4 w-4 text-[#C13A22]" aria-hidden="true" />
+          <p className="inline-flex items-center gap-2.5 text-[16px] font-medium text-slate-300">
+            <Clock className="h-4 w-4 text-[#FFB23E]" aria-hidden="true" />
             {readingMinutes(post)} min read · By the Solara team
           </p>
         }
@@ -153,12 +144,28 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
 
       <KeyTakeaways items={post.takeaways} />
 
-      <ArticleSections
+      <ArticleBody
         sections={post.sections}
         insert={
           post.table
             ? { afterSection: post.table.afterSection, node: <PostTable table={post.table} /> }
             : undefined
+        }
+        aside={
+          <div className="rounded-[28px] bg-gradient-to-br from-[#0A1A1F] to-[#173B42] p-7 text-white">
+            <p className="text-[12px] font-bold tracking-[0.2em] text-[#FFB23E] uppercase">
+              Solara
+            </p>
+            <p className="mt-4 font-display text-[26px] leading-tight font-extrabold tracking-tight">
+              Let the front office run itself
+            </p>
+            <p className="mt-3 text-[16px] leading-relaxed text-slate-300">
+              See a real call turn into a booked, verified appointment in OpenDental.
+            </p>
+            <div className="mt-6">
+              <ButtonLink href="/book-a-demo">Book a demo</ButtonLink>
+            </div>
+          </div>
         }
       />
 
@@ -174,6 +181,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
             title: p.h1,
             href: postPath(p.slug),
             summary: p.description,
+            image: getFeature(p.relatedFeatures[0])?.image.src,
             cta: "Read the article",
           })),
         ]}

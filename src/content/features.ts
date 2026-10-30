@@ -23,7 +23,7 @@ export type Citation = { label: string; url: string };
 
 export type FeaturePage = {
   slug: string;
-  /** Short name for navigation, cards and breadcrumbs. */
+  /** Short name for navigation and cards. */
   name: string;
   /** One line for menus and cards. */
   summary: string;

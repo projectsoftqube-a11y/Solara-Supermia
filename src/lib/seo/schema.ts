@@ -145,27 +145,11 @@ export function siteGraph(): JsonLdNode[] {
   return [organizationNode(), websiteNode(), softwareNode()];
 }
 
-export type Crumb = { name: string; path: string };
-
-export function breadcrumbNode(path: string, crumbs: Crumb[]): JsonLdNode {
-  return {
-    "@type": "BreadcrumbList",
-    "@id": `${absoluteUrl(path)}#breadcrumb`,
-    itemListElement: crumbs.map((crumb, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: crumb.name,
-      item: absoluteUrl(crumb.path),
-    })),
-  };
-}
-
 type WebPageInput = {
   path: string;
   title: string;
   description: string;
   type?: "WebPage" | "CollectionPage" | "FAQPage" | "AboutPage" | "ContactPage";
-  crumbs?: Crumb[];
   image?: string;
   datePublished?: string;
   dateModified?: string;
@@ -180,7 +164,6 @@ export function webPageNode({
   title,
   description,
   type = "WebPage",
-  crumbs,
   image,
   datePublished,
   dateModified,
@@ -198,7 +181,6 @@ export function webPageNode({
     about: ref(about),
     publisher: ref(ids.organization),
     inLanguage: "en-US",
-    ...(crumbs ? { breadcrumb: ref(`${url}#breadcrumb`) } : {}),
     ...(image ? { primaryImageOfPage: { "@type": "ImageObject", url: absoluteUrl(image) } } : {}),
     ...(datePublished ? { datePublished } : {}),
     ...(dateModified ? { dateModified } : {}),

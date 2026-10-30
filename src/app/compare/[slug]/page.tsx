@@ -1,24 +1,25 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { ComparisonTable } from "@/components/inner/ComparisonTable";
 import {
-  ArticleSections,
   CtaBand,
   FaqList,
   KeyTakeaways,
   RelatedLinks,
+  StorySections,
 } from "@/components/inner/ContentBlocks";
-import { ComparisonTable } from "@/components/inner/ComparisonTable";
+import { ScoreBoard } from "@/components/inner/HeroPanels";
 import { PageHero } from "@/components/inner/PageHero";
-import { Container, SectionHeading } from "@/components/inner/PageShell";
-import { PageShell } from "@/components/inner/PageShell";
+import { Band, Container, PageShell, SectionHeading } from "@/components/inner/PageShell";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { comparePages, comparePath, getComparePage } from "@/content/compare";
 import { faqsById } from "@/content/faqs";
-import { compareLinks, platformLinks } from "@/content/navigation";
+import { platformLinks } from "@/content/navigation";
+import { comparePhotos, featurePhotos } from "@/content/photos";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { getPage } from "@/lib/seo/pages";
-import { breadcrumbNode, faqNode, webPageNode } from "@/lib/seo/schema";
+import { faqNode, webPageNode } from "@/lib/seo/schema";
 
 export function generateStaticParams() {
   return comparePages.map((page) => ({ slug: page.slug }));
@@ -40,11 +41,6 @@ export default async function CompareDetailPage({ params }: PageProps<"/compare/
   const path = comparePath(slug);
   const page = getPage(path);
   const faqs = faqsById(compare.faqIds);
-  const crumbs = [
-    { name: "Home", path: "/" },
-    { name: "Compare", path: "/compare" },
-    { name: compare.name, path },
-  ];
 
   const other = comparePages.find((p) => p.slug !== slug)!;
   const receptionist = platformLinks[0];
@@ -57,43 +53,44 @@ export default async function CompareDetailPage({ params }: PageProps<"/compare/
             path,
             title: page.title,
             description: page.description,
-            crumbs,
             datePublished: page.datePublished,
             dateModified: page.lastModified,
             speakable: [".answer-block", ".key-takeaways"],
           }),
-          breadcrumbNode(path, crumbs),
           faqNode(path, faqs),
         ]}
       />
 
       <PageHero
-        crumbs={crumbs}
         eyebrow={compare.eyebrow}
         title={compare.h1}
         answer={compare.answer}
         updated={page.lastModified}
+        visual={<ScoreBoard columns={[compare.column, "solara"]} />}
       />
 
       <KeyTakeaways items={compare.takeaways} />
 
-      <section aria-labelledby="table" className="pt-16 sm:pt-24">
+      <Band tone="sand" aria-labelledby="table">
         <Container>
           <SectionHeading
             eyebrow="Side by side"
             id="table"
             title={`How does Solara compare with ${compare.column === "fd" ? "an in-house front desk" : "a basic chatbot"}?`}
           />
-          <div className="mt-10">
+          <div className="mt-14">
             <ComparisonTable
               columns={[compare.column, "solara"]}
               caption={`Front-office capabilities: ${compare.columnLabel} compared with Solara`}
             />
           </div>
         </Container>
-      </section>
+      </Band>
 
-      <ArticleSections sections={compare.sections} />
+      <StorySections
+        sections={compare.sections}
+        images={[comparePhotos[compare.column], featurePhotos.hygieneChair]}
+      />
 
       <FaqList faqs={faqs} title="Common questions" />
 
@@ -104,19 +101,19 @@ export default async function CompareDetailPage({ params }: PageProps<"/compare/
             title: "The full comparison",
             href: "/compare",
             summary: "Solara, a front desk and a basic chatbot in one table.",
-            icon: compareLinks[0].icon,
+            image: featurePhotos.ownerTablets.src,
           },
           {
             title: other.name,
             href: comparePath(other.slug),
             summary: other.summary,
-            icon: compareLinks.find((link) => link.href === comparePath(other.slug))?.icon,
+            image: comparePhotos[other.column].src,
           },
           {
             title: receptionist.label,
             href: receptionist.href,
             summary: receptionist.description ?? "",
-            icon: receptionist.icon,
+            image: featurePhotos.frontDeskCalendar.src,
           },
         ]}
       />

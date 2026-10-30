@@ -10,7 +10,8 @@ import { useEffect, useEffectEvent, useRef, useState, type FocusEvent } from "re
 import { headerMenus, integrationLink, type NavLink, type NavMenu } from "@/content/navigation";
 import { APP_URL } from "@/lib/site";
 
-export function SiteHeader() {
+/** `solid` keeps the bar opaque for pages that open on a dark hero. */
+export function SiteHeader({ solid = false }: { solid?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -70,7 +71,7 @@ export function SiteHeader() {
         className="flex items-center justify-between rounded-full border border-[color:var(--border)] px-4 transition-all duration-300 md:px-6"
         style={{
           height: scrolled ? 60 : 68,
-          background: scrolled ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.78)",
+          background: scrolled || solid ? "rgba(255,255,255,0.96)" : "rgba(255,255,255,0.78)",
           backdropFilter: "blur(14px)",
           boxShadow: scrolled ? "0 8px 28px rgba(15,23,42,.08)" : "0 4px 16px rgba(15,23,42,.04)",
         }}

@@ -4,17 +4,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import {
-  ArticleSections,
   CtaBand,
   FaqList,
   KeyTakeaways,
   Sources,
+  StorySections,
 } from "@/components/inner/ContentBlocks";
+import { GlassPanel } from "@/components/inner/HeroPanels";
 import { PageHero } from "@/components/inner/PageHero";
-import { Container } from "@/components/inner/PageShell";
-import { PageShell } from "@/components/inner/PageShell";
+import { Band, ButtonLink, Container, PageShell } from "@/components/inner/PageShell";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { platformLinks } from "@/content/navigation";
+import { featurePhotos } from "@/content/photos";
 import {
   getState,
   sameRuleStates,
@@ -30,7 +31,7 @@ import {
 } from "@/content/states";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { getPage } from "@/lib/seo/pages";
-import { absoluteUrl, breadcrumbNode, faqNode, ids, webPageNode } from "@/lib/seo/schema";
+import { absoluteUrl, faqNode, ids, webPageNode } from "@/lib/seo/schema";
 
 export function generateStaticParams() {
   return states.map((state) => ({ state: state.slug }));
@@ -52,11 +53,6 @@ export default async function StatePage({ params }: PageProps<"/locations/[state
   const path = statePath(slug);
   const page = getPage(path);
   const faqs = stateFaqs(state);
-  const crumbs = [
-    { name: "Home", path: "/" },
-    { name: "Locations", path: "/locations" },
-    { name: state.name, path },
-  ];
   const peers = sameRuleStates(state);
   const allParty = state.recording.rule === "all-party";
 
@@ -93,7 +89,6 @@ export default async function StatePage({ params }: PageProps<"/locations/[state
             path,
             title: page.title,
             description: page.description,
-            crumbs,
             datePublished: page.datePublished,
             dateModified: page.lastModified,
             speakable: [".answer-block", ".key-takeaways"],
@@ -117,84 +112,93 @@ export default async function StatePage({ params }: PageProps<"/locations/[state
             },
             url: absoluteUrl(path),
           },
-          breadcrumbNode(path, crumbs),
           faqNode(path, faqs),
         ]}
       />
 
       <PageHero
-        crumbs={crumbs}
         eyebrow={`${state.name} · ${state.abbr}`}
         title={stateH1(state)}
         answer={stateAnswer(state)}
         updated={page.lastModified}
+        visual={
+          <GlassPanel>
+            <div className="flex items-center justify-between gap-6">
+              <span
+                aria-hidden="true"
+                className="bg-gradient-to-r from-[#FF6A55] to-[#FFB23E] bg-clip-text font-display text-[104px] leading-none font-extrabold tracking-tight text-transparent xl:text-[136px]"
+              >
+                {state.abbr}
+              </span>
+              <span
+                className={`rounded-full px-4 py-2 text-[13px] font-bold ring-1 ${
+                  allParty
+                    ? "bg-[#FF6A55]/15 text-[#FF9E8D] ring-[#FF6A55]/30"
+                    : "bg-[#16C4B3]/15 text-[#5EEAD4] ring-[#16C4B3]/30"
+                }`}
+              >
+                {allParty ? "All-party" : "One-party"}
+              </span>
+            </div>
+            <dl className="mt-7 divide-y divide-white/10">
+              {facts.map((fact) => (
+                <div key={fact.label} className="relative py-5 pl-14 last:pb-0">
+                  <dt className="text-[12px] font-bold tracking-[0.16em] text-slate-300 uppercase">
+                    <span className="absolute top-5 left-0 grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-[#FFB23E]">
+                      <fact.icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    {fact.label}
+                  </dt>
+                  <dd className="mt-1 font-display text-lg leading-snug font-bold text-white">
+                    {fact.value}
+                  </dd>
+                  <dd className="mt-0.5 text-[14px] text-slate-300">{fact.detail}</dd>
+                </div>
+              ))}
+            </dl>
+          </GlassPanel>
+        }
       />
-
-      <section aria-label={`${state.name} at a glance`} className="-mt-4 pb-4">
-        <Container>
-          <dl className="grid gap-4 sm:grid-cols-3">
-            {facts.map((fact) => (
-              <div key={fact.label} className="rounded-2xl border border-slate-200/80 bg-white p-5">
-                <dt className="flex items-center gap-2 text-[11px] font-bold tracking-[0.16em] text-slate-600 uppercase">
-                  <fact.icon className="h-4 w-4 text-[#C13A22]" aria-hidden="true" />
-                  {fact.label}
-                </dt>
-                <dd className="mt-2 font-display text-lg leading-snug font-bold text-slate-900">
-                  {fact.value}
-                </dd>
-                <dd className="mt-1 text-[13px] text-slate-600">{fact.detail}</dd>
-              </div>
-            ))}
-          </dl>
-        </Container>
-      </section>
 
       <KeyTakeaways
         items={stateTakeaways(state)}
         title={`Solara in ${state.name}: key takeaways`}
       />
 
-      <ArticleSections
+      <StorySections
         sections={stateSections(state)}
-        aside={
-          <Link
-            href="/guides/dental-call-recording-laws"
-            className="block rounded-2xl bg-slate-900 p-5 text-white transition hover:bg-slate-800"
-          >
-            <span className="text-[11px] font-bold tracking-[0.16em] text-[#FFB23E] uppercase">
-              Guide
-            </span>
-            <span className="mt-2 block font-display text-[15px] leading-snug font-bold">
-              Call recording laws in all 50 states
-            </span>
-          </Link>
-        }
+        images={[featurePhotos.frontDeskCall, featurePhotos.frontDeskCalendar]}
       />
 
       <FaqList faqs={faqs} title={`${state.name} dental practice questions`} />
 
       <Sources citations={stateCitations(state)} />
 
-      <section aria-labelledby="explore" className="py-16 sm:py-20">
+      <Band tone="white" aria-labelledby="explore">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-2">
-            <div>
+          <div className="grid gap-14 lg:grid-cols-12 lg:gap-16 xl:gap-24">
+            <div className="lg:col-span-7">
               <h2
                 id="explore"
-                className="font-display text-2xl font-bold tracking-tight text-slate-900"
+                className="font-display text-[32px] leading-[1.08] font-extrabold tracking-[-0.025em] sm:text-[44px]"
               >
                 What Solara does for {state.name} practices
               </h2>
-              <ul className="mt-6 grid gap-2.5">
+              <ul className="mt-9 grid gap-3 sm:grid-cols-2">
                 {platformLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="group flex items-center justify-between gap-3 rounded-xl bg-white px-4 py-3 text-[15px] font-semibold text-slate-800 ring-1 ring-slate-200/70 transition hover:text-[#C13A22] hover:ring-[#FF6A55]/30"
+                      className="group flex h-full items-center gap-3.5 rounded-2xl bg-[#FFF9F2] p-4 text-[16px] font-semibold text-slate-900 ring-1 ring-slate-900/5 transition hover:text-[#C13A22] hover:ring-[#FF6A55]/30"
                     >
-                      {link.label}
+                      {link.icon && (
+                        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#FFF0EB] text-[#C13A22]">
+                          <link.icon className="h-5 w-5" aria-hidden="true" />
+                        </span>
+                      )}
+                      <span className="min-w-0 flex-1">{link.label}</span>
                       <ArrowRight
-                        className="h-4 w-4 text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-[#C13A22]"
+                        className="h-4 w-4 shrink-0 text-slate-400 transition group-hover:translate-x-1 group-hover:text-[#C13A22]"
                         aria-hidden="true"
                       />
                     </Link>
@@ -202,33 +206,34 @@ export default async function StatePage({ params }: PageProps<"/locations/[state
                 ))}
               </ul>
             </div>
-            <div>
-              <h2 className="font-display text-2xl font-bold tracking-tight text-slate-900">
+            <div className="lg:col-span-5">
+              <h2 className="font-display text-[32px] leading-[1.08] font-extrabold tracking-[-0.025em] sm:text-[44px]">
                 Other {allParty ? "all-party" : "one-party"} consent states
               </h2>
-              <ul className="mt-6 flex flex-wrap gap-2.5">
+              <ul className="mt-9 flex flex-wrap gap-2.5">
                 {peers.map((peer) => (
                   <li key={peer.slug}>
                     <Link
                       href={statePath(peer.slug)}
-                      className="inline-flex rounded-full bg-white px-4 py-2 text-[14px] font-medium text-slate-700 ring-1 ring-slate-200/80 transition hover:text-[#C13A22] hover:ring-[#FF6A55]/30"
+                      className="inline-flex rounded-full bg-[#FFF9F2] px-4 py-2.5 text-[15px] font-medium text-slate-700 ring-1 ring-slate-900/10 transition hover:text-[#C13A22] hover:ring-[#FF6A55]/30"
                     >
                       Dental AI in {peer.name}
                     </Link>
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/locations"
-                className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#C13A22] hover:underline"
-              >
-                See every state
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+              <div className="mt-9 flex flex-wrap gap-3">
+                <ButtonLink href="/locations" variant="dark">
+                  See every state
+                </ButtonLink>
+                <ButtonLink href="/guides/dental-call-recording-laws" variant="dark">
+                  Call recording laws
+                </ButtonLink>
+              </div>
             </div>
           </div>
         </Container>
-      </section>
+      </Band>
 
       <CtaBand
         title={`Bring Solara to your ${state.name} practice`}

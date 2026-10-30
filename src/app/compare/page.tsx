@@ -1,28 +1,23 @@
 import type { Metadata } from "next";
 
-import { CtaBand, FaqList, KeyTakeaways, RelatedLinks } from "@/components/inner/ContentBlocks";
 import { ComparisonTable } from "@/components/inner/ComparisonTable";
+import { CtaBand, FaqList, KeyTakeaways, RelatedLinks } from "@/components/inner/ContentBlocks";
+import { ScoreBoard } from "@/components/inner/HeroPanels";
 import { PageHero } from "@/components/inner/PageHero";
-import { Container, SectionHeading } from "@/components/inner/PageShell";
-import { PageShell } from "@/components/inner/PageShell";
+import { Band, Container, PageShell, SectionHeading } from "@/components/inner/PageShell";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { comparePages, comparePath } from "@/content/compare";
 import { comparisonRows } from "@/content/comparison";
 import { faqsById } from "@/content/faqs";
-import { compareLinks } from "@/content/navigation";
+import { comparePhotos } from "@/content/photos";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { getPage } from "@/lib/seo/pages";
-import { breadcrumbNode, faqNode, itemListNode, webPageNode } from "@/lib/seo/schema";
+import { faqNode, itemListNode, webPageNode } from "@/lib/seo/schema";
 
 const PATH = "/compare";
 const page = getPage(PATH);
 
 export const metadata: Metadata = pageMetadata(page);
-
-const crumbs = [
-  { name: "Home", path: "/" },
-  { name: "Compare", path: PATH },
-];
 
 const faqs = faqsById([
   "different-from-a-chatbot",
@@ -42,12 +37,10 @@ export default function ComparePage() {
             title: page.title,
             description: page.description,
             type: "CollectionPage",
-            crumbs,
             datePublished: page.datePublished,
             dateModified: page.lastModified,
             speakable: [".answer-block", ".key-takeaways"],
           }),
-          breadcrumbNode(PATH, crumbs),
           itemListNode(
             PATH,
             "Solara comparisons",
@@ -62,11 +55,12 @@ export default function ComparePage() {
       />
 
       <PageHero
-        crumbs={crumbs}
         eyebrow="Compare"
         title="Solara vs. a front desk vs. a basic chatbot"
+        highlight="basic chatbot"
         answer={`Solara is a complete AI front office, so it covers work that neither an in-house front desk nor a basic website chatbot fully handles. Across the ${comparisonRows.length} front-office capabilities compared below, Solara covers every one, while the front desk and the chatbot each cover only some of them, or cover them only partly.`}
         updated={page.lastModified}
+        visual={<ScoreBoard columns={["fd", "bot", "solara"]} />}
       />
 
       <KeyTakeaways
@@ -78,7 +72,7 @@ export default function ComparePage() {
         ]}
       />
 
-      <section aria-labelledby="table" className="py-16 sm:py-24">
+      <Band tone="white" aria-labelledby="table">
         <Container>
           <SectionHeading
             eyebrow="Side by side"
@@ -86,11 +80,11 @@ export default function ComparePage() {
             title="Which front-office tasks does each option cover?"
             intro="“Limited” means the option can do it, but not consistently: only during office hours, only when staff have time, or only in a chat window."
           />
-          <div className="mt-10">
+          <div className="mt-14">
             <ComparisonTable caption="Front-office capabilities of an in-house front desk, a basic chatbot and Solara" />
           </div>
         </Container>
-      </section>
+      </Band>
 
       <RelatedLinks
         eyebrow="Deep dives"
@@ -99,7 +93,8 @@ export default function ComparePage() {
           title: p.name,
           href: comparePath(p.slug),
           summary: p.summary,
-          icon: compareLinks.find((link) => link.href === comparePath(p.slug))?.icon,
+          image: comparePhotos[p.column].src,
+          cta: "Read the comparison",
         }))}
       />
 

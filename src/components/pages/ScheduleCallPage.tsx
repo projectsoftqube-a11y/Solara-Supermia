@@ -157,7 +157,7 @@ export function ScheduleCallPage() {
           />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto w-full max-w-[1600px] px-5 sm:px-8 lg:px-12 xl:px-16">
           <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1fr)] lg:gap-16">
             {/* ── FORM column (renders on the RIGHT on desktop) ── */}
             <div className="lg:order-2">
