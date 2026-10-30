@@ -199,7 +199,7 @@ export function StorySections({
                   alt={image.alt}
                   width={1024}
                   height={1024}
-                  sizes="(min-width: 1024px) 46vw, 100vw"
+                  sizes="(min-width: 1668px) 725px, (min-width: 1024px) 46vw, 100vw"
                   className="aspect-[5/4] h-auto w-full rounded-[32px] object-cover shadow-[0_40px_80px_-48px_rgba(15,23,42,0.6)] ring-1 ring-slate-900/5"
                 />
               </div>
@@ -436,7 +436,7 @@ export function RelatedLinks({
                       src={card.image}
                       alt=""
                       fill
-                      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+                      sizes="(min-width: 1668px) 500px, (min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
                       className="object-cover transition duration-700 group-hover:scale-105"
                     />
                   ) : (
@@ -539,7 +539,7 @@ export function CtaBand({
     <Band tone="night" size="lg" className="text-center">
       <Container className="flex flex-col items-center">
         <Eyebrow tone="night">The complete AI front office</Eyebrow>
-        <h2 className="mt-9 max-w-[1500px] font-display text-[44px] leading-[1.03] font-extrabold tracking-[-0.03em] text-balance sm:text-7xl lg:text-[84px] xl:text-[104px]">
+        <h2 className="mt-9 font-display text-[44px] leading-[1.03] font-extrabold tracking-[-0.03em] text-balance sm:text-7xl lg:text-[84px] xl:text-[104px]">
           <Highlighted text={title} />
         </h2>
         <p className="mt-8 max-w-3xl text-xl leading-relaxed text-slate-300 lg:text-2xl">{body}</p>

@@ -106,7 +106,7 @@ export function LegalLayout({
           <Container className="pt-32 pb-24 sm:pt-40 sm:pb-28 lg:pt-44 lg:pb-32">
             <Eyebrow tone="night">{eyebrow}</Eyebrow>
 
-            <h1 className="mt-7 max-w-[1240px] font-display text-[42px] leading-[1.03] font-extrabold tracking-[-0.03em] text-balance sm:text-6xl lg:text-7xl xl:text-[88px]">
+            <h1 className="mt-7 font-display text-[42px] leading-[1.03] font-extrabold tracking-[-0.03em] text-balance sm:text-6xl lg:text-7xl xl:text-[88px]">
               <Highlighted text={title} />
             </h1>
 
@@ -298,7 +298,7 @@ export function LegalLayout({
         )}
       </AnimatePresence>
 
-      <Footer />
+      <Footer wide />
     </div>
   );
 }

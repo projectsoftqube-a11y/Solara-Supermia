@@ -106,7 +106,7 @@ export default function ContactPage() {
                         src={featurePhotos.ownerTablets.src}
                         alt=""
                         fill
-                        sizes="(min-width: 1024px) 50vw, 100vw"
+                        sizes="(min-width: 1668px) 770px, (min-width: 1024px) 50vw, 100vw"
                         className="-z-20 object-cover transition duration-700 group-hover:scale-105"
                       />
                       <span

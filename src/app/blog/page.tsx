@@ -37,7 +37,11 @@ function PostCard({ post, featured = false }: { post: BlogPost; featured?: boole
             src={image.src}
             alt=""
             fill
-            sizes={featured ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1280px) 33vw, 50vw"}
+            sizes={
+              featured
+                ? "(min-width: 1668px) 770px, (min-width: 1024px) 50vw, 100vw"
+                : "(min-width: 1668px) 500px, (min-width: 1280px) 33vw, 50vw"
+            }
             className="object-cover transition duration-700 group-hover:scale-105"
           />
         </div>

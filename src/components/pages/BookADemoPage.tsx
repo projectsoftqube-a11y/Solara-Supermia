@@ -99,7 +99,7 @@ export function BookADemoPage() {
         </Container>
       </main>
 
-      <Footer />
+      <Footer wide />
     </div>
   );
 }

@@ -135,7 +135,7 @@ export default function PricingPage() {
         ]}
       />
 
-      <Pricing />
+      <Pricing wide />
 
       <Band tone="white" aria-labelledby="plans">
         <Container>

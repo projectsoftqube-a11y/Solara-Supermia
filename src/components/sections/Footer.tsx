@@ -8,7 +8,8 @@ import { footerColumns } from "@/content/navigation";
 import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DISPLAY } from "@/lib/site";
 import { useCurrentYear } from "@/lib/use-current-year";
 
-export function Footer() {
+/** `wide` matches the inner pages' 1540px container; home keeps its own width. */
+export function Footer({ wide = false }: { wide?: boolean }) {
   const year = useCurrentYear();
 
   return (
@@ -22,7 +23,9 @@ export function Footer() {
       {/* Spotlight for the logo */}
       <div className="pointer-events-none absolute top-0 left-0 h-[500px] w-[500px] rounded-br-full bg-white/5 blur-[100px]" />
 
-      <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+      <div
+        className={`relative z-10 ${wide ? "container-page" : "mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8"}`}
+      >
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.5fr)_repeat(4,minmax(0,1fr))] lg:gap-10">
           {/* Brand Column */}
           <div className="flex flex-col items-start">

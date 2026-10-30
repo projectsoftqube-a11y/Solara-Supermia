@@ -18,7 +18,8 @@ import {
 import { plans } from "@/content/plans";
 import Link from "next/link";
 
-export function Pricing() {
+/** `wide` matches the inner pages' 1540px container; home keeps its own width. */
+export function Pricing({ wide = false }: { wide?: boolean }) {
   const [annual, setAnnual] = useState(true);
 
   return (
@@ -34,7 +35,7 @@ export function Pricing() {
       <div className="pointer-events-none absolute top-0 left-1/4 h-[600px] w-[600px] rounded-full bg-[#FF6A55]/5 blur-[150px]" />
       <div className="pointer-events-none absolute right-1/4 bottom-0 h-[600px] w-[600px] rounded-full bg-[#FFB23E]/5 blur-[150px]" />
 
-      <div className="relative z-10 container-content">
+      <div className={`relative z-10 ${wide ? "container-page" : "container-content"}`}>
         {/* Header */}
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <motion.div
@@ -104,7 +105,9 @@ export function Pricing() {
         </div>
 
         {/* ═══════════ PRICING CARDS ═══════════ */}
-        <div className="mx-auto grid max-w-7xl items-stretch gap-6 lg:grid-cols-12">
+        <div
+          className={`mx-auto grid items-stretch gap-6 lg:grid-cols-12 ${wide ? "" : "max-w-7xl"}`}
+        >
           {/* ─── Essentials Card ─── */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}

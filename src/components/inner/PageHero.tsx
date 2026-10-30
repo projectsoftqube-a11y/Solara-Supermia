@@ -83,7 +83,7 @@ export function PageHero({
 
       <Container className="pt-32 pb-24 sm:pt-40 sm:pb-28 lg:pt-44 lg:pb-32">
         <div className={side ? "grid items-center gap-14 lg:grid-cols-12 lg:gap-12 xl:gap-20" : ""}>
-          <div className={side ? "min-w-0 lg:col-span-7" : "max-w-[1240px]"}>
+          <div className={side ? "min-w-0 lg:col-span-7" : ""}>
             <Eyebrow tone="night">{eyebrow}</Eyebrow>
 
             <h1
@@ -144,7 +144,7 @@ function HeroImage({
           width={1024}
           height={1024}
           priority
-          sizes="(min-width: 1024px) 42vw, 100vw"
+          sizes="(min-width: 1668px) 600px, (min-width: 1024px) 42vw, 100vw"
           className="aspect-[5/4] h-auto w-full object-cover"
         />
         <div

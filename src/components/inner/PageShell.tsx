@@ -11,12 +11,12 @@ export function PageShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen overflow-x-clip bg-[#FFF9F2] selection:bg-[#FF6A55]/20">
       <SiteHeader solid />
       <main id="main">{children}</main>
-      <Footer />
+      <Footer wide />
     </div>
   );
 }
 
-/** Same page width as the home page: edge to edge, capped on very wide screens. */
+/** The one content width for inner pages: 1540px, inside full-bleed bands. */
 export function Container({
   children,
   className = "",
@@ -24,11 +24,7 @@ export function Container({
   children: ReactNode;
   className?: string;
 }) {
-  return (
-    <div className={`mx-auto w-full max-w-[1920px] px-5 sm:px-8 lg:px-12 xl:px-16 ${className}`}>
-      {children}
-    </div>
-  );
+  return <div className={`container-page ${className}`}>{children}</div>;
 }
 
 export type Tone = "cream" | "white" | "sand" | "night";

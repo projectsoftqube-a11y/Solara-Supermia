@@ -51,9 +51,21 @@ const BENTO = [
 ];
 
 const COLLAGE = [
-  { photo: featurePhotos.frontDeskCall, className: "col-span-3 row-span-2", sizes: "25vw" },
-  { photo: featurePhotos.hygieneChair, className: "col-span-2", sizes: "17vw" },
-  { photo: featurePhotos.performanceMonitor, className: "col-span-2", sizes: "17vw" },
+  {
+    photo: featurePhotos.frontDeskCall,
+    className: "col-span-3 row-span-2",
+    sizes: "(min-width: 1668px) 360px, (min-width: 1024px) 25vw, 60vw",
+  },
+  {
+    photo: featurePhotos.hygieneChair,
+    className: "col-span-2",
+    sizes: "(min-width: 1668px) 240px, (min-width: 1024px) 17vw, 60vw",
+  },
+  {
+    photo: featurePhotos.performanceMonitor,
+    className: "col-span-2",
+    sizes: "(min-width: 1668px) 240px, (min-width: 1024px) 17vw, 60vw",
+  },
 ];
 
 function HeroCollage() {
@@ -74,7 +86,7 @@ function HeroCollage() {
               alt={photo.alt}
               fill
               priority={i === 0}
-              sizes={`(min-width: 1024px) ${sizes}, 60vw`}
+              sizes={sizes}
               className="object-cover object-[62%_30%]"
             />
           </div>
@@ -159,8 +171,8 @@ export default function PlatformPage() {
                       fill
                       sizes={
                         i === 0 || i >= 5
-                          ? "(min-width: 1024px) 50vw, 100vw"
-                          : "(min-width: 1024px) 25vw, 50vw"
+                          ? "(min-width: 1668px) 770px, (min-width: 1024px) 50vw, 100vw"
+                          : "(min-width: 1668px) 370px, (min-width: 1024px) 25vw, 50vw"
                       }
                       className="-z-20 object-cover transition duration-700 group-hover:scale-105"
                     />
@@ -219,7 +231,7 @@ export default function PlatformPage() {
                 src={featurePhotos.tabletCalendar.src}
                 alt={featurePhotos.tabletCalendar.alt}
                 fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                sizes="(min-width: 1668px) 770px, (min-width: 1024px) 50vw, 100vw"
                 className="object-cover transition duration-700 group-hover:scale-105"
               />
             </span>

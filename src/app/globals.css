@@ -197,6 +197,21 @@
   }
 }
 
+/* Inner pages: exactly 1540px of content, on gutters that never shrink. */
+@utility container-page {
+  width: 100%;
+  padding-inline: max(20px, calc((100% - 1540px) / 2));
+  @media (min-width: 640px) {
+    padding-inline: max(32px, calc((100% - 1540px) / 2));
+  }
+  @media (min-width: 1024px) {
+    padding-inline: max(48px, calc((100% - 1540px) / 2));
+  }
+  @media (min-width: 1280px) {
+    padding-inline: max(64px, calc((100% - 1540px) / 2));
+  }
+}
+
 @utility section-pad {
   padding-block: 80px;
   @media (min-width: 768px) {
