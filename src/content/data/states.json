@@ -1,0 +1,1206 @@
+[
+  {
+    "name": "Alabama",
+    "slug": "alabama",
+    "abbr": "AL",
+    "timeZones": ["America/Chicago"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Ala. Code § 13A-11-31",
+      "note": "A party to the call, or someone with one party's consent, may record. Knowingly divulging information from an unlawful recording is a separate offense (§ 13A-11-35).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/alabama/"
+    },
+    "dentalBoard": {
+      "name": "Board of Dental Examiners of Alabama",
+      "url": "https://www.dentalboard.org/"
+    },
+    "medicaidDental": {
+      "program": "Alabama Medicaid Dental Program",
+      "url": "https://medicaid.alabama.gov/CONTENT/4.0_Programs/4.2_Medical_Services/4.2.2_Dental.aspx"
+    },
+    "confidence": "medium",
+    "notes": "Time zone: officially all Central (America/Chicago); IANA tzdb comments note Phenix City (Russell County) unofficially keeps Eastern time. Dental board site is .org, not .gov, but was fetched and identifies itself as the state licensing board. Medicaid page: direct fetch failed (connection reset); its URL and content (dental for under-21 EPSDT and, since Oct 1 2022, pregnant/postpartum adults; no general adult dental) were confirmed only through search-index results from medicaid.alabama.gov.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Alaska",
+    "slug": "alaska",
+    "abbr": "AK",
+    "timeZones": [
+      "America/Anchorage",
+      "America/Juneau",
+      "America/Sitka",
+      "America/Metlakatla",
+      "America/Yakutat",
+      "America/Nome",
+      "America/Adak"
+    ],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Alaska Stat. § 42.20.310",
+      "note": "Recording a call is allowed with the consent of at least one party to the conversation. Divulging an unlawfully intercepted private conversation is separately barred (§ 42.20.300).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/alaska/"
+    },
+    "dentalBoard": {
+      "name": "Alaska Board of Dental Examiners",
+      "url": "https://www.commerce.alaska.gov/web/cbpl/ProfessionalLicensing/BoardofDentalExaminers.aspx"
+    },
+    "medicaidDental": {
+      "program": "Alaska Medicaid and Denali KidCare",
+      "url": "https://health.alaska.gov/dhcs/Documents/PDF/Recipient-Handbook.pdf"
+    },
+    "confidence": "medium",
+    "notes": "America/Adak covers the western Aleutians (Hawaii-Aleutian time); the other zones are Alaska time. Board page returned HTTP 403 to automated fetch (server is live); board name and URL confirmed via search-index results from commerce.alaska.gov. No branded Medicaid dental name found; the official Recipient Handbook (search-index only, not fetched) describes adult enhanced dental up to $1,150/yr (July-June) plus emergency dental, and children's coverage incl. Denali KidCare. RCFP Alaska page notes it was last updated Sept 2019.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Arizona",
+    "slug": "arizona",
+    "abbr": "AZ",
+    "timeZones": ["America/Phoenix", "America/Denver"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Ariz. Rev. Stat. § 13-3005",
+      "note": "A party to the call, or someone with one party's consent, may record. Wireless calls, texts and email are covered, and people whose calls are unlawfully intercepted can sue (§ 12-731).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/arizona/"
+    },
+    "dentalBoard": {
+      "name": "Arizona State Board of Dental Examiners",
+      "url": "https://dentalboard.az.gov/"
+    },
+    "medicaidDental": {
+      "program": "AHCCCS (Arizona Medicaid)",
+      "url": "https://www.azahcccs.gov/Members/AlreadyCovered/coveredservices.html"
+    },
+    "confidence": "medium",
+    "notes": "Arizona does not observe daylight saving time (America/Phoenix, MST year-round). The Navajo Nation in northeastern Arizona does observe DST; the IANA tzdb directs it to America/Denver. Board site and AHCCCS pages returned HTTP 403 to automated fetch; names/URLs confirmed via search-index results from dentalboard.az.gov and azahcccs.gov. AHCCCS dental: routine dental for members under 21; adults 21+ limited to emergency dental up to $1,000 per contract year (ALTCS members have a separate $1,000 benefit).",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Arkansas",
+    "slug": "arkansas",
+    "abbr": "AR",
+    "timeZones": ["America/Chicago"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Ark. Code Ann. § 5-60-120",
+      "note": "Covers landline, cellular and cordless calls. Recording is lawful if the recorder is a party or one party consents; possessing a recording made in violation of the statute is also prohibited.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/arkansas/"
+    },
+    "dentalBoard": {
+      "name": "Arkansas State Board of Dental Examiners",
+      "url": "https://healthy.arkansas.gov/boards-commissions/boards/dental-examiners-arkansas-state-board/"
+    },
+    "medicaidDental": {
+      "program": "Arkansas Medicaid Dental Program",
+      "url": "https://humanservices.arkansas.gov/divisions-shared-services/medical-services/healthcare-programs/dental/"
+    },
+    "confidence": "high",
+    "notes": "The 'Healthy Smiles' dental managed care program (Delta Dental / MCNA) ended Oct 31, 2024; since Nov 1, 2024 dental is fee-for-service and dentists bill Medicaid directly (confirmed on the DHS dental page). Dental board now sits under the Arkansas Department of Health site; the old dentalboard.arkansas.gov domain appears outdated.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "California",
+    "slug": "california",
+    "abbr": "CA",
+    "timeZones": ["America/Los_Angeles"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "Cal. Penal Code § 632",
+      "note": "Applies to confidential communications. Separately, § 632.7 requires all-party consent for calls involving a cellular or cordless phone, regardless of confidentiality. Civil damages are available (§ 637.2).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/california/"
+    },
+    "dentalBoard": {
+      "name": "Dental Board of California",
+      "url": "https://www.dbc.ca.gov/"
+    },
+    "medicaidDental": {
+      "program": "Medi-Cal Dental",
+      "url": "https://www.dhcs.ca.gov/services/Pages/MediCalDental.aspx"
+    },
+    "confidence": "medium",
+    "notes": "Official statute site (leginfo.legislature.ca.gov) and Justia returned 403, so the RCFP guide is the source. DHCS pages returned 403 to automated fetch; 'Medi-Cal Dental' name and URL confirmed via search-index results from dhcs.ca.gov (DHCS may have migrated to new /services/... URLs; dental.dhcs.ca.gov is the provider/member portal). Dental managed care exists only in Sacramento and Los Angeles counties; elsewhere fee-for-service.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Colorado",
+    "slug": "colorado",
+    "abbr": "CO",
+    "timeZones": ["America/Denver"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Colo. Rev. Stat. § 18-9-303",
+      "note": "The consent of at least one party is required to record a telephone conversation. Using or disclosing a call known to be unlawfully recorded is a separate crime.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/colorado/"
+    },
+    "dentalBoard": {
+      "name": "Colorado Dental Board",
+      "url": "https://dpo.colorado.gov/Dental"
+    },
+    "medicaidDental": {
+      "program": "Health First Colorado",
+      "url": "https://hcpf.colorado.gov/dental-benefits"
+    },
+    "confidence": "medium",
+    "notes": "Board (DORA Division of Professions and Occupations) and HCPF pages returned HTTP 403 to automated fetch; names/URLs confirmed via search-index results from dpo.colorado.gov and hcpf.colorado.gov. Dental benefit is administered by DentaQuest. HCPF page says no adult annual limit since July 1, 2023, but a July 2026 DentaQuest provider newsletter reports a $3,000 adult annual maximum from July 1, 2026 (not confirmed on HCPF).",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Connecticut",
+    "slug": "connecticut",
+    "abbr": "CT",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "Conn. Gen. Stat. § 52-570d",
+      "note": "Civil law requires all parties' consent: in writing, verbally on the recording, or via a recorded warning at the start of the call. The criminal eavesdropping law (§§ 53a-187, -189) needs only one party's consent.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/connecticut/"
+    },
+    "dentalBoard": {
+      "name": "Connecticut State Dental Commission",
+      "url": "https://portal.ct.gov/dph/public-health-hearing-office/connecticut-state-dental-commission/connecticut-state-dental-commission"
+    },
+    "medicaidDental": {
+      "program": "HUSKY Health dental",
+      "url": "https://portal.ct.gov/HUSKY/The-Connecticut-Dental-Health-Partnership"
+    },
+    "confidence": "high",
+    "notes": "Recording law is split: criminal one-party, civil all-party; all-party chosen because civil liability attaches to recording a phone call without all-party consent. cga.ct.gov statute page could not be fetched (connection reset). Dental licenses are issued by the CT Department of Public Health; the State Dental Commission (under DPH) handles regulation/discipline. CTDHP is administered by BeneCare under contract with CT DSS.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Delaware",
+    "slug": "delaware",
+    "abbr": "DE",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "Del. Code Ann. tit. 11, § 1335(a)(4)",
+      "note": "Delaware law conflicts: the privacy statute requires all parties' consent to intercept a phone call, while the wiretap statute (§ 2402(c)(4)) allows one-party consent. The stricter all-party rule is the cautious reading.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/delaware/"
+    },
+    "dentalBoard": {
+      "name": "Delaware Board of Dentistry and Dental Hygiene",
+      "url": "https://dpr.delaware.gov/boards/dental/"
+    },
+    "medicaidDental": {
+      "program": "Delaware Medicaid dental",
+      "url": "https://dhss.delaware.gov/dmma/home/medicaid/adult-dental-services/"
+    },
+    "confidence": "medium",
+    "notes": "Genuinely disputed: § 2402(c)(4) (verified on delcode.delaware.gov) permits recording by a party or with one party's consent, and U.S. v. Vespe (D. Del. 1975) allowed a party to record; RCFP advises following the stricter all-party § 1335 rule, which is what this record uses. Medicaid page returned HTTP 999 to automated fetch; confirmed via search-index results from dhss.delaware.gov. Adult dental benefit began Oct 1, 2020 ($1,000 annual limit plus up to $1,500 emergency).",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "District of Columbia",
+    "slug": "district-of-columbia",
+    "abbr": "DC",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "D.C. Code § 23-542",
+      "note": "Lawful if the recorder is a party to the call or has prior consent from one party. Courts have applied the law to cellphone calls; civil damages are available (§ 23-554).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/district-of-columbia/"
+    },
+    "dentalBoard": {
+      "name": "DC Board of Dentistry",
+      "url": "https://dchealth.dc.gov/service/board-dentistry-dentistry-licensing"
+    },
+    "medicaidDental": {
+      "program": "DC Medicaid",
+      "url": "https://dhcf.dc.gov/service/medicaid"
+    },
+    "confidence": "high",
+    "notes": "Board operates under DC Health. DHCF Medicaid page lists 'Dental services and related treatment' as covered; no distinct branded dental program name found (children's EPSDT benefit is branded 'HealthCheck'). RCFP DC page notes it was last updated Oct 2019.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Florida",
+    "slug": "florida",
+    "abbr": "FL",
+    "timeZones": ["America/New_York", "America/Chicago"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "Fla. Stat. § 934.03",
+      "note": "Intercepting or recording a call is lawful only when all parties give prior consent (§ 934.03(2)(d)). Violations can be felonies, and civil damages are available (§ 934.10).",
+      "sourceUrl": "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0934/Sections/0934.03.html"
+    },
+    "dentalBoard": {
+      "name": "Florida Board of Dentistry",
+      "url": "https://floridasdentistry.gov/"
+    },
+    "medicaidDental": {
+      "program": "Florida Medicaid dental",
+      "url": "https://ahca.myflorida.com/medicaid/statewide-medicaid-managed-care"
+    },
+    "confidence": "medium",
+    "notes": "Most of Florida is Eastern; the western panhandle (e.g., Escambia, Okaloosa, Walton, Bay) is Central per IANA tzdb comments. AHCA pages returned HTTP 403 to automated fetch; SMMC (with a Dental component) confirmed via search-index results from ahca.myflorida.com. Structure is changing: AHCA notes that from Oct 1, 2025 responsibility for non-emergency dental outpatient services transfers to Medicaid health plans, so the program label may shift.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Georgia",
+    "slug": "georgia",
+    "abbr": "GA",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "O.C.G.A. § 16-11-66",
+      "note": "A party to the call, or someone with prior consent from one party, may record. Violations of the state eavesdropping law are felonies (§ 16-11-69).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/georgia/"
+    },
+    "dentalBoard": {
+      "name": "Georgia Board of Dentistry",
+      "url": "https://gbd.georgia.gov/"
+    },
+    "medicaidDental": {
+      "program": "Georgia Medicaid",
+      "url": "https://medicaid.georgia.gov/additional-medicaid-faqs"
+    },
+    "confidence": "medium",
+    "notes": "No branded Medicaid dental program name found. The official FAQ page (fetched) lists 'Dental care (up to age 21)', but CMS-approved SPA GA-24-0005 (seen via search only) expanded adult (21+) dental effective July 1, 2024, so the official page may be outdated. Dental is delivered through Georgia Families CMOs or fee-for-service.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Hawaii",
+    "slug": "hawaii",
+    "abbr": "HI",
+    "timeZones": ["Pacific/Honolulu"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Haw. Rev. Stat. § 803-42",
+      "note": "One party's consent is enough to record a call. Separately, § 711-1111 requires consent of all persons entitled to privacy when a recording device is installed in a private place.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/hawaii/"
+    },
+    "dentalBoard": {
+      "name": "Hawaii Board of Dentistry",
+      "url": "https://cca.hawaii.gov/pvl/boards/dentist/"
+    },
+    "medicaidDental": {
+      "program": "Med-QUEST",
+      "url": "https://medquest.hawaii.gov/content/medquest/en/plans-providers/dental.html"
+    },
+    "confidence": "medium",
+    "notes": "Hawaii does not observe daylight saving time. Board (DCCA Professional and Vocational Licensing) and Med-QUEST pages returned HTTP 403 to automated fetch; names/URLs confirmed via search-index results from cca.hawaii.gov and medquest.hawaii.gov. Adult dental (preventive, restorative, some dentures) restored Jan 1, 2023; Community Case Management Corp. helps members find dentists; claims processed by Hawaii Dental Service.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Idaho",
+    "slug": "idaho",
+    "abbr": "ID",
+    "timeZones": ["America/Boise", "America/Los_Angeles"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Idaho Code § 18-6702",
+      "note": "One party's consent is enough, and the same rule covers electronic messages. Disclosing contents known to be illegally intercepted is prohibited, and victims can sue (§ 18-6709).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/idaho/"
+    },
+    "dentalBoard": {
+      "name": "Idaho State Board of Dentistry",
+      "url": "https://dopl.idaho.gov/bod/"
+    },
+    "medicaidDental": {
+      "program": "Idaho Smiles",
+      "url": "https://healthandwelfare.idaho.gov/providers/managed-care-providers/dental"
+    },
+    "confidence": "high",
+    "notes": "Southern Idaho is Mountain (America/Boise); the northern panhandle (e.g., Benewah, Bonner, Boundary, Clearwater) is Pacific (America/Los_Angeles) per IANA tzdb. Board operates under the Division of Occupational and Professional Licenses (DOPL); HB 935 (signed Apr 2, 2026) folds the Board of Denturitry into the Board of Dentistry. Idaho Smiles is managed by MCNA Dental.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Illinois",
+    "slug": "illinois",
+    "abbr": "IL",
+    "timeZones": ["America/Chicago"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "720 ILCS 5/14-2",
+      "note": "Applies to private conversations made with a reasonable expectation of privacy; the statute targets surreptitious recording without all parties' consent. Civil remedies are available (720 ILCS 5/14-6).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/illinois/"
+    },
+    "dentalBoard": {
+      "name": "Illinois Board of Dentistry",
+      "url": "https://idfpr.illinois.gov/profs/boards/dentist.html"
+    },
+    "medicaidDental": {
+      "program": "Illinois Medicaid dental",
+      "url": "https://hfs.illinois.gov/medicalproviders/maternalandchildhealth/dentaloralhealth.html"
+    },
+    "confidence": "high",
+    "notes": "ilga.gov statute page could not be fetched (connection reset); the 'surreptitious' element was seen in search-index text of the official ilga.gov compiled statute. Licenses are issued by IDFPR; the Board of Dentistry sits within IDFPR. HFS does not use a branded name for its dental program; DentaQuest is the dental program administrator.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Indiana",
+    "slug": "indiana",
+    "abbr": "IN",
+    "timeZones": [
+      "America/Indiana/Indianapolis",
+      "America/Indiana/Vincennes",
+      "America/Indiana/Winamac",
+      "America/Indiana/Marengo",
+      "America/Indiana/Petersburg",
+      "America/Indiana/Vevay",
+      "America/Indiana/Tell_City",
+      "America/Indiana/Knox",
+      "America/Chicago",
+      "America/New_York",
+      "America/Kentucky/Louisville"
+    ],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Ind. Code § 35-33.5-5-5",
+      "note": "Intercepting a call is a felony unless at least one party consents. Civil damages are available (§ 35-33.5-5-4).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/indiana/"
+    },
+    "dentalBoard": {
+      "name": "Indiana State Board of Dentistry",
+      "url": "https://www.in.gov/pla/professions/dentistry-home/"
+    },
+    "medicaidDental": {
+      "program": "Indiana Health Coverage Programs",
+      "url": "https://www.in.gov/medicaid/members/member-programs/what-is-covered-by-indiana-medicaid"
+    },
+    "confidence": "medium",
+    "notes": "Time zones per IANA tzdb: most of Indiana is Eastern (America/Indiana/*); NW and SW counties (e.g., Lake, LaPorte, Jasper, Gibson, Vanderburgh, Warrick) are Central (America/Chicago), as are Perry and Starke (Tell_City, Knox); Dearborn and Ohio counties follow America/New_York; Clark, Floyd and Harrison follow America/Kentucky/Louisville. in.gov pages failed to fetch (connection reset); board and Medicaid pages confirmed via search-index results from in.gov. Board sits within the Professional Licensing Agency. HIP Basic generally excludes dental.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Iowa",
+    "slug": "iowa",
+    "abbr": "IA",
+    "timeZones": ["America/Chicago"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Iowa Code § 808B.2",
+      "note": "Interception is lawful with the consent of at least one party; § 727.8 also lets a party to a communication record it. Civil suits are available (§ 808B.8).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/iowa/"
+    },
+    "dentalBoard": {
+      "name": "Iowa Dental Board",
+      "url": "https://dial.iowa.gov/boards/dental-board"
+    },
+    "medicaidDental": {
+      "program": "the Iowa Medicaid Dental Wellness Plan",
+      "url": "https://hhs.iowa.gov/dental-wellness-plan"
+    },
+    "confidence": "high",
+    "notes": "Iowa Dental Board now operates within the Department of Inspections, Appeals, and Licensing (DIAL); confirmed on dial.iowa.gov/boards/dental-board/about (main board URL returned 403 to automated fetch). Dental Wellness Plan covers Medicaid members of all ages; members choose Delta Dental or DentaQuest (new contracts effective July 1, 2026).",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Kansas",
+    "slug": "kansas",
+    "abbr": "KS",
+    "timeZones": ["America/Chicago", "America/Denver"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Kan. Stat. Ann. § 21-6101",
+      "note": "Intercepting a phone call without the consent of at least one party is a misdemeanor. Civil damages are available (K.S.A. 22-2518).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/kansas/"
+    },
+    "dentalBoard": {
+      "name": "Kansas Dental Board",
+      "url": "https://www.dental.ks.gov/"
+    },
+    "medicaidDental": {
+      "program": "KanCare",
+      "url": "https://www.kancare.ks.gov/members/benefits-services"
+    },
+    "confidence": "medium",
+    "notes": "Most of Kansas is Central; 'far western Kansas' is Mountain (America/Denver) per IANA tzdb comments (the specific counties were not verified). Board and KanCare sites returned HTTP 403 to automated fetch; names/URLs confirmed via search-index results from dental.ks.gov and kancare.ks.gov. Adult (21+) dental coverage began July 1, 2022.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Kentucky",
+    "slug": "kentucky",
+    "abbr": "KY",
+    "timeZones": [
+      "America/New_York",
+      "America/Kentucky/Louisville",
+      "America/Kentucky/Monticello",
+      "America/Chicago"
+    ],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Ky. Rev. Stat. §§ 526.010, 526.020",
+      "note": "Kentucky lets a participant record a call; one party's consent is enough. Using or disclosing information from an unlawfully recorded conversation is a separate misdemeanor.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/kentucky/"
+    },
+    "dentalBoard": {
+      "name": "Kentucky Board of Dentistry",
+      "url": "https://dentistry.ky.gov/"
+    },
+    "medicaidDental": {
+      "program": "Kentucky Medicaid",
+      "url": "https://www.chfs.ky.gov/agencies/dms/dpo/bpb/Pages/dental.aspx"
+    },
+    "confidence": "medium",
+    "notes": "Time zones per IANA tzdb zone1970.tab/northamerica: eastern KY is America/New_York, plus America/Kentucky/Louisville and America/Kentucky/Monticello (Wayne Co.), western KY America/Chicago. dentistry.ky.gov and chfs.ky.gov return 403 to automated fetches; both confirmed via search index only. No distinct branded dental program name found; the CHFS dental page is provider-oriented (Provider Types 60/61). Status of the 2023 adult dental expansion could not be confirmed. RCFP guide last updated May 2020.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Louisiana",
+    "slug": "louisiana",
+    "abbr": "LA",
+    "timeZones": ["America/Chicago"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "La. Rev. Stat. § 15:1303",
+      "note": "One participant's consent is enough to record a call. Passing along a recording you know was illegally intercepted brings criminal and civil liability; even unknowing distribution can bring civil liability.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/louisiana/"
+    },
+    "dentalBoard": {
+      "name": "Louisiana State Board of Dentistry",
+      "url": "https://www.lsbd.org/"
+    },
+    "medicaidDental": {
+      "program": "the Louisiana Medicaid Dental Benefit Program",
+      "url": "https://ldh.la.gov/medicaid/dental-services"
+    },
+    "confidence": "high",
+    "notes": "Board site fetched and confirmed; it uses lsbd.org, not a .gov domain. LDH dental page blocks automated fetches (Cloudflare 403); program name and URL confirmed via LDH documents in search results. Dental benefits are carved out of managed care and administered by DentaQuest and MCNA Dental (since Jan 1, 2021). RCFP guide last updated May 2020.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Maine",
+    "slug": "maine",
+    "abbr": "ME",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Me. Rev. Stat. tit. 15, §§ 709, 710",
+      "note": "A participant may record a call without the other party's consent. Using or disclosing a recording known to be illegally obtained is also prohibited, and victims can sue for damages.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/maine/"
+    },
+    "dentalBoard": {
+      "name": "Maine Board of Dental Practice",
+      "url": "https://www.maine.gov/dental/"
+    },
+    "medicaidDental": {
+      "program": "MaineCare",
+      "url": "https://www.maine.gov/dhhs/oms/mainecare-options/adults"
+    },
+    "confidence": "high",
+    "notes": "Board page confirmed live (title 'Maine Board of Dental Practice'). MaineCare adults page blocks automated fetches; content confirmed via search index: comprehensive adult dental coverage since July 1, 2022. No separate branded dental program name.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Maryland",
+    "slug": "maryland",
+    "abbr": "MD",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "Md. Code, Cts. & Jud. Proc. § 10-402",
+      "note": "Maryland requires every party's consent to record a phone call, whether or not anyone expected privacy. Unlawful recording is a felony and can also lead to civil damages.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/maryland/"
+    },
+    "dentalBoard": {
+      "name": "Maryland State Board of Dental Examiners",
+      "url": "https://health.maryland.gov/dental/"
+    },
+    "medicaidDental": {
+      "program": "Maryland Healthy Smiles Dental Program",
+      "url": "https://health.maryland.gov/mmcp/Pages/Maryland-Healthy-Smiles-Dental-Program.aspx"
+    },
+    "confidence": "high",
+    "notes": "Board and Medicaid pages fetched and confirmed. Healthy Smiles covers everyone with full Medicaid coverage; adult (21+) dental began Jan 1, 2023. Administrator sources conflict (SKYGEN vs DentaQuest); not needed for this record.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Massachusetts",
+    "slug": "massachusetts",
+    "abbr": "MA",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "Mass. Gen. Laws ch. 272, § 99",
+      "note": "All parties must consent. The law targets secret recording: the state's high court held that when all parties know a call is being recorded, affirmative consent is not required (Curtatone v. Barstool Sports, 2021).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/massachusetts/"
+    },
+    "dentalBoard": {
+      "name": "Massachusetts Board of Registration in Dentistry",
+      "url": "https://www.mass.gov/orgs/board-of-registration-in-dentistry"
+    },
+    "medicaidDental": {
+      "program": "MassHealth Dental Program",
+      "url": "https://www.mass.gov/info-details/learn-about-masshealth-dental-benefits"
+    },
+    "confidence": "high",
+    "notes": "MassHealth dental page fetched and confirmed (mentions 'MassHealth Dental Program'). Board org page returns 403 to automated fetches; the exact mass.gov URL and title 'Board of Registration in Dentistry' were confirmed via search index.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Michigan",
+    "slug": "michigan",
+    "abbr": "MI",
+    "timeZones": ["America/Detroit", "America/Menominee"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "Mich. Comp. Laws § 750.539c",
+      "note": "RCFP treats Michigan as all-party, but Sullivan v. Gray (Mich. Ct. App. 1982) held a participant may record its own conversation. The Michigan Supreme Court has not ruled, so the question remains open.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/michigan/"
+    },
+    "dentalBoard": {
+      "name": "Michigan Board of Dentistry",
+      "url": "https://www.michigan.gov/dentistry"
+    },
+    "medicaidDental": {
+      "program": "Healthy Kids Dental",
+      "url": "https://www.michigan.gov/mdhhs/assistance-programs/healthcare/childrenteens/hkdental"
+    },
+    "confidence": "medium",
+    "notes": "Recording rule is genuinely disputed: statute text and RCFP say all-party; Sullivan v. Gray and a 2021 E.D. Mich. ruling allow participant recording (effectively one-party for participants). 'all-party' chosen as the conservative reading. Time zones: America/Detroit (most of MI) and America/Menominee (Dickinson, Gogebic, Iron, Menominee counties on Central). michigan.gov returns 403 to automated fetches; board URL (LARA-hosted) and HKD URL confirmed via search index only. Healthy Kids Dental covers Medicaid members under 21 (Delta Dental of Michigan awarded the contract April 2026); adult Medicaid dental arrangement not verified.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Minnesota",
+    "slug": "minnesota",
+    "abbr": "MN",
+    "timeZones": ["America/Chicago"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Minn. Stat. § 626A.02",
+      "note": "A participant may record a call, as may anyone with one party's consent, unless the recording is made for a criminal or tortious purpose. Disclosing communications known to be unlawfully intercepted is prohibited.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/minnesota/"
+    },
+    "dentalBoard": {
+      "name": "Minnesota Board of Dentistry",
+      "url": "https://mn.gov/boards/dentistry/"
+    },
+    "medicaidDental": {
+      "program": "Medical Assistance and MinnesotaCare",
+      "url": "https://mn.gov/dhs/people-we-serve/adults/health-care/health-care-programs/programs-and-services/ma-coverage.jsp"
+    },
+    "confidence": "medium",
+    "notes": "Board page fetched and confirmed. No distinct branded dental program name; Medical Assistance is Minnesota's Medicaid program and MHCP is the umbrella name. DHS pages are behind a bot-manager captcha, so the MA coverage page (which lists dental care among covered services) was confirmed via search index only. Comprehensive adult dental benefits were restored for MA and MinnesotaCare adults effective Jan 1, 2024 (per DHS, via search). Whether a statewide dental administrator carve-out began Jan 1, 2026 was not confirmed.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Mississippi",
+    "slug": "mississippi",
+    "abbr": "MS",
+    "timeZones": ["America/Chicago"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Miss. Code Ann. § 41-29-531(e)",
+      "note": "Being a participant, or having one party's consent, is enough to record a call, provided there is no criminal or tortious intent. Disclosing an unlawfully intercepted call is a felony.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/mississippi/"
+    },
+    "dentalBoard": {
+      "name": "Mississippi State Board of Dental Examiners",
+      "url": "https://www.dentalboard.ms.gov/"
+    },
+    "medicaidDental": {
+      "program": "Mississippi Medicaid",
+      "url": "https://medicaid.ms.gov/"
+    },
+    "confidence": "medium",
+    "notes": "Board page confirmed live (title 'Mississippi State Board of Dental Examiners'). Division of Medicaid home page fetched (agency: Mississippi Division of Medicaid) but has no dental link; the Covered Services page (lists general dentistry, oral surgery, orthodontia) was confirmed via search index only because a direct fetch failed. No distinct branded dental program name. Non-orthodontic dental is capped at $2,500 per beneficiary per fiscal year (Admin. Code Part 204, via search). Covered-services URL returned 404 on 2026-10-30; replaced with the Division of Medicaid home page.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Missouri",
+    "slug": "missouri",
+    "abbr": "MO",
+    "timeZones": ["America/Chicago"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Mo. Rev. Stat. § 542.402",
+      "note": "A participant, or someone with one party's consent, may record a phone call unless done to commit a criminal or tortious act. RCFP advises all-party consent for in-person conversations, where the law is rarely interpreted.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/missouri/"
+    },
+    "dentalBoard": {
+      "name": "Missouri Dental Board",
+      "url": "https://pr.mo.gov/dental.asp"
+    },
+    "medicaidDental": {
+      "program": "MO HealthNet Dental Program",
+      "url": "https://dss.mo.gov/mhd/dental"
+    },
+    "confidence": "high",
+    "notes": "Board page fetched; text names 'Missouri Dental Board' under the Division of Professional Registration. MO HealthNet dental page (mydss.mo.gov/mhd/dental redirects to dss.mo.gov/mhd/dental) returns 403 to automated fetches; program name confirmed via search (13 CSR 70-35.010 and MHD pages refer to the 'MO HealthNet Dental Program'). Adult dental for managed care participants runs through the MO HealthNet health plans.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Montana",
+    "slug": "montana",
+    "abbr": "MT",
+    "timeZones": ["America/Denver"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "Mont. Code Ann. § 45-8-213",
+      "note": "Recording a call without the knowledge of all parties is unlawful. The statute exempts recordings where the people on the call were warned it would be recorded.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/montana/"
+    },
+    "dentalBoard": {
+      "name": "Montana Board of Dentistry",
+      "url": "https://boards.bsd.dli.mt.gov/dentistry/"
+    },
+    "medicaidDental": {
+      "program": "Montana Medicaid and Healthy Montana Kids",
+      "url": "https://dphhs.mt.gov/ecfsd/oralhealth/ohdentalservices"
+    },
+    "confidence": "high",
+    "notes": "Board page fetched (Montana Department of Labor & Industry). DPHHS page fetched: 'Montana Medicaid offers dental coverage to eligible Montana children and adults'; HMK covers children until age 19. That page still mentions an HMK yearly dental limit, but a June 2026 DPHHS provider notice says the HMK/CHIP annual dental limit is eliminated for dates of service on or after July 1, 2026.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Nebraska",
+    "slug": "nebraska",
+    "abbr": "NE",
+    "timeZones": ["America/Chicago", "America/Denver"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Neb. Rev. Stat. § 86-290",
+      "note": "A party to the call, or someone with one party's consent, may record it unless the purpose is criminal or tortious. Disclosing a communication known to be unlawfully recorded is a felony.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/nebraska/"
+    },
+    "dentalBoard": {
+      "name": "Nebraska Board of Dentistry",
+      "url": "https://dhhs.ne.gov/licensure/Pages/Dentist.aspx"
+    },
+    "medicaidDental": {
+      "program": "Nebraska Medicaid",
+      "url": "https://dhhs.ne.gov/Pages/Medicaid-Dental-Care.aspx"
+    },
+    "confidence": "medium",
+    "notes": "dhhs.ne.gov could not be reached at all from this environment (TLS/connection reset), so both URLs are confirmed via search index only. The Board of Dentistry has no standalone site; licensing runs through the DHHS Licensure Unit page above. Heritage Health managed care plans (Molina, Nebraska Total Care, UnitedHealthcare) have provided dental since Jan 1, 2024, replacing MCNA. Western Nebraska is on Mountain time (America/Denver), per IANA tzdb.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Nevada",
+    "slug": "nevada",
+    "abbr": "NV",
+    "timeZones": ["America/Los_Angeles", "America/Denver"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "Nev. Rev. Stat. § 200.620",
+      "note": "Phone calls require every party's consent (Lane v. Allstate, 1998), even though in-person conversations need only one party's consent. The phone rule also covers cellphone calls and texts (Sharpe v. Nevada, 2015).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/nevada/"
+    },
+    "dentalBoard": {
+      "name": "Nevada State Board of Dental Examiners",
+      "url": "https://dental.nv.gov/"
+    },
+    "medicaidDental": {
+      "program": "Nevada Medicaid",
+      "url": "https://www.nevadamedicaid.nv.gov/medicaid-members/health-plan-home/"
+    },
+    "confidence": "high",
+    "notes": "Mixed law: all-party for phone/electronic (§ 200.620), one-party for in-person (§ 200.650). RCFP's own disclosure section is internally inconsistent on disclosure consent. Time zones: most of NV is America/Los_Angeles; West Wendover and border towns (Jackpot, Owyhee, Mountain City) observe Mountain time, covered by America/Denver per IANA tzdb. Board site fetched (dental.nv.gov redirects to www.dental.nv.gov). Nevada Medicaid page fetched; it says members get care through 'health and dental plans' (old dhcfp.nv.gov URLs now redirect there). No branded dental program name. Dental is managed by a Dental Benefits Administrator (LIBERTY Dental per older state docs); the current vendor was not verified.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "New Hampshire",
+    "slug": "new-hampshire",
+    "abbr": "NH",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "N.H. Rev. Stat. Ann. §§ 570-A:1, 570-A:2",
+      "note": "Every participant must consent to recording a call. Consent can be implied when a party knows the call is being recorded. A participant who records without consent faces a misdemeanor rather than a felony.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/new-hampshire/"
+    },
+    "dentalBoard": {
+      "name": "New Hampshire Board of Dental Examiners",
+      "url": "https://www.oplc.nh.gov/board-dental-examiners"
+    },
+    "medicaidDental": {
+      "program": "NH Smiles",
+      "url": "https://www.dhhs.nh.gov/programs-services/medicaid/medicaid-dental-services-new-hampshire-smiles-program-adults"
+    },
+    "confidence": "high",
+    "notes": "oplc.nh.gov and dhhs.nh.gov return 403 to automated fetches; exact URLs and page titles ('Board of Dental Examiners' under OPLC; 'Medicaid Dental Services: New Hampshire Smiles Program for Adults') confirmed via search index. Adult (21+) dental benefit launched April 1, 2023, administered by Northeast Delta Dental with DentaQuest; children's dental remains Medicaid fee-for-service.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "New Jersey",
+    "slug": "new-jersey",
+    "abbr": "NJ",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "N.J. Stat. Ann. §§ 2A:156A-3, 2A:156A-4",
+      "note": "A party to a call, or someone with one party's consent, may record it unless the purpose is criminal or tortious. Knowingly disclosing an illegally obtained communication is a third-degree crime.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/new-jersey/"
+    },
+    "dentalBoard": {
+      "name": "New Jersey State Board of Dentistry",
+      "url": "https://www.njconsumeraffairs.gov/den/"
+    },
+    "medicaidDental": {
+      "program": "NJ FamilyCare",
+      "url": "https://njfamilycare.dhs.state.nj.us/"
+    },
+    "confidence": "high",
+    "notes": "NJ FamilyCare site fetched; it lists 'dental care' among covered benefits (njfamilycare.org redirects here). Board site is behind an Incapsula bot wall; URL and name confirmed via search index (Division of Consumer Affairs). No separate branded dental program; all NJ FamilyCare MCOs offer the same dental package.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "New Mexico",
+    "slug": "new-mexico",
+    "abbr": "NM",
+    "timeZones": ["America/Denver"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "N.M. Stat. Ann. § 30-12-1",
+      "note": "One party's consent is enough to record a landline call. The statute's wording arguably leaves cellphone calls uncovered, but no New Mexico court has clearly resolved this.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/new-mexico/"
+    },
+    "dentalBoard": {
+      "name": "New Mexico Board of Dental Health Care",
+      "url": "https://www.rld.nm.gov/boards-and-commissions/individual-boards-and-commissions/dental-health-care/"
+    },
+    "medicaidDental": {
+      "program": "Turquoise Care",
+      "url": "https://www.hca.nm.gov/turquoise-care/"
+    },
+    "confidence": "medium",
+    "notes": "Board page fetched (Regulation & Licensing Department; page calls it 'Board of Dental Health Care'). HCA site returns 403 to automated fetches; Turquoise Care (Medicaid managed care since July 1, 2024) and the inclusion of dental services in its benefit plan were confirmed via search index only. Turquoise Care is the Medicaid program name, not a dental-specific brand. Recording law's application to wireless calls is unsettled.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "New York",
+    "slug": "new-york",
+    "abbr": "NY",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "N.Y. Penal Law §§ 250.00, 250.05",
+      "note": "A participant may record a call, as may anyone with one participant's consent. Recording without any participant's consent is a felony. The law covers cellphone and cordless calls.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/new-york/"
+    },
+    "dentalBoard": {
+      "name": "New York State Board for Dentistry",
+      "url": "https://www.op.nysed.gov/dentists"
+    },
+    "medicaidDental": {
+      "program": "New York State Medicaid",
+      "url": "https://www.health.ny.gov/health_care/medicaid/program/dental/"
+    },
+    "confidence": "medium",
+    "notes": "Board URL confirmed live (NYSED Office of the Professions, page title 'Dentists'); board name from Education Law § 6603. health.ny.gov returns 403 to automated fetches; the 'Medicaid Dental Benefits' page was confirmed via search index at the same path on a health.ny.gov mirror host, not the exact URL. No distinct branded dental program name.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "North Carolina",
+    "slug": "north-carolina",
+    "abbr": "NC",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "N.C. Gen. Stat. § 15A-287",
+      "note": "One party's consent is enough to record a call. A state appeals court held that a party warned about monitoring who keeps talking has impliedly consented (State v. Price, 2005).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/north-carolina/"
+    },
+    "dentalBoard": {
+      "name": "North Carolina State Board of Dental Examiners",
+      "url": "https://www.ncdentalboard.org/"
+    },
+    "medicaidDental": {
+      "program": "NC Medicaid",
+      "url": "https://medicaid.ncdhhs.gov/find-doctor/medicaid-dental-providers"
+    },
+    "confidence": "high",
+    "notes": "Board site confirmed live (title 'North Carolina State Board of Dental Examiners'); it uses a .org domain, not .gov. NC Medicaid dental providers page fetched. No distinct branded dental program; coverage details are in Clinical Coverage Policy 4A (Dental Services).",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "North Dakota",
+    "slug": "north-dakota",
+    "abbr": "ND",
+    "timeZones": [
+      "America/Chicago",
+      "America/North_Dakota/Center",
+      "America/North_Dakota/New_Salem",
+      "America/North_Dakota/Beulah",
+      "America/Denver"
+    ],
+    "recording": {
+      "rule": "one-party",
+      "statute": "N.D. Cent. Code § 12.1-15-02",
+      "note": "One participant's consent is enough to record a landline or in-person conversation. The statute's wording targets wired connections, so how it applies to cell-to-cell calls is untested. Recordings made for a criminal or tortious purpose are excluded.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/north-dakota/"
+    },
+    "dentalBoard": {
+      "name": "North Dakota Board of Dental Examiners",
+      "url": "https://www.nddentalboard.org/"
+    },
+    "medicaidDental": {
+      "program": "North Dakota Medicaid",
+      "url": "https://www.hhs.nd.gov/healthcare/medicaid"
+    },
+    "confidence": "medium",
+    "notes": "Board site could not be fetched (connection reset on every attempt, both WebFetch and direct). Name and URL come from the ADA state dental boards directory and the ND Administrative Code reference found in search. The ND Century Code calls the body the 'state board of dental examiners', so 'North Dakota State Board of Dental Examiners' is also used. The Medicaid URL is the live ND HHS Medicaid landing page, which is general and has no dental section. The dental-specific page (hhs.nd.gov/node/4995) returned 403. Its search snippet says members aged 0-20 are eligible for dental services. Time zones: the three America/North_Dakota/* ids are Central-time zones for Oliver, Morton (rural) and Mercer counties per the IANA zone.tab file, and America/Denver covers the southwestern counties on Mountain time.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Ohio",
+    "slug": "ohio",
+    "abbr": "OH",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Ohio Rev. Code § 2933.52",
+      "note": "Ohio requires only one party's consent to record a phone call, and that party can be the office itself. Recordings made to commit a criminal or tortious act are excluded, and unlawful recording can bring civil damages.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/ohio/"
+    },
+    "dentalBoard": {
+      "name": "Ohio State Dental Board",
+      "url": "https://dental.ohio.gov/"
+    },
+    "medicaidDental": {
+      "program": "Ohio Medicaid",
+      "url": "https://medicaid.ohio.gov/families-and-individuals/mcare/support/"
+    },
+    "confidence": "medium",
+    "notes": "Recording rule and board are confirmed: dental.ohio.gov is live with the page title 'Ohio State Dental Board'. Ohio has no distinct branded dental program name, and I could not find a member-facing ODM dental page. The URL given is ODM's live Managed Care page, which mentions dental only in passing as a plan benefit. Coverage rules are in Ohio Admin. Code 5160-5-01 ('Dental services'), but codes.ohio.gov could not be fetched (connection reset). Consider replacing the URL if a better ODM page turns up.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Oklahoma",
+    "slug": "oklahoma",
+    "abbr": "OK",
+    "timeZones": ["America/Chicago"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Okla. Stat. tit. 13, § 176.4",
+      "note": "Oklahoma lets a party to a call record it, or consent to someone else recording it. Recordings made for a criminal or tortious purpose are excluded, and unlawful interception is a felony.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/oklahoma/"
+    },
+    "dentalBoard": {
+      "name": "Oklahoma State Board of Dentistry",
+      "url": "https://oklahoma.gov/dentistry.html"
+    },
+    "medicaidDental": {
+      "program": "SoonerCare dental",
+      "url": "https://oklahoma.gov/ohca/soonerselect/dental-program.html"
+    },
+    "confidence": "high",
+    "notes": "SoonerCare is Oklahoma's Medicaid program. Dental for SoonerSelect members is delivered through the SoonerSelect Dental Program, with plans run by DentaQuest and LIBERTY Dental per OHCA materials. The ADA directory still lists the older board URL ok.gov/dentistry, which timed out. The oklahoma.gov URL above is live.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Oregon",
+    "slug": "oregon",
+    "abbr": "OR",
+    "timeZones": ["America/Los_Angeles", "America/Boise"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Or. Rev. Stat. § 165.540(1)(a)",
+      "note": "Phone calls need only one participant's consent. A separate rule requiring everyone be informed before recording in-person conversations, ORS 165.540(1)(c), was held unconstitutional by the Ninth Circuit in 2023 (Project Veritas v. Schmidt).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/oregon/"
+    },
+    "dentalBoard": {
+      "name": "Oregon Board of Dentistry",
+      "url": "https://www.oregon.gov/dentistry/"
+    },
+    "medicaidDental": {
+      "program": "Oregon Health Plan dental",
+      "url": "https://www.oregon.gov/oha/HSD/OHP/Pages/dental-care.aspx"
+    },
+    "confidence": "high",
+    "notes": "The statute text was cross-checked on oregon.public.law. ORS 165.540(1)(a) requires consent of at least one participant for telecommunications, and (1)(c) is the in-person 'all specifically informed' rule. America/Boise covers eastern Oregon (most of Malheur County) on Mountain time, per the IANA zone.tab file ('OR (east)').",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Pennsylvania",
+    "slug": "pennsylvania",
+    "abbr": "PA",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "18 Pa. C.S. §§ 5703, 5704(4)",
+      "note": "Pennsylvania requires every party's consent to record a phone call. Courts have treated consent as given when callers knew, or reasonably should have known, the call was being recorded (Commonwealth v. Byrd).",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/pennsylvania/"
+    },
+    "dentalBoard": {
+      "name": "Pennsylvania State Board of Dentistry",
+      "url": "https://www.pa.gov/agencies/dos/department-and-offices/bpoa/boards-commissions/dentistry"
+    },
+    "medicaidDental": {
+      "program": "Pennsylvania Medical Assistance",
+      "url": "https://www.pa.gov/agencies/dhs/resources/medicaid/dental-services"
+    },
+    "confidence": "high",
+    "notes": "The board page names it the 'State Board of Dentistry', under the Department of State's Bureau of Professional and Occupational Affairs. The official palegis.us statute page did not render § 5704 text through the fetch tool, so the RCFP guide is used as the source. Illegal recording is a felony, and § 5725 allows civil suits.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Rhode Island",
+    "slug": "rhode-island",
+    "abbr": "RI",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "R.I. Gen. Laws § 11-35-21",
+      "note": "One party's consent is enough to record a call in Rhode Island, unless the recording is made to commit a criminal or tortious act. Unlawful recording can bring civil damages and up to five years in prison.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/rhode-island/"
+    },
+    "dentalBoard": {
+      "name": "Rhode Island Board of Examiners in Dentistry",
+      "url": "https://health.ri.gov/dentistry"
+    },
+    "medicaidDental": {
+      "program": "RIte Smiles and Rhode Island Medicaid dental",
+      "url": "https://eohhs.ri.gov/Consumer/DentalServices/ChildrenYoungAdults.aspx"
+    },
+    "confidence": "medium",
+    "notes": "health.ri.gov and eohhs.ri.gov both returned 403 to every automated fetch, so neither URL was confirmed live. The board name comes from the ADA directory and search summaries of R.I. Gen. Laws 5-31.1. The board sits within the RI Department of Health (RIDOH). The ADA directory lists an older URL (health.ri.gov/licenses/detail.php?id=251), and search results show the current RIDOH dentistry page at health.ri.gov/dentistry. RIte Smiles details (UnitedHealthcare Dental administers it; members born after May 1, 2000) come from EOHHS search snippets. A 2025 bill (H 5550) proposed restructuring the board, and its status was not checked.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "South Carolina",
+    "slug": "south-carolina",
+    "abbr": "SC",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "S.C. Code § 17-30-30",
+      "note": "South Carolina lets a party to a call record it, or another person record it with one party's consent. Unlawful interception is a felony, and civil damages can be the greater of actual damages, $500 per day, or $25,000.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/south-carolina/"
+    },
+    "dentalBoard": {
+      "name": "South Carolina Board of Dentistry",
+      "url": "https://llr.sc.gov/bod/"
+    },
+    "medicaidDental": {
+      "program": "Healthy Connections Medicaid",
+      "url": "https://www.scdhhs.gov/sites/dhhs/files/documents/Medicaid%20Handbook%206.11.25%20Final.pdf"
+    },
+    "confidence": "medium",
+    "notes": "llr.sc.gov timed out or reset on every attempt, and scdhhs.gov returned 403, so neither URL was confirmed live. The board name and URL (llr.sc.gov/bod) come from the ADA directory and search results showing current LLR Board of Dentistry pages. The Medicaid program name and DentaQuest ASO role come from SCDHHS provider-manual and handbook snippets in search. The URL is the June 2025 SCDHHS member handbook, which covers dental. A member-facing dental web page was not found.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "South Dakota",
+    "slug": "south-dakota",
+    "abbr": "SD",
+    "timeZones": ["America/Chicago", "America/Denver"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "S.D. Codified Laws § 23A-35A-20",
+      "note": "A participant in a call, or someone with one participant's consent, may record it in South Dakota (State v. Braddock, 1990). Unlawful interception is a felony; the statute does not create a private civil lawsuit.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/south-dakota/"
+    },
+    "dentalBoard": {
+      "name": "South Dakota State Board of Dentistry",
+      "url": "https://www.sdboardofdentistry.org/"
+    },
+    "medicaidDental": {
+      "program": "South Dakota Medicaid",
+      "url": "https://dss.sd.gov/medicaid/recipients/dental.aspx"
+    },
+    "confidence": "medium",
+    "notes": "The board site reset the connection on every attempt and could not be confirmed live. Its name and URL come from the ADA directory and an archived SD Department of Health page pointing to www.sdboardofdentistry.org. The Medicaid page is live (DSS 'Medicaid Recipient Dental Services'). Delta Dental of South Dakota processes Medicaid dental claims, and adults have a $2,000 yearly limit with some exemptions.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Tennessee",
+    "slug": "tennessee",
+    "abbr": "TN",
+    "timeZones": ["America/New_York", "America/Chicago"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Tenn. Code Ann. § 39-13-601",
+      "note": "Tennessee requires only one party's consent to record a call, including cellphone calls. Recordings made for a criminal or tortious purpose are excluded, and unlawful recording can bring civil damages of $10,000 or more.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/tennessee/"
+    },
+    "dentalBoard": {
+      "name": "Tennessee Board of Dentistry",
+      "url": "https://www.tn.gov/health/licensure/den.html"
+    },
+    "medicaidDental": {
+      "program": "TennCare dental benefits",
+      "url": "https://www.tn.gov/tenncare/members-applicants/dental-services.html"
+    },
+    "confidence": "high",
+    "notes": "The live TennCare dental page now says members' dental benefits are provided by Renaissance. Older sources, including many search results, name DentaQuest, so avoid naming a vendor unless it is re-checked. Telephone and wireless provisions are in §§ 39-13-604 and 40-6-303. The board page (Tennessee Department of Health, Board of Dentistry) is live.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Texas",
+    "slug": "texas",
+    "abbr": "TX",
+    "timeZones": ["America/Chicago", "America/Denver"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Tex. Penal Code § 16.02",
+      "note": "Texas lets a party to a call record it, or consent to someone else recording it. Recordings made for a criminal or tortious purpose are excluded; civil liability can reach $10,000 per violation plus actual damages.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/texas/"
+    },
+    "dentalBoard": {
+      "name": "Texas State Board of Dental Examiners",
+      "url": "https://tsbde.texas.gov/"
+    },
+    "medicaidDental": {
+      "program": "Texas Medicaid and CHIP dental",
+      "url": "https://www.hhs.texas.gov/providers/health-services-providers/texas-health-steps/dental-providers"
+    },
+    "confidence": "medium",
+    "notes": "tsbde.texas.gov and hhs.texas.gov return 403 to automated requests, so content could not be read directly. The servers respond, so the sites are up. The board name and URL match the ADA directory. HHS search snippets say THSteps dental benefits are administered as 'Children's Medicaid Dental Services' by dental managed care organizations for most clients aged 20 and under. The HHSC handbook (fhb.hhs.texas.gov D-1750, fetched) confirms CHIP dental through DentaQuest and MCNA. Adult Medicaid dental is limited. America/Denver covers El Paso and Hudspeth counties.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Utah",
+    "slug": "utah",
+    "abbr": "UT",
+    "timeZones": ["America/Denver"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Utah Code § 77-23a-4",
+      "note": "Utah requires only one party's consent to record a call. Recordings made for a criminal or tortious purpose are excluded, and people unlawfully recorded may seek civil damages.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/utah/"
+    },
+    "dentalBoard": {
+      "name": "Utah Dentist and Dental Hygienist Licensing Board",
+      "url": "https://dopl.utah.gov/dentistry/"
+    },
+    "medicaidDental": {
+      "program": "Utah Medicaid",
+      "url": "https://medicaid.utah.gov/dental-coverage-and-plans/"
+    },
+    "confidence": "medium",
+    "notes": "dopl.utah.gov (and commerce.utah.gov/dopl) returned 403 to every automated fetch, so the board URL is not confirmed live. The board name comes from Utah Public Notice meeting listings, and the URL from DOPL search results. The ADA directory lists commerce.utah.gov/dopl/dentistry/dental-hygienist/ instead. The Medicaid page is live ('Dental Coverage and Plans - Medicaid - Utah DHHS'). Adult dental coverage was expanded to all adults on April 1, 2025, per a state legislative document found in search.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Vermont",
+    "slug": "vermont",
+    "abbr": "VT",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "18 U.S.C. § 2511(2)(d)",
+      "note": "Vermont has no state statute on recording phone calls, so the federal one-party consent rule applies. A participant may record unless the purpose is criminal or tortious.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/vermont/"
+    },
+    "dentalBoard": {
+      "name": "Vermont Board of Dental Examiners",
+      "url": "https://sos.vermont.gov/dental-examiners/"
+    },
+    "medicaidDental": {
+      "program": "Vermont Medicaid",
+      "url": "https://dvha.vermont.gov/providers/dental/summary-improved-dental-benefits-effective-july-1-2023"
+    },
+    "confidence": "high",
+    "notes": "The RCFP guide (updated June 2020) confirms there is no Vermont statute and applies 18 U.S.C. § 2511. Vermont case law on police recording under the state constitution was not reviewed. The board page on the Secretary of State OPR site is live. The Medicaid URL is a provider-facing DVHA page, the best official dental page found. It says the adult annual dental cap rose to $1,500 on July 1, 2023. 'Green Mountain Care' is sometimes used as an umbrella name for Vermont's public coverage, but no fetched source confirmed it, so it is not used.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Virginia",
+    "slug": "virginia",
+    "abbr": "VA",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Va. Code Ann. § 19.2-62",
+      "note": "Virginia lets a party to a call record it, or consent to someone else recording it. Unlawful interception is a felony, and civil damages can be the greater of actual damages, $400 per day, or $4,000.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/virginia/"
+    },
+    "dentalBoard": {
+      "name": "Virginia Board of Dentistry",
+      "url": "https://www.dhp.virginia.gov/Boards/Dentistry/"
+    },
+    "medicaidDental": {
+      "program": "Cardinal Care Smiles",
+      "url": "https://dmas.virginia.gov/for-members/benefits-and-services/dental/"
+    },
+    "confidence": "high",
+    "notes": "The DMAS page reads 'Cardinal Care Smiles is Virginia's Medicaid and FAMIS dental program for adults and children', managed by DentaQuest. The program was formerly 'Smiles For Children'. The board page (Department of Health Professions) is live.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Washington",
+    "slug": "washington",
+    "abbr": "WA",
+    "timeZones": ["America/Los_Angeles"],
+    "recording": {
+      "rule": "all-party",
+      "statute": "RCW 9.73.030",
+      "note": "Washington requires all parties' consent to record a private call. Consent counts as obtained when one party announces the recording to everyone in a reasonably effective way, and the announcement itself is recorded.",
+      "sourceUrl": "https://app.leg.wa.gov/RCW/default.aspx?cite=9.73.030"
+    },
+    "dentalBoard": {
+      "name": "Washington Dental Commission",
+      "url": "https://doh.wa.gov/licenses-permits-and-certificates/professions-new-renew-or-update/dentist/washington-dental-commission"
+    },
+    "medicaidDental": {
+      "program": "Apple Health dental",
+      "url": "https://www.hca.wa.gov/free-or-low-cost-health-care/i-need-medical-dental-or-vision-care/how-do-i-get-dental-care"
+    },
+    "confidence": "high",
+    "notes": "The recording rule was confirmed on the official RCW page (subsections (1)(a) and (3)). The live DOH page names the board 'Washington Dental Commission'. The ADA directory and older DOH and Governor's pages call it the 'Dental Quality Assurance Commission' (DQAC). It appears to be a rename, which the DOH page does not state, so mentioning the former name may help.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "West Virginia",
+    "slug": "west-virginia",
+    "abbr": "WV",
+    "timeZones": ["America/New_York"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "W. Va. Code § 62-1D-3",
+      "note": "West Virginia allows a party to a call, or someone with one party's consent, to record it. Recordings made to commit a criminal or tortious act are excluded, and unlawful interception is a felony.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/west-virginia/"
+    },
+    "dentalBoard": {
+      "name": "West Virginia Board of Dentistry",
+      "url": "https://www.wv.gov/agencies/dentistry-board"
+    },
+    "medicaidDental": {
+      "program": "West Virginia Medicaid",
+      "url": "https://bms.wv.gov/providers/medicaldental"
+    },
+    "confidence": "medium",
+    "notes": "The board site timed out or reset on every attempt and is not confirmed live. The ADA directory lists wvdentalboard.org. A CE-provider listing gives wvbod.wv.gov, but that hostname did not resolve. Verify which domain is current before publishing. The BMS Medical/Dental page is live and links the 'West Virginia Medicaid Adult Dental Benefit' FAQ. Adult dental is capped at $2,000 per two-year budget period under the 2024 law found in search. Board URL set to the official wv.gov agency listing (verified 200 on 2026-10-30); that listing links to wvdentalboard.org.",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Wisconsin",
+    "slug": "wisconsin",
+    "abbr": "WI",
+    "timeZones": ["America/Chicago"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Wis. Stat. § 968.31",
+      "note": "Wisconsin requires only one party's consent to record a call. Recordings made for a criminal or tortious purpose are excluded, and unlawful recording can bring civil damages.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/wisconsin/"
+    },
+    "dentalBoard": {
+      "name": "Wisconsin Dentistry Examining Board",
+      "url": "https://dsps.wi.gov/Pages/BoardsCouncils/Dentistry/Default.aspx"
+    },
+    "medicaidDental": {
+      "program": "Wisconsin Medicaid and BadgerCare Plus",
+      "url": "https://www.dhs.wisconsin.gov/oral-health/medicaid.htm"
+    },
+    "confidence": "high",
+    "notes": "The DSPS page heading reads 'Dentistry Examining Board'. The DHS page is provider-facing ('Oral Health Program: Medicaid and BadgerCare Plus for Dental Providers') and links to a separate member 'Find Dental Care' page, which was not fetched. In six southeastern counties, dental is delivered through BadgerCare Plus HMOs; elsewhere it is fee-for-service (per a plan site found in search, not verified on a state page).",
+    "verifiedOn": "2026-10-30"
+  },
+  {
+    "name": "Wyoming",
+    "slug": "wyoming",
+    "abbr": "WY",
+    "timeZones": ["America/Denver"],
+    "recording": {
+      "rule": "one-party",
+      "statute": "Wyo. Stat. § 7-3-702",
+      "note": "Wyoming lets a party to a call record it, or consent to someone else recording it. Recordings made for a criminal or tortious purpose are excluded, and civil damages can reach $1,000 per day of violation.",
+      "sourceUrl": "https://www.rcfp.org/reporters-recording-guide/wyoming/"
+    },
+    "dentalBoard": {
+      "name": "Wyoming Board of Dental Examiners",
+      "url": "https://dental.wyo.gov/"
+    },
+    "medicaidDental": {
+      "program": "Wyoming Medicaid",
+      "url": "https://www.wyomingmedicaid.com/portal/Provider-Manuals-and-Bulletins/Provider-Dental-Manuals"
+    },
+    "confidence": "medium",
+    "notes": "The recording rule and board are confirmed (dental.wyo.gov is live). The Medicaid URL is the live Wyoming Medicaid portal's dental manuals page, which lists the Dental Provider Manual effective 7.1.2026. It is a .com site run for the state's Medicaid program and is provider-facing. A member-facing health.wyo.gov dental page returned 403 (only a tribal-health dental page was found). Children (0-20) have broad coverage, and adult coverage is limited.",
+    "verifiedOn": "2026-10-30"
+  }
+]

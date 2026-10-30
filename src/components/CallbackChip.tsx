@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+"use client";
+
+import { useEffect, useEffectEvent, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { PhoneCall, X, Check } from "lucide-react";
 import { CallbackRequestForm, type CallbackSubmittedInfo } from "./CallbackRequestForm";
@@ -16,6 +18,12 @@ export function CallbackChip() {
   const [open, setOpen] = useState(false);
   const [result, setResult] = useState<CallbackSubmittedInfo | null>(null);
   const [nudgeIdx, setNudgeIdx] = useState(0);
+
+  const closeModal = () => {
+    setOpen(false);
+    // Reset the success state shortly after the close animation
+    setTimeout(() => setResult(null), 300);
+  };
 
   // Cycle the attention message every few seconds (paused while the modal is open).
   useEffect(() => {
@@ -56,20 +64,15 @@ export function CallbackChip() {
   }, [open]);
 
   // Close on Escape
+  const onEscape = useEffectEvent(closeModal);
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeModal();
+      if (e.key === "Escape") onEscape();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
-
-  const closeModal = () => {
-    setOpen(false);
-    // Reset the success state shortly after the close animation
-    setTimeout(() => setResult(null), 300);
-  };
 
   // Human-friendly "when" string for the success screen.
   const prettyWhen = (() => {
@@ -82,7 +85,7 @@ export function CallbackChip() {
   return (
     <>
       {/* ── Always-visible callback pill, bottom-left ── */}
-      <div className="fixed bottom-6 left-6 z-50 temp-hidden">
+      <div className="temp-hidden fixed bottom-6 left-6 z-50">
         {/* Rotating attention nudge above the pill */}
         <div className="pointer-events-none absolute bottom-full left-1 mb-3 h-8 overflow-hidden">
           <AnimatePresence mode="wait">
@@ -92,7 +95,7 @@ export function CallbackChip() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="flex h-8 w-max items-center gap-2 whitespace-nowrap rounded-full bg-[color:var(--foreground)] px-4 text-[12px] font-semibold tracking-tight text-white shadow-[0_8px_22px_rgba(15,23,42,0.22)]"
+              className="flex h-8 w-max items-center gap-2 rounded-full bg-[color:var(--foreground)] px-4 text-[12px] font-semibold tracking-tight whitespace-nowrap text-white shadow-[0_8px_22px_rgba(15,23,42,0.22)]"
             >
               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--primary)]" />
               {NUDGE_MESSAGES[nudgeIdx]}
@@ -107,7 +110,7 @@ export function CallbackChip() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1, ease: [0.16, 1, 0.3, 1] }}
           aria-label="Request a callback"
-          className="group relative flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-hover)] py-2 pl-2 pr-5 text-white shadow-[0_14px_34px_rgba(249,115,22,0.42)] transition-shadow duration-300 hover:shadow-[0_18px_44px_rgba(249,115,22,0.55)]"
+          className="group relative flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-hover)] py-2 pr-5 pl-2 text-white shadow-[0_14px_34px_rgba(249,115,22,0.42)] transition-shadow duration-300 hover:shadow-[0_18px_44px_rgba(249,115,22,0.55)]"
         >
           {/* Continuous auto shine sweep */}
           <motion.span
@@ -141,7 +144,7 @@ export function CallbackChip() {
               <PhoneCall className="h-5 w-5" strokeWidth={2.2} />
             </motion.span>
             {/* green available ping */}
-            <span className="absolute -right-0.5 -top-0.5 flex h-3 w-3">
+            <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--success)] opacity-60" />
               <span className="relative inline-flex h-3 w-3 rounded-full bg-[color:var(--success)] ring-2 ring-white" />
             </span>
@@ -183,19 +186,19 @@ export function CallbackChip() {
               <button
                 onClick={closeModal}
                 aria-label="Close"
-                className="absolute right-4 top-4 z-30 grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white/80 transition hover:bg-white/20 hover:text-white md:bg-transparent md:text-[color:var(--muted-foreground)] md:hover:bg-[color:var(--muted)] md:hover:text-[color:var(--foreground)]"
+                className="absolute top-4 right-4 z-30 grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white/80 transition hover:bg-white/20 hover:text-white md:bg-transparent md:text-[color:var(--muted-foreground)] md:hover:bg-[color:var(--muted)] md:hover:text-[color:var(--foreground)]"
               >
                 <X className="h-4 w-4" />
               </button>
 
               {/* ── Left brand rail ── */}
-              <div className="relative hidden overflow-hidden bg-[color:var(--surface-dark)] p-7 text-white md:flex md:flex-col justify-between">
+              <div className="relative hidden justify-between overflow-hidden bg-[color:var(--surface-dark)] p-7 text-white md:flex md:flex-col">
                 <div className="relative z-10 flex flex-col">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--primary)]">
+                  <span className="text-[11px] font-semibold tracking-[0.18em] text-[color:var(--primary)] uppercase">
                     Schedule Your Call
                   </span>
 
-                  <h3 className="mt-2 font-display text-[26px] font-bold leading-[1.15]">
+                  <h3 className="mt-2 font-display text-[26px] leading-[1.15] font-bold">
                     Thanks for reaching out!
                   </h3>
                   <p className="mt-2 text-xs leading-relaxed text-white/70">
@@ -208,7 +211,10 @@ export function CallbackChip() {
                     <ul className="space-y-3">
                       {[
                         { pain: "Missed calls", gain: "Every call answered, 24/7" },
-                        { pain: "Hours on hold with carriers", gain: "Insurance & eligibility checked automatically" },
+                        {
+                          pain: "Hours on hold with carriers",
+                          gain: "Insurance & eligibility checked automatically",
+                        },
                         { pain: "Empty chairs", gain: "Recall list fills your schedule" },
                         { pain: "Front-desk overload", gain: "Intake & paperwork run themselves" },
                       ].map((item) => (
@@ -297,7 +303,7 @@ export function CallbackChip() {
                     >
                       {/* Mobile-only header (left rail is hidden on mobile) */}
                       <div className="mb-5 md:hidden">
-                        <h3 className="font-display text-2xl font-bold leading-tight text-[color:var(--foreground)]">
+                        <h3 className="font-display text-2xl leading-tight font-bold text-[color:var(--foreground)]">
                           Let's get you booked in
                         </h3>
                         <p className="mt-1 text-sm text-[color:var(--muted-foreground)]">
@@ -305,10 +311,7 @@ export function CallbackChip() {
                         </p>
                       </div>
 
-                      <CallbackRequestForm
-                        showEmail
-                        onSubmitted={setResult}
-                      />
+                      <CallbackRequestForm showEmail onSubmitted={setResult} />
                     </motion.div>
                   )}
                 </AnimatePresence>

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
@@ -175,10 +177,7 @@ export function PhoneInput({
     if (!open) return;
     const onClick = (e: MouseEvent) => {
       const t = e.target as Node;
-      if (
-        !triggerRef.current?.contains(t) &&
-        !panelRef.current?.contains(t)
-      ) {
+      if (!triggerRef.current?.contains(t) && !panelRef.current?.contains(t)) {
         setOpen(false);
       }
     };
@@ -254,7 +253,7 @@ export function PhoneInput({
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-label={`Country code: ${country.name} +${country.dial}`}
-        className={`absolute left-1.5 top-1/2 z-10 flex -translate-y-1/2 items-center gap-1 rounded-lg px-2 py-1.5 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--muted)] ${
+        className={`absolute top-1/2 left-1.5 z-10 flex -translate-y-1/2 items-center gap-1 rounded-lg px-2 py-1.5 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--muted)] ${
           open ? "bg-[color:var(--muted)]" : ""
         }`}
       >
@@ -292,13 +291,13 @@ export function PhoneInput({
               >
                 <div className="border-b border-[color:var(--divider)] p-2">
                   <div className="relative">
-                    <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[color:var(--muted-foreground)]" />
+                    <Search className="absolute top-1/2 left-2.5 h-3.5 w-3.5 -translate-y-1/2 text-[color:var(--muted-foreground)]" />
                     <input
                       autoFocus
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                       placeholder="Search country or code"
-                      className="w-full rounded-lg border border-[color:var(--border)] bg-[color:var(--background)] py-2 pl-8 pr-2.5 text-sm outline-none focus:border-[color:var(--primary)]"
+                      className="w-full rounded-lg border border-[color:var(--border)] bg-[color:var(--background)] py-2 pr-2.5 pl-8 text-sm outline-none focus:border-[color:var(--primary)]"
                     />
                   </div>
                 </div>

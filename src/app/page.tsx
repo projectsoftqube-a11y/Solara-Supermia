@@ -1,0 +1,101 @@
+import type { Metadata } from "next";
+
+import { SiteHeader } from "@/components/SiteHeader";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { Hero } from "@/components/Hero";
+import { CallbackChip } from "@/components/CallbackChip";
+import { VideoShowcase } from "@/components/sections/VideoShowcase";
+import { Capabilities } from "@/components/sections/Capabilities";
+import { Insurance } from "@/components/sections/Insurance";
+import { Automation } from "@/components/sections/Automation";
+import { ShortVideo } from "@/components/sections/ShortVideo";
+import { VoiceBot } from "@/components/sections/VoiceBot";
+import { CaseStudy } from "@/components/sections/CaseStudy";
+import { OpenDental } from "@/components/sections/OpenDental";
+import { Dashboard } from "@/components/sections/Dashboard";
+import { Comparison } from "@/components/sections/Comparison";
+import { FoundingOffer } from "@/components/sections/FoundingOffer";
+import { Pricing } from "@/components/sections/Pricing";
+import { FAQ } from "@/components/sections/FAQ";
+import { Brochure } from "@/components/sections/Brochure";
+import { FinalCTA } from "@/components/sections/FinalCTA";
+import { Footer } from "@/components/sections/Footer";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { homeFaqs } from "@/content/faqs";
+import { pageMetadata } from "@/lib/seo/metadata";
+import { getPage } from "@/lib/seo/pages";
+import { faqNode, webPageNode } from "@/lib/seo/schema";
+
+const page = getPage("/");
+
+export const metadata: Metadata = pageMetadata(page);
+
+export default function Landing() {
+  return (
+    <div className="min-h-screen bg-[color:var(--background)]">
+      <JsonLd
+        nodes={[
+          webPageNode({
+            path: "/",
+            title: page.title,
+            description: page.description,
+            dateModified: page.lastModified,
+            speakable: ["#faq h3"],
+          }),
+          faqNode("/", homeFaqs),
+        ]}
+      />
+      <SmoothScroll />
+      <SiteHeader />
+      <CallbackChip />
+      <main>
+        <Hero />
+        <VideoShowcase
+          id="demo"
+          eyebrow="Watch the demo"
+          title="See Solara"
+          highlight="in action"
+          description="A quick look at how Solara runs your entire front office — verifying insurance, answering calls, and booking patients while your team focuses on care."
+          src="/videos/demo-1.mp4"
+          theme="light"
+          stats={[
+            { value: "24/7", label: "Always answering" },
+            { value: "94%", label: "Verified instantly" },
+            { value: "<60s", label: "To book a patient" },
+            { value: "0", label: "Calls missed" },
+          ]}
+        />
+        <Capabilities />
+        <Insurance />
+        <Automation />
+        <ShortVideo />
+        <VoiceBot />
+        <CaseStudy />
+        <VideoShowcase
+          id="walkthrough-video"
+          eyebrow="Product walkthrough"
+          title="Watch the front desk"
+          highlight="run itself"
+          description="From the first ring to a confirmed appointment — see every step Solara handles automatically, end to end, inside your existing workflow."
+          src="/videos/demo-2.mp4"
+          theme="dark"
+          stats={[
+            { value: "40+", label: "Tasks automated" },
+            { value: "100%", label: "Synced to OpenDental" },
+            { value: "Instant", label: "Chart updates" },
+            { value: "5★", label: "Patient experience" },
+          ]}
+        />
+        <OpenDental />
+        <Dashboard />
+        <Comparison />
+        <FoundingOffer />
+        <Pricing />
+        <FAQ />
+        <Brochure />
+        <FinalCTA />
+        <Footer />
+      </main>
+    </div>
+  );
+}

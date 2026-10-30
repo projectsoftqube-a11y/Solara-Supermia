@@ -1,6 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Play, Sparkles, Clock, Volume2, Check, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 /**
  * A single vertical YouTube Short, presented in a phone-style frame.
@@ -23,24 +26,24 @@ export function ShortVideo() {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <section id="short" className="py-20 md:py-28 bg-[#FDFBF7]">
+    <section id="short" className="bg-[#FDFBF7] py-20 md:py-28">
       <div className="mx-auto w-full max-w-[1080px] px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-16">
           {/* ── Copy ── */}
           <div className="mx-auto max-w-lg text-center lg:mx-0 lg:max-w-none lg:text-left">
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#FF6A55]/20 bg-[#FF6A55]/5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-[#FF6A55] shadow-sm">
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#FF6A55]/20 bg-[#FF6A55]/5 px-3 py-1.5 text-[11px] font-bold tracking-[0.18em] text-[#FF6A55] uppercase shadow-sm">
               <Sparkles size={14} /> 60-second look
             </span>
 
-            <h2 className="mb-5 font-display text-4xl font-bold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl">
+            <h2 className="mb-5 font-display text-4xl leading-[1.1] font-bold tracking-tight text-slate-900 sm:text-5xl">
               Solara in under
               <br />
               <span className="text-slate-500">a minute.</span>
             </h2>
 
-            <p className="text-lg font-medium leading-relaxed text-slate-600">
-              No demo booking, no sign-up. Press play and watch a real call turn
-              into a booked appointment.
+            <p className="text-lg leading-relaxed font-medium text-slate-600">
+              No demo booking, no sign-up. Press play and watch a real call turn into a booked
+              appointment.
             </p>
 
             {/* What the clip actually shows, so the section carries weight
@@ -51,7 +54,7 @@ export function ShortVideo() {
                   <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#FF6A55]/10 text-[#FF6A55]">
                     <Check className="h-3 w-3" strokeWidth={3.5} />
                   </span>
-                  <span className="text-[15px] font-medium leading-relaxed text-slate-700">
+                  <span className="text-[15px] leading-relaxed font-medium text-slate-700">
                     {b}
                   </span>
                 </li>
@@ -67,13 +70,13 @@ export function ShortVideo() {
                 <Volume2 className="h-4 w-4 text-[#FF6A55]" />
                 Sound on
               </span>
-              <a
+              <Link
                 href="/schedule-call"
                 className="group inline-flex items-center gap-1.5 text-sm font-bold text-[#FF6A55] transition-colors hover:text-[#E5482F]"
               >
                 Book a live demo
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -106,6 +109,9 @@ export function ShortVideo() {
                     aria-label="Play video: Solara in under a minute"
                     className="group absolute inset-0 h-full w-full cursor-pointer"
                   >
+                    {/* A plain <img>: the poster is a remote YouTube thumbnail that
+                        swaps to a fallback on error, which next/image cannot do. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={POSTER}
                       alt=""
@@ -121,7 +127,7 @@ export function ShortVideo() {
                     <span className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/10 to-slate-950/30" />
 
                     {/* play button */}
-                    <span className="absolute left-1/2 top-1/2 grid h-[72px] w-[72px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/95 shadow-[0_10px_30px_-6px_rgba(15,23,42,0.5)] backdrop-blur transition-transform duration-300 group-hover:scale-110">
+                    <span className="absolute top-1/2 left-1/2 grid h-[72px] w-[72px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/95 shadow-[0_10px_30px_-6px_rgba(15,23,42,0.5)] backdrop-blur transition-transform duration-300 group-hover:scale-110">
                       <Play
                         className="ml-1 h-7 w-7 text-[#FF6A55]"
                         fill="currentColor"

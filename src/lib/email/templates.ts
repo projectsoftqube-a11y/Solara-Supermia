@@ -220,7 +220,10 @@ export function userConfirmationEmail(s: CallbackSubmission) {
     ${detailsCard(
       [
         detailRow("When we'll call", when),
-        detailRow("Calling you on", `${escapeHtml(s.phoneDisplay)} <span style="color:${BRAND.muted};font-weight:500;">(${escapeHtml(s.phone)})</span>`),
+        detailRow(
+          "Calling you on",
+          `${escapeHtml(s.phoneDisplay)} <span style="color:${BRAND.muted};font-weight:500;">(${escapeHtml(s.phone)})</span>`,
+        ),
         detailRow("Confirmation sent to", escapeHtml(s.email), true),
       ].join(""),
     )}

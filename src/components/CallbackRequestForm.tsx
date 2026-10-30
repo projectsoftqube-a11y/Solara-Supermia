@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
@@ -157,8 +159,7 @@ export function CallbackRequestForm({
   const [submitting, setSubmitting] = useState(false);
 
   const update =
-    (field: keyof FormState) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    (field: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { value } = e.target;
       setForm((f) => ({ ...f, [field]: value }));
       // Clear this field's error as soon as the user starts correcting it.
@@ -207,16 +208,14 @@ export function CallbackRequestForm({
 
     try {
       const result = await submitCallbackRequest({
-        data: {
-          name: form.name.trim(),
-          email: showEmail ? form.email.trim() : "",
-          phone: toE164(form.phone, form.phoneCountry),
-          phoneDisplay: form.phone,
-          phoneCountry: form.phoneCountry,
-          date: form.date,
-          time: selectedTimeLabel,
-          timezone: EASTERN_TZ,
-        },
+        name: form.name.trim(),
+        email: showEmail ? form.email.trim() : "",
+        phone: toE164(form.phone, form.phoneCountry),
+        phoneDisplay: form.phone,
+        phoneCountry: form.phoneCountry,
+        date: form.date,
+        time: selectedTimeLabel,
+        timezone: EASTERN_TZ,
       });
 
       if (!result.ok) {
@@ -456,6 +455,7 @@ function DateTimePicker({
 
   // Everything below is anchored to US Eastern Time, not the visitor's zone.
   const et = getEasternNow();
+  const { hour: etHour, minute: etMinute } = et;
   const isEtToday = date === et.iso;
   const allSlotsPassed = TIME_SLOTS.every((s) => liveStart(s, et, isEtToday) >= s.end);
   const etLabel = easternLabel();
@@ -464,8 +464,9 @@ function DateTimePicker({
   useEffect(() => {
     if (timeSlot === null) return;
     const slot = TIME_SLOTS.find((s) => s.start === timeSlot);
-    if (slot && isEtToday && liveStart(slot, et, true) >= slot.end) onTimeSlot(null);
-  }, [timeSlot, isEtToday, et.hour, et.minute, onTimeSlot]);
+    if (!slot || !isEtToday) return;
+    if (liveStart(slot, { hour: etHour, minute: etMinute }, true) >= slot.end) onTimeSlot(null);
+  }, [timeSlot, isEtToday, etHour, etMinute, onTimeSlot]);
 
   return (
     <div className="space-y-3.5">
@@ -482,7 +483,7 @@ function DateTimePicker({
           ref={triggerRef}
           type="button"
           onClick={() => setCalOpen((o) => !o)}
-          className={`flex w-full items-center justify-between rounded-xl border bg-[color:var(--background)] px-3.5 py-2.5 text-left text-sm outline-none transition ${
+          className={`flex w-full items-center justify-between rounded-xl border bg-[color:var(--background)] px-3.5 py-2.5 text-left text-sm transition outline-none ${
             calOpen
               ? "border-[color:var(--primary)] ring-2 ring-[color:var(--primary)]/20"
               : "border-[color:var(--border)]"
@@ -682,7 +683,7 @@ function MiniCalendar({
                   : isPast
                     ? "cursor-not-allowed text-[color:var(--muted-foreground)]/40"
                     : "text-[color:var(--foreground)] hover:bg-[color:var(--primary-soft)]"
-              } ${isToday && !isSelected ? "ring-1 ring-inset ring-[color:var(--primary)]/40" : ""}`}
+              } ${isToday && !isSelected ? "ring-1 ring-[color:var(--primary)]/40 ring-inset" : ""}`}
             >
               {day}
             </button>

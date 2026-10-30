@@ -1,0 +1,7 @@
+# Normalise every text file to LF so Windows checkouts don't trip Prettier.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.svg text eol=lf
+*.pdf binary
+*.mp4 binary

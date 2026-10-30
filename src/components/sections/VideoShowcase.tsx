@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Play, Pause, Sparkles, Volume2, VolumeX } from "lucide-react";
@@ -74,7 +76,7 @@ export function VideoShowcase({
     >
       {/* Decorative ambience */}
       <div
-        className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full blur-[140px] opacity-[0.18]"
+        className="pointer-events-none absolute -top-32 left-1/2 h-[900px] w-[900px] -translate-x-1/2 rounded-full opacity-[0.18] blur-[140px]"
         style={{
           background: isDark
             ? "radial-gradient(circle, #FF6A55 0%, transparent 60%)"
@@ -82,33 +84,31 @@ export function VideoShowcase({
         }}
       />
       <div
-        className="pointer-events-none absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] opacity-[0.15]"
+        className="pointer-events-none absolute right-0 bottom-0 h-[600px] w-[600px] rounded-full opacity-[0.15] blur-[120px]"
         style={{ background: "radial-gradient(circle, #16C4B3 0%, transparent 60%)" }}
       />
-      {isDark && (
-        <div className="pointer-events-none absolute inset-0 grid-bg opacity-[0.04]" />
-      )}
+      {isDark && <div className="pointer-events-none absolute inset-0 grid-bg opacity-[0.04]" />}
 
-      <div className="container-content relative z-10">
+      <div className="relative z-10 container-content">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
+          className="mx-auto mb-12 max-w-3xl text-center sm:mb-16"
         >
           <span
-            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] mb-6 shadow-sm ${
+            className={`mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-bold tracking-[0.18em] uppercase shadow-sm ${
               isDark
-                ? "bg-white/10 border border-white/15 text-[#FFB23E] backdrop-blur-md"
-                : "bg-white border border-[#E8E5D8] text-[#FF6A55]"
+                ? "border border-white/15 bg-white/10 text-[#FFB23E] backdrop-blur-md"
+                : "border border-[#E8E5D8] bg-white text-[#FF6A55]"
             }`}
           >
             <Sparkles size={14} /> {eyebrow}
           </span>
           <h2
-            className={`font-display font-bold text-4xl sm:text-5xl lg:text-6xl leading-[1.08] tracking-tight mb-5 ${
+            className={`mb-5 font-display text-4xl leading-[1.08] font-bold tracking-tight sm:text-5xl lg:text-6xl ${
               isDark ? "text-white" : "text-slate-900"
             }`}
           >
@@ -116,7 +116,7 @@ export function VideoShowcase({
             <span className="relative whitespace-nowrap text-[#FF6A55]">
               {highlight}
               <svg
-                className="absolute -bottom-2 left-0 w-full h-3 text-[#FFB23E]/40"
+                className="absolute -bottom-2 left-0 h-3 w-full text-[#FFB23E]/40"
                 viewBox="0 0 100 10"
                 preserveAspectRatio="none"
               >
@@ -132,7 +132,7 @@ export function VideoShowcase({
             {titleAfter ? ` ${titleAfter}` : ""}
           </h2>
           <p
-            className={`text-lg sm:text-xl font-medium leading-relaxed ${
+            className={`text-lg leading-relaxed font-medium sm:text-xl ${
               isDark ? "text-slate-300" : "text-slate-600"
             }`}
           >
@@ -150,7 +150,7 @@ export function VideoShowcase({
         >
           {/* Glow ring behind player */}
           <div
-            className="absolute -inset-4 sm:-inset-6 rounded-[40px] opacity-60 blur-2xl pointer-events-none"
+            className="pointer-events-none absolute -inset-4 rounded-[40px] opacity-60 blur-2xl sm:-inset-6"
             style={{
               background:
                 "linear-gradient(120deg, rgba(255,106,85,0.35), rgba(255,178,62,0.20), rgba(22,196,179,0.30))",
@@ -158,31 +158,33 @@ export function VideoShowcase({
           />
 
           <div
-            className={`relative rounded-[28px] sm:rounded-[32px] overflow-hidden border shadow-[0_40px_80px_-20px_rgba(15,23,42,0.45)] ${
+            className={`relative overflow-hidden rounded-[28px] border shadow-[0_40px_80px_-20px_rgba(15,23,42,0.45)] sm:rounded-[32px] ${
               isDark ? "border-white/10 bg-[#0F172A]" : "border-white bg-white"
             }`}
           >
             {/* Browser chrome bar */}
             <div
-              className={`flex items-center gap-2 px-5 py-3.5 border-b ${
+              className={`flex items-center gap-2 border-b px-5 py-3.5 ${
                 isDark ? "border-white/10 bg-[#0B1120]" : "border-slate-100 bg-[#FBFAF7]"
               }`}
             >
-              <span className="w-3 h-3 rounded-full bg-[#FF5F57]" />
-              <span className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
-              <span className="w-3 h-3 rounded-full bg-[#28C840]" />
+              <span className="h-3 w-3 rounded-full bg-[#FF5F57]" />
+              <span className="h-3 w-3 rounded-full bg-[#FEBC2E]" />
+              <span className="h-3 w-3 rounded-full bg-[#28C840]" />
               <div
-                className={`ml-3 hidden sm:flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-semibold ${
-                  isDark ? "bg-white/5 text-slate-400" : "bg-white text-slate-400 border border-slate-100"
+                className={`ml-3 hidden items-center gap-2 rounded-full px-3.5 py-1 text-[11px] font-semibold sm:flex ${
+                  isDark
+                    ? "bg-white/5 text-slate-400"
+                    : "border border-slate-100 bg-white text-slate-400"
                 }`}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#16C4B3] animate-pulse" />
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#16C4B3]" />
                 app.solara.supermia.ai
               </div>
             </div>
 
             {/* Video */}
-            <div className="relative aspect-video bg-black group">
+            <div className="group relative aspect-video bg-black">
               <video
                 ref={videoRef}
                 src={videoSrc}
@@ -193,7 +195,7 @@ export function VideoShowcase({
                 onPlay={handlePlay}
                 onPause={() => setIsPlaying(false)}
                 onEnded={() => setIsPlaying(false)}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
               />
 
               {/* Play overlay (before first play) */}
@@ -204,10 +206,10 @@ export function VideoShowcase({
                   className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 via-black/10 to-black/20 transition-opacity"
                 >
                   <span className="relative flex items-center justify-center">
-                    <span className="absolute w-24 h-24 rounded-full bg-[#FF6A55]/40 animate-ping" />
-                    <span className="absolute w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm" />
-                    <span className="relative flex items-center justify-center w-[72px] h-[72px] rounded-full bg-[#FF6A55] shadow-[0_12px_32px_rgba(255,106,85,0.5)] transition-transform duration-300 group-hover:scale-110">
-                      <Play className="w-7 h-7 text-white ml-1" fill="currentColor" />
+                    <span className="absolute h-24 w-24 animate-ping rounded-full bg-[#FF6A55]/40" />
+                    <span className="absolute h-20 w-20 rounded-full bg-white/20 backdrop-blur-sm" />
+                    <span className="relative flex h-[72px] w-[72px] items-center justify-center rounded-full bg-[#FF6A55] shadow-[0_12px_32px_rgba(255,106,85,0.5)] transition-transform duration-300 group-hover:scale-110">
+                      <Play className="ml-1 h-7 w-7 text-white" fill="currentColor" />
                     </span>
                   </span>
                 </button>
@@ -215,38 +217,38 @@ export function VideoShowcase({
 
               {/* Floating control bar (after start) */}
               {hasStarted && (
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-2.5 py-2 rounded-full bg-black/55 backdrop-blur-md border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/10 bg-black/55 px-2.5 py-2 opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
                   <button
                     onClick={togglePlay}
                     aria-label={isPlaying ? "Pause" : "Play"}
-                    className="flex items-center justify-center w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 text-white transition-colors"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/25"
                   >
                     {isPlaying ? (
-                      <Pause className="w-4 h-4" fill="currentColor" />
+                      <Pause className="h-4 w-4" fill="currentColor" />
                     ) : (
-                      <Play className="w-4 h-4 ml-0.5" fill="currentColor" />
+                      <Play className="ml-0.5 h-4 w-4" fill="currentColor" />
                     )}
                   </button>
                   <button
                     onClick={toggleMute}
                     aria-label={isMuted ? "Unmute" : "Mute"}
-                    className="flex items-center justify-center w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 text-white transition-colors"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/25"
                   >
-                    {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                    {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
                   </button>
                 </div>
               )}
 
               {/* Corner badge */}
-              <div className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/45 backdrop-blur-md border border-white/15 text-[11px] font-bold uppercase tracking-wider text-white">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF6A55]" /> Live demo
+              <div className="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/45 px-3 py-1.5 text-[11px] font-bold tracking-wider text-white uppercase backdrop-blur-md">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FF6A55]" /> Live demo
               </div>
             </div>
           </div>
 
           {/* Stat badges */}
           {stats.length > 0 && (
-            <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
               {stats.map((s, i) => (
                 <motion.div
                   key={s.label}
@@ -254,14 +256,14 @@ export function VideoShowcase({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-                  className={`rounded-2xl px-4 py-4 text-center border ${
+                  className={`rounded-2xl border px-4 py-4 text-center ${
                     isDark
-                      ? "bg-white/[0.04] border-white/10 backdrop-blur-sm"
-                      : "bg-white border-slate-200/60 shadow-[0_8px_24px_rgba(15,23,42,0.04)]"
+                      ? "border-white/10 bg-white/[0.04] backdrop-blur-sm"
+                      : "border-slate-200/60 bg-white shadow-[0_8px_24px_rgba(15,23,42,0.04)]"
                   }`}
                 >
                   <div
-                    className={`text-2xl sm:text-3xl font-display font-bold mb-0.5 ${
+                    className={`mb-0.5 font-display text-2xl font-bold sm:text-3xl ${
                       isDark ? "text-white" : "text-slate-900"
                     }`}
                   >

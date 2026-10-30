@@ -1,8 +1,11 @@
+"use client";
+
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { SiteHeader } from "../SiteHeader";
-import { Footer } from "../sections/Footer";
+import { SiteHeader } from "@/components/SiteHeader";
+import { Footer } from "@/components/sections/Footer";
 import { ChevronRight, ChevronDown, ArrowUp, ListOrdered, Mail, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import Link from "next/link";
 
 export type LegalSection = {
   id: string;
@@ -86,9 +89,9 @@ export function LegalLayout({
   return (
     // overflow-x-clip (not -hidden): `hidden` creates a scroll container that
     // would break position: sticky on the sidebar below.
-    <div className="min-h-screen bg-[#FAF8F4] selection:bg-[#FF6A55]/20 overflow-x-clip">
+    <div className="min-h-screen overflow-x-clip bg-[#FAF8F4] selection:bg-[#FF6A55]/20">
       {/* Reading progress */}
-      <div className="fixed top-0 left-0 right-0 z-[60] h-[3px] bg-transparent">
+      <div className="fixed top-0 right-0 left-0 z-[60] h-[3px] bg-transparent">
         <div
           className="h-full bg-gradient-to-r from-[#FF6A55] via-[#FFB23E] to-[#16C4B3] transition-[width] duration-150"
           style={{ width: `${progress}%` }}
@@ -97,11 +100,11 @@ export function LegalLayout({
 
       <SiteHeader />
 
-      <main className="relative pt-24 sm:pt-32 lg:pt-36 pb-16 sm:pb-24">
+      <main className="relative pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pt-36">
         {/* Ambient background */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-[15%] -left-[20%] w-[70%] h-[45%] rounded-full bg-gradient-to-br from-[#FFB23E]/20 to-[#FF6A55]/5 blur-[100px]" />
-          <div className="absolute top-[25%] -right-[20%] w-[60%] h-[50%] rounded-full bg-gradient-to-bl from-[#16C4B3]/12 to-transparent blur-[100px]" />
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+          <div className="absolute -top-[15%] -left-[20%] h-[45%] w-[70%] rounded-full bg-gradient-to-br from-[#FFB23E]/20 to-[#FF6A55]/5 blur-[100px]" />
+          <div className="absolute top-[25%] -right-[20%] h-[50%] w-[60%] rounded-full bg-gradient-to-bl from-[#16C4B3]/12 to-transparent blur-[100px]" />
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
@@ -113,41 +116,41 @@ export function LegalLayout({
             className="mb-10 sm:mb-14"
           >
             {/* Breadcrumb */}
-            <nav className="flex flex-wrap items-center gap-1.5 text-[12px] sm:text-sm font-medium mb-5">
-              <a href="/" className="text-slate-500 hover:text-[#FF6A55] transition-colors">
+            <nav className="mb-5 flex flex-wrap items-center gap-1.5 text-[12px] font-medium sm:text-sm">
+              <Link href="/" className="text-slate-500 transition-colors hover:text-[#FF6A55]">
                 Home
-              </a>
-              <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" />
+              </Link>
+              <ChevronRight className="h-3.5 w-3.5 shrink-0 text-slate-300" />
               <span className="text-slate-500">{eyebrow}</span>
-              <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" />
-              <span className="text-slate-900 font-semibold">{title}</span>
+              <ChevronRight className="h-3.5 w-3.5 shrink-0 text-slate-300" />
+              <span className="font-semibold text-slate-900">{title}</span>
             </nav>
 
-            <div className="relative overflow-hidden rounded-[24px] sm:rounded-[32px] border border-white/60 bg-gradient-to-br from-white via-white to-[#FFF6EC] p-6 sm:p-10 lg:p-12 shadow-[0_20px_50px_-20px_rgba(15,23,42,0.18)]">
-              <div className="pointer-events-none absolute -top-20 -right-16 w-56 h-56 rounded-full bg-gradient-to-br from-[#FF6A55]/15 to-transparent blur-3xl" />
+            <div className="relative overflow-hidden rounded-[24px] border border-white/60 bg-gradient-to-br from-white via-white to-[#FFF6EC] p-6 shadow-[0_20px_50px_-20px_rgba(15,23,42,0.18)] sm:rounded-[32px] sm:p-10 lg:p-12">
+              <div className="pointer-events-none absolute -top-20 -right-16 h-56 w-56 rounded-full bg-gradient-to-br from-[#FF6A55]/15 to-transparent blur-3xl" />
 
-              <span className="relative inline-flex items-center gap-2 rounded-full bg-[#FFF0EB] border border-[#FF6A55]/20 px-3 py-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.16em] text-[#FF6A55] mb-5">
-                <ShieldCheck className="w-3.5 h-3.5" />
+              <span className="relative mb-5 inline-flex items-center gap-2 rounded-full border border-[#FF6A55]/20 bg-[#FFF0EB] px-3 py-1.5 text-[10px] font-bold tracking-[0.16em] text-[#FF6A55] uppercase sm:text-[11px]">
+                <ShieldCheck className="h-3.5 w-3.5" />
                 {eyebrow}
               </span>
 
-              <h1 className="relative font-display font-black tracking-tight text-slate-900 leading-[1.1] text-[27px] sm:text-5xl lg:text-6xl mb-4 break-words">
+              <h1 className="relative mb-4 font-display text-[27px] leading-[1.1] font-black tracking-tight break-words text-slate-900 sm:text-5xl lg:text-6xl">
                 {title}
               </h1>
 
               {intro && (
-                <p className="relative text-[15px] sm:text-lg text-slate-600 leading-relaxed max-w-2xl mb-6">
+                <p className="relative mb-6 max-w-2xl text-[15px] leading-relaxed text-slate-600 sm:text-lg">
                   {intro}
                 </p>
               )}
 
               <div className="relative flex flex-wrap items-center gap-2 sm:gap-3">
-                <span className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-3.5 py-2 text-[11px] sm:text-xs font-semibold text-white">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#16C4B3]" />
+                <span className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-3.5 py-2 text-[11px] font-semibold text-white sm:text-xs">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#16C4B3]" />
                   Last updated: {lastUpdated}
                 </span>
-                <span className="inline-flex items-center gap-2 rounded-full bg-white border border-slate-200 px-3.5 py-2 text-[11px] sm:text-xs font-semibold text-slate-600">
-                  <ListOrdered className="w-3.5 h-3.5 text-[#FF6A55]" />
+                <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-[11px] font-semibold text-slate-600 sm:text-xs">
+                  <ListOrdered className="h-3.5 w-3.5 text-[#FF6A55]" />
                   {sections.length} sections
                 </span>
               </div>
@@ -155,20 +158,20 @@ export function LegalLayout({
           </motion.div>
 
           {/* ---------- Mobile TOC ---------- */}
-          <div className="lg:hidden mb-8 sticky top-[72px] z-30">
+          <div className="sticky top-[72px] z-30 mb-8 lg:hidden">
             <button
               onClick={() => setTocOpen((v) => !v)}
-              className="flex w-full items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white/95 backdrop-blur px-4 py-3.5 shadow-sm"
+              className="flex w-full items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white/95 px-4 py-3.5 shadow-sm backdrop-blur"
               aria-expanded={tocOpen}
             >
-              <span className="flex items-center gap-2.5 min-w-0">
-                <ListOrdered className="w-4 h-4 text-[#FF6A55] shrink-0" />
-                <span className="text-[13px] font-bold text-slate-900 truncate">
+              <span className="flex min-w-0 items-center gap-2.5">
+                <ListOrdered className="h-4 w-4 shrink-0 text-[#FF6A55]" />
+                <span className="truncate text-[13px] font-bold text-slate-900">
                   {sections.find((s) => s.id === activeId)?.title ?? "Contents"}
                 </span>
               </span>
               <ChevronDown
-                className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${tocOpen ? "rotate-180" : ""}`}
+                className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${tocOpen ? "rotate-180" : ""}`}
               />
             </button>
 
@@ -179,7 +182,7 @@ export function LegalLayout({
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="overflow-hidden mt-2 rounded-2xl border border-slate-200 bg-white shadow-lg"
+                  className="mt-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg"
                 >
                   {sections.map((s, i) => (
                     <li key={s.id} className="border-b border-slate-100 last:border-0">
@@ -187,11 +190,11 @@ export function LegalLayout({
                         onClick={() => jumpTo(s.id)}
                         className={`flex w-full items-center gap-3 px-4 py-3 text-left text-[13px] font-medium transition-colors ${
                           activeId === s.id
-                            ? "text-[#FF6A55] bg-[#FFF6F3]"
+                            ? "bg-[#FFF6F3] text-[#FF6A55]"
                             : "text-slate-600 hover:bg-slate-50"
                         }`}
                       >
-                        <span className="text-[11px] font-bold text-slate-300 w-4 shrink-0">
+                        <span className="w-4 shrink-0 text-[11px] font-bold text-slate-300">
                           {i + 1}
                         </span>
                         <span className="min-w-0 break-words">{s.title}</span>
@@ -204,13 +207,13 @@ export function LegalLayout({
           </div>
 
           {/* ---------- Body ---------- */}
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+          <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-14">
             {/* Desktop sidebar */}
-            <aside className="hidden lg:block lg:col-span-3 sticky top-28">
-              <div className="rounded-[24px] border border-slate-200/70 bg-white/80 backdrop-blur p-6 shadow-[0_12px_32px_-12px_rgba(15,23,42,0.12)]">
-                <h3 className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#FF6A55] mb-5">
+            <aside className="sticky top-28 hidden lg:col-span-3 lg:block">
+              <div className="rounded-[24px] border border-slate-200/70 bg-white/80 p-6 shadow-[0_12px_32px_-12px_rgba(15,23,42,0.12)] backdrop-blur">
+                <p className="mb-5 font-display text-[11px] font-bold tracking-[0.18em] text-[#FF6A55] uppercase">
                   Contents
-                </h3>
+                </p>
                 <nav className="flex flex-col">
                   {sections.map((s, i) => {
                     const active = activeId === s.id;
@@ -220,12 +223,12 @@ export function LegalLayout({
                         onClick={() => jumpTo(s.id)}
                         className={`group relative flex w-full items-start gap-3 border-l-2 px-4 py-2.5 text-left text-[14px] transition-colors ${
                           active
-                            ? "border-[#FF6A55] text-slate-900 font-semibold"
+                            ? "border-[#FF6A55] font-semibold text-slate-900"
                             : "border-slate-200 font-medium text-slate-500 hover:border-slate-300 hover:text-slate-900"
                         }`}
                       >
                         <span
-                          className={`text-[11px] font-bold w-4 shrink-0 pt-0.5 ${
+                          className={`w-4 shrink-0 pt-0.5 text-[11px] font-bold ${
                             active ? "text-[#FF6A55]" : "text-slate-300"
                           }`}
                         >
@@ -240,7 +243,7 @@ export function LegalLayout({
             </aside>
 
             {/* Content */}
-            <div ref={contentRef} className="lg:col-span-9 min-w-0 space-y-5 sm:space-y-7">
+            <div ref={contentRef} className="min-w-0 space-y-5 sm:space-y-7 lg:col-span-9">
               {sections.map((s, i) => (
                 <motion.section
                   key={s.id}
@@ -249,13 +252,13 @@ export function LegalLayout({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="scroll-mt-28 rounded-[20px] sm:rounded-[28px] border border-slate-200/70 bg-white p-5 sm:p-8 lg:p-10 shadow-[0_10px_30px_-15px_rgba(15,23,42,0.12)] transition-shadow hover:shadow-[0_20px_45px_-20px_rgba(15,23,42,0.18)]"
+                  className="scroll-mt-28 rounded-[20px] border border-slate-200/70 bg-white p-5 shadow-[0_10px_30px_-15px_rgba(15,23,42,0.12)] transition-shadow hover:shadow-[0_20px_45px_-20px_rgba(15,23,42,0.18)] sm:rounded-[28px] sm:p-8 lg:p-10"
                 >
-                  <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-5">
-                    <span className="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#FF6A55] to-[#FFB23E] text-[13px] sm:text-base font-black text-white shadow-md shadow-[#FF6A55]/25">
+                  <div className="mb-4 flex items-start gap-3 sm:mb-5 sm:gap-4">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#FF6A55] to-[#FFB23E] text-[13px] font-black text-white shadow-md shadow-[#FF6A55]/25 sm:h-10 sm:w-10 sm:text-base">
                       {i + 1}
                     </span>
-                    <h2 className="font-display font-bold text-slate-900 tracking-tight leading-snug text-[19px] sm:text-2xl lg:text-[28px] pt-0.5 min-w-0 break-words">
+                    <h2 className="min-w-0 pt-0.5 font-display text-[19px] leading-snug font-bold tracking-tight break-words text-slate-900 sm:text-2xl lg:text-[28px]">
                       {s.title}
                     </h2>
                   </div>
@@ -272,24 +275,24 @@ export function LegalLayout({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="relative overflow-hidden rounded-[20px] sm:rounded-[28px] bg-[#0F172A] p-6 sm:p-10 text-center sm:text-left"
+                className="relative overflow-hidden rounded-[20px] bg-[#0F172A] p-6 text-center sm:rounded-[28px] sm:p-10 sm:text-left"
               >
-                <div className="pointer-events-none absolute -top-16 -right-10 w-52 h-52 rounded-full bg-gradient-to-br from-[#FF6A55]/25 to-transparent blur-3xl" />
-                <div className="relative flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6">
-                  <span className="mx-auto sm:mx-0 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/10 border border-white/15">
-                    <Mail className="w-5 h-5 text-[#FFB23E]" />
+                <div className="pointer-events-none absolute -top-16 -right-10 h-52 w-52 rounded-full bg-gradient-to-br from-[#FF6A55]/25 to-transparent blur-3xl" />
+                <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
+                  <span className="mx-auto flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/15 bg-white/10 sm:mx-0">
+                    <Mail className="h-5 w-5 text-[#FFB23E]" />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-display font-bold text-white text-lg sm:text-xl mb-1.5">
+                    <h3 className="mb-1.5 font-display text-lg font-bold text-white sm:text-xl">
                       Questions about this policy?
                     </h3>
-                    <p className="text-[14px] text-slate-400 leading-relaxed break-words">
+                    <p className="text-[14px] leading-relaxed break-words text-slate-400">
                       Our compliance team is happy to help clarify anything on this page.
                     </p>
                   </div>
                   <a
                     href={`mailto:${contactEmail}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#FF6A55] px-5 py-3 text-[14px] font-bold text-white shadow-lg shadow-[#FF6A55]/25 transition-colors hover:bg-[#FF8569] whitespace-nowrap"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#FF6A55] px-5 py-3 text-[14px] font-bold whitespace-nowrap text-white shadow-lg shadow-[#FF6A55]/25 transition-colors hover:bg-[#FF8569]"
                   >
                     Contact us
                   </a>
@@ -309,9 +312,9 @@ export function LegalLayout({
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             aria-label="Back to top"
-            className="fixed bottom-5 right-4 sm:bottom-8 sm:right-8 z-40 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-white border border-slate-200 shadow-xl text-slate-700 hover:text-[#FF6A55] hover:border-[#FF6A55]/30 transition-colors"
+            className="fixed right-4 bottom-5 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-xl transition-colors hover:border-[#FF6A55]/30 hover:text-[#FF6A55] sm:right-8 sm:bottom-8 sm:h-12 sm:w-12"
           >
-            <ArrowUp className="w-5 h-5" />
+            <ArrowUp className="h-5 w-5" />
           </motion.button>
         )}
       </AnimatePresence>

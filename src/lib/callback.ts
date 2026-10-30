@@ -1,4 +1,7 @@
-import { createServerFn } from "@tanstack/react-start";
+"use server";
+
+import { sendMail } from "./email/mailer";
+import { adminNotificationEmail, userConfirmationEmail } from "./email/templates";
 
 export type CallbackRequestInput = {
   name: string;
@@ -41,74 +44,76 @@ function prettyDate(iso: string) {
   });
 }
 
-export const submitCallbackRequest = createServerFn({ method: "POST" })
-  .validator((data: CallbackRequestInput) => data)
-  .handler(async ({ data }) => {
-    const problems = validate(data);
-    if (problems.length) {
-      return { ok: false as const, error: `Invalid fields: ${problems.join(", ")}` };
-    }
+export type CallbackRequestResult = { ok: true } | { ok: false; error: string };
 
-    // Imported lazily so nodemailer never reaches the client bundle.
-    const { sendMail } = await import("./email/mailer.server");
-    const { userConfirmationEmail, adminNotificationEmail } = await import("./email/templates");
+/**
+ * Server Action behind the callback forms (CallbackChip and /schedule-call).
+ * Emails the team, and the visitor too when they gave an address.
+ */
+export async function submitCallbackRequest(
+  data: CallbackRequestInput,
+): Promise<CallbackRequestResult> {
+  const problems = validate(data);
+  if (problems.length) {
+    return { ok: false, error: `Invalid fields: ${problems.join(", ")}` };
+  }
 
-    const submission = {
-      name: data.name.trim(),
-      email: data.email.trim(),
-      phone: data.phone,
-      phoneDisplay: data.phoneDisplay,
-      phoneCountry: data.phoneCountry,
-      date: data.date,
-      dateLabel: prettyDate(data.date),
-      time: data.time,
-      timezone: data.timezone,
-      submittedAt: new Date().toLocaleString("en-US", {
-        timeZone: "America/New_York",
-        dateStyle: "medium",
-        timeStyle: "short",
-      }),
-    };
+  const submission = {
+    name: data.name.trim(),
+    email: data.email.trim(),
+    phone: data.phone,
+    phoneDisplay: data.phoneDisplay,
+    phoneCountry: data.phoneCountry,
+    date: data.date,
+    dateLabel: prettyDate(data.date),
+    time: data.time,
+    timezone: data.timezone,
+    submittedAt: new Date().toLocaleString("en-US", {
+      timeZone: "America/New_York",
+      dateStyle: "medium",
+      timeStyle: "short",
+    }),
+  };
 
-    const adminAddress = process.env.EMAIL_ADMIN || "solara@supermia.ai";
-    const forAdmin = adminNotificationEmail(submission);
+  const adminAddress = process.env.EMAIL_ADMIN || "solara@supermia.ai";
+  const forAdmin = adminNotificationEmail(submission);
 
-    const sends: Promise<void>[] = [
+  const sends: Promise<void>[] = [
+    sendMail({
+      to: adminAddress,
+      subject: forAdmin.subject,
+      html: forAdmin.html,
+      text: forAdmin.text,
+      replyTo: submission.email || undefined,
+    }),
+  ];
+
+  // No email address means no confirmation to send — the /schedule-call form
+  // only collects a phone number.
+  if (submission.email) {
+    const forUser = userConfirmationEmail(submission);
+    sends.push(
       sendMail({
-        to: adminAddress,
-        subject: forAdmin.subject,
-        html: forAdmin.html,
-        text: forAdmin.text,
-        replyTo: submission.email || undefined,
+        to: submission.email,
+        subject: forUser.subject,
+        html: forUser.html,
+        text: forUser.text,
+        replyTo: adminAddress,
       }),
-    ];
+    );
+  }
 
-    // No email address means no confirmation to send — the /schedule-call form
-    // only collects a phone number.
-    if (submission.email) {
-      const forUser = userConfirmationEmail(submission);
-      sends.push(
-        sendMail({
-          to: submission.email,
-          subject: forUser.subject,
-          html: forUser.html,
-          text: forUser.text,
-          replyTo: adminAddress,
-        }),
-      );
-    }
+  // Settled, not all: the visitor should still get a success screen even if
+  // the confirmation copy bounces.
+  const [adminResult, userResult] = await Promise.allSettled(sends);
 
-    // Settled, not all: the visitor should still get a success screen even if
-    // the confirmation copy bounces.
-    const [adminResult, userResult] = await Promise.allSettled(sends);
+  if (adminResult.status === "rejected") {
+    console.error("[email] admin notification failed:", adminResult.reason);
+    return { ok: false, error: "We couldn't submit your request. Please try again." };
+  }
+  if (userResult?.status === "rejected") {
+    console.error("[email] confirmation failed:", userResult.reason);
+  }
 
-    if (adminResult.status === "rejected") {
-      console.error("[email] admin notification failed:", adminResult.reason);
-      return { ok: false as const, error: "We couldn't submit your request. Please try again." };
-    }
-    if (userResult?.status === "rejected") {
-      console.error("[email] confirmation failed:", userResult.reason);
-    }
-
-    return { ok: true as const };
-  });
+  return { ok: true };
+}

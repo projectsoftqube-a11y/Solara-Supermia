@@ -1,4 +1,6 @@
-import { useEffect, useRef } from "react";
+"use client";
+
+import { useEffect, useEffectEvent, useRef } from "react";
 
 const CALENDLY_SCRIPT = "https://assets.calendly.com/assets/external/widget.js";
 
@@ -44,14 +46,13 @@ function isCalendlyEvent(e: MessageEvent): boolean {
 export function CalendlyEmbed({ url, className = "", onEventScheduled }: CalendlyEmbedProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Keep the latest callback without re-subscribing the message listener.
-  const onScheduledRef = useRef(onEventScheduled);
-  onScheduledRef.current = onEventScheduled;
+  // Always calls the latest callback without re-subscribing the message listener.
+  const handleScheduled = useEffectEvent(() => onEventScheduled?.());
 
   useEffect(() => {
     const onMessage = (e: MessageEvent) => {
       if (isCalendlyEvent(e) && e.data.event === "calendly.event_scheduled") {
-        onScheduledRef.current?.();
+        handleScheduled();
       }
     };
     window.addEventListener("message", onMessage);
