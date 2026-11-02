@@ -1,3 +1,4 @@
+import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Montserrat } from "next/font/google";
 import type { ReactNode } from "react";
@@ -6,7 +7,7 @@ import { RouteFloatingBots } from "@/components/RouteFloatingBots";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { baseOpenGraph, baseTwitter } from "@/lib/metadata";
 import { siteGraph } from "@/lib/seo/schema";
-import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, SITE_NAME, SITE_URL } from "@/lib/site";
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, GTM_ID, SITE_NAME, SITE_URL } from "@/lib/site";
 
 import "./globals.css";
 
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${inter.variable} ${jetBrainsMono.variable} ${montserrat.variable}`}
       suppressHydrationWarning
     >
+      <GoogleTagManager gtmId={GTM_ID} />
       {/* suppressHydrationWarning: browser extensions (ColorZilla, Grammarly, etc.)
           inject attributes like cz-shortcut-listen onto <body> before React
           hydrates, which would otherwise log a hydration-mismatch warning.

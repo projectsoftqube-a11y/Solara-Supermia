@@ -18,6 +18,9 @@ export const DEFAULT_OG_IMAGE = "/images/logo.png";
 
 export const CONTACT_EMAIL = "solara@supermia.ai";
 
+/** Google Tag Manager container. Tags are managed in GTM, not in this repo. */
+export const GTM_ID = "GTM-N49FTTSL";
+
 /** Backend for the website chatbot (websocket) and voice-bot room tokens. */
 export const BOT_API_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "https://solarasalesapi.supermia.ai";
